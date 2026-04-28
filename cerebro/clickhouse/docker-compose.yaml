@@ -1,0 +1,31 @@
+services:
+  # ClickHouse
+  clickhouse:
+    image: clickhouse/clickhouse-server:latest
+    container_name: clickhouse
+    ports:
+      - "8123:8123"  # HTTP interface
+      - "9000:9000"  # Native protocol
+    volumes:
+      - clickhouse_data:/var/lib/clickhouse
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      CLICKHOUSE_DB: analytics
+      CLICKHOUSE_USER: alice
+      CLICKHOUSE_PASSWORD: "alice123"
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'        # Máximo de 2 CPUs
+          memory: 4G         # Máximo de 4GB RAM
+        reservations:
+          cpus: '0.5'        # Mínimo garantido de 0.5 CPU
+          memory: 1G         # Mínimo garantido de 1GB RAM
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "localhost:8123/ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  clickhouse_data:

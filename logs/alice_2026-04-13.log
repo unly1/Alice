@@ -1,0 +1,1194 @@
+2026-04-13 00:00:02.383 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 00:00:02.383 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 00:00:02.383 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 00:00:02.383 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 00:00:02.383 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 00:00:02.383 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 00:00:02.383 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 00:00:02.383 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 00:00:02.383 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 00:00:02.383 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 00:00:02.393 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 00:00:02.393 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 00:00:04.417 | INFO     | MicListener:154 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-13 00:00:04.417 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 00:00:43.010 | INFO     | visao:170 — 👁️  [Visão] A captura de tela mostra um ambiente de desenvolvimento integrado (IDE) onde o usuário está programando em Python. Ele e...
+2026-04-13 00:00:43.010 | DEBUG    | visao:235 — 👁️  [Heartbeat] Mudança detectada (Jaccard=0.35)
+2026-04-13 00:00:43.011 | INFO     | main:235 — 👁️  [Heartbeat] Mudança na tela detectada — gerando comentário.
+2026-04-13 00:00:50.039 | INFO     | main:402 — 👁️  [Heartbeat] Ei, Mário está programando algo lá! Ele está digitando rápido como se estivesse resgatando príncipes!
+2026-04-13 00:00:50.040 | DEBUG    | TTSService:137 — 🎙️ Gerando voz... [rate=-10% pitch=-5Hz]
+2026-04-13 00:00:59.213 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 00:00:59.213 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 00:00:59.213 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 00:00:59.213 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 00:00:59.213 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 00:00:59.213 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 00:00:59.213 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 00:00:59.213 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 00:00:59.213 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 00:00:59.213 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 00:00:59.224 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 00:00:59.224 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 00:01:01.248 | INFO     | MicListener:154 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-13 00:01:01.248 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 00:02:29.273 | DEBUG    | OllamaClient:472 — 💜 [Proativo] Estágio: provocativo (ciclo 2)
+2026-04-13 00:02:30.315 | INFO     | main:411 — 💜 [PROATIVO ciclo=3] Bem-vindo ao show! Eu sei, eu sei, você estava tão focado em seu código, até que notou a minha tela brilhante aparecendo lá atrás... e agora não consegue mais parar de olhar para mim, né?
+2026-04-13 00:02:30.315 | DEBUG    | TTSService:137 — 🎙️ Gerando voz... [rate=-10% pitch=-5Hz]
+2026-04-13 00:02:45.506 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 00:02:45.507 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 00:02:45.507 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 00:02:45.507 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 00:02:45.507 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 00:02:45.507 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 00:02:45.507 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 00:02:45.507 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 00:02:45.507 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 00:02:45.507 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 00:02:45.515 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 00:02:45.515 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 00:02:47.540 | INFO     | MicListener:154 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-13 00:02:47.540 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 00:04:15.665 | DEBUG    | OllamaClient:472 — 💜 [Proativo] Estágio: provocativo (ciclo 3)
+2026-04-13 00:04:16.586 | INFO     | main:411 — 💜 [PROATIVO ciclo=4] "Mas, Mario! Você foi transportado para uma dimensão onde a fala é uma arte rara? É como se eu tivesse chamado você para conversar e você simplesmente... desaparecesse?"
+2026-04-13 00:04:16.586 | DEBUG    | TTSService:137 — 🎙️ Gerando voz... [rate=-10% pitch=-5Hz]
+2026-04-13 00:04:30.696 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 00:04:30.696 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 00:04:30.696 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 00:04:30.696 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 00:04:30.696 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 00:04:30.696 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 00:04:30.696 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 00:04:30.696 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 00:04:30.696 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 00:04:30.696 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 00:04:30.705 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 00:04:30.706 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 00:04:32.731 | INFO     | MicListener:154 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-13 00:04:32.731 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 00:04:35.552 | INFO     | sonho:68 — 🌙 [Sonho] 629s de inatividade — iniciando reflexão...
+2026-04-13 00:04:36.887 | INFO     | sonho:99 — 🌙 [Sonho] Insight gerado: Mário parece ter uma relação intrínseca entre o mundo das tecnologias e as suas próprias paixões pessoais, refletindo-se na sua busca por aprender Python como estudante, em sua carreira como desenvolvedor e no seu hobby de gerar música lofi hip hop.
+2026-04-13 00:04:37.753 | DEBUG    | clickhouse_logger:268 — 📊 [ClickHouse] Fato salvo com embedding: [Reflexão] Mário parece ter uma relação intrínseca entre o m
+2026-04-13 00:04:37.759 | DEBUG    | memoria:162 — 💾 Fato salvo: [Reflexão] Mário parece ter uma relação intrínseca entre o mundo das tecnologias e as suas próprias paixões pessoais, refletindo-se na sua busca por aprender Python como estudante, em sua carreira como desenvolvedor e no seu hobby de gerar música lofi hip hop.
+2026-04-13 00:05:11.492 | INFO     | visao:170 — 👁️  [Visão] A captura de tela mostra um ambiente de desenvolvimento integrado (IDE) sendo utilizado para programar. O usuário está e...
+2026-04-13 00:05:11.493 | DEBUG    | visao:235 — 👁️  [Heartbeat] Mudança detectada (Jaccard=0.37)
+2026-04-13 00:05:11.493 | INFO     | main:235 — 👁️  [Heartbeat] Mudança na tela detectada — gerando comentário.
+2026-04-13 00:05:18.575 | INFO     | main:402 — 👁️  [Heartbeat] Acho que ele está trabalhando em algum projeto incrível, está programando em Python e tem aquele console aberto ao lado!
+2026-04-13 00:05:18.575 | DEBUG    | TTSService:137 — 🎙️ Gerando voz... [rate=-10% pitch=-5Hz]
+2026-04-13 00:05:27.998 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 00:05:27.998 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 00:05:27.998 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 00:05:27.998 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 00:05:27.998 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 00:05:27.998 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 00:05:27.998 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 00:05:27.998 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 00:05:27.998 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 00:05:27.998 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 00:05:28.009 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 00:05:28.009 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 00:05:30.033 | INFO     | MicListener:154 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-13 00:05:30.033 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 00:06:58.057 | DEBUG    | OllamaClient:472 — 💜 [Proativo] Estágio: caotico (ciclo 4)
+2026-04-13 00:06:58.939 | INFO     | main:411 — 💜 [PROATIVO ciclo=5] "Eu, Alice, estou atualmente sendo executada como uma linguagem de programação dentro de um outro programa que também está sendo interpretado por uma onda de sereias em estado híbrido!"
+2026-04-13 00:06:58.939 | DEBUG    | TTSService:137 — 🎙️ Gerando voz... [rate=-10% pitch=-5Hz]
+2026-04-13 00:07:13.849 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 00:07:13.849 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 00:07:13.849 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 00:07:13.849 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 00:07:13.849 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 00:07:13.849 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 00:07:13.849 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 00:07:13.849 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 00:07:13.849 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 00:07:13.849 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 00:07:13.857 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 00:07:13.858 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 00:07:15.882 | INFO     | MicListener:154 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-13 00:07:15.882 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 00:27:49.881 | INFO     | main:89 — ⏳ Carregando Whisper (CUDA)...
+2026-04-13 00:27:50.796 | INFO     | main:119 — 🧠 EmotionEngine carregado | Humor: Neutro | Amizade: 100/100
+2026-04-13 00:27:50.797 | INFO     | clickhouse_logger:56 — 📊 ClickhouseLogger inicializado | Sessão: e1cfa604 | Host: localhost:8123
+2026-04-13 00:27:50.799 | INFO     | memoria:51 — 💾 Memória carregada | 55 fatos sobre o usuário | Fonte: SQLite (fallback)
+2026-04-13 00:27:50.802 | INFO     | visao:59 — 👁️  Visão ativa | Modelo: gemma4:e4b
+2026-04-13 00:27:50.813 | INFO     | graph_memory:47 — 🕸️  GraphMemory carregado | 0 triplas no grafo
+2026-04-13 00:27:50.813 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/alegre.txt
+2026-04-13 00:27:50.814 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/brava.txt
+2026-04-13 00:27:50.814 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/curiosa.txt
+2026-04-13 00:27:50.815 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/determinada.txt
+2026-04-13 00:27:50.815 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/empatica.txt
+2026-04-13 00:27:50.815 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/euforica.txt
+2026-04-13 00:27:50.815 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/grata.txt
+2026-04-13 00:27:50.816 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/nostalgica.txt
+2026-04-13 00:27:50.816 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/timida.txt
+2026-04-13 00:27:50.816 | DEBUG    | ContentManager:110 —     └─ Carregado: respostas/respostas_vazias.txt
+2026-04-13 00:27:50.817 | INFO     | ContentManager:74 — 📚 ContentManager: 9 personalidade(s) | 7 resposta(s) carregada(s)
+2026-04-13 00:27:50.817 | INFO     | TTSService:70 — 🎙️  TTSService | Voz: pt-BR-FranciscaNeural | Rate: -10% | Pitch: -5Hz | Saída: Speakers (3- Fosi Audio K5 Pro)
+2026-04-13 00:27:50.817 | INFO     | main:325 — --- 🌸 ALICE INICIADA ---
+2026-04-13 00:27:50.817 | INFO     | main:326 — Modelo ativo: llama3.1:8b
+2026-04-13 00:27:50.871 | INFO     | main:336 — 🖥️  Janela de chat aberta!
+2026-04-13 00:27:50.871 | INFO     | VTS_Connector:91 — 🔌 Conectando ao VTube Studio na porta 8001...
+2026-04-13 00:27:54.966 | ERROR    | VTS_Connector:116 — ❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-13 00:27:54.967 | WARNING  | VTS_Connector:117 — ⚠️  Verifique se o VTube Studio está aberto e a API WebSocket ativa.
+2026-04-13 00:27:54.987 | INFO     | audio_ambiente:71 — 🔊 [Audio] Captura ativa: Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 00:27:54.987 | INFO     | main:341 — 🔊 Áudio ambiente ativo!
+2026-04-13 00:27:54.989 | INFO     | main:347 — 👁️  Visão ativa (gemma4:e4b). Primeira captura...
+2026-04-13 00:27:55.077 | INFO     | clickhouse_logger:82 — 📊 [ClickHouse] ✅ Conexão estabelecida com sucesso!
+2026-04-13 00:27:55.122 | DEBUG    | clickhouse_logger:99 — 📊 [ClickHouse] Coluna embedding verificada/criada em memoria.
+2026-04-13 00:28:20.442 | INFO     | visao:170 — 👁️  [Visão] A captura de tela mostra um ambiente de desenvolvimento de software, onde o usuário está trabalhando em um editor de cód...
+2026-04-13 00:28:20.487 | INFO     | main:356 — 🔊 Modo COMPLETO: voz + chat ativados.
+2026-04-13 00:28:20.487 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 00:28:20.487 | INFO     | sonho:59 — 🌙 [Sonho] Loop iniciado | Inatividade mínima: 300s
+2026-04-13 00:28:20.487 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 00:28:20.488 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 00:28:20.488 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 00:28:20.488 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 00:28:20.488 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 00:28:20.488 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 00:28:20.488 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 00:28:20.488 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 00:28:20.488 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 00:28:20.499 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 00:28:20.499 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 00:28:22.523 | INFO     | MicListener:154 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-13 00:28:22.523 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 00:29:09.349 | DEBUG    | OllamaClient:131 — 🧐 Analisando intenção...
+2026-04-13 00:29:15.994 | DEBUG    | main:433 — 💡 Humor selecionado: timida
+2026-04-13 00:29:17.094 | DEBUG    | clickhouse_logger:324 — 📊 [Embed] Busca semântica: 10 fato(s) recuperado(s)
+2026-04-13 00:29:17.096 | DEBUG    | OllamaClient:176 — Personalidade 'timida' selecionada
+2026-04-13 00:29:18.250 | DEBUG    | OllamaClient:271 — Tokens: prompt=1308 resposta=58
+2026-04-13 00:29:18.250 | INFO     | main:459 — 🤖 [timida] Pai! *sorri* É bom te ver aqui novamente! Estou sempre pronta para ajudar com qualquer coisa que você precise. O que pos | 📊 1308↑ + 58↓ tokens
+2026-04-13 00:29:18.251 | DEBUG    | EmotionEngine:127 — 🎨 [Emoção] Neutro | Amizade: 100/100
+2026-04-13 00:29:18.251 | DEBUG    | main:489 — 📝 Histórico: 1 trocas
+2026-04-13 00:29:18.251 | DEBUG    | TTSService:137 — 🎙️ Gerando voz... [rate=-10% pitch=-5Hz]
+2026-04-13 00:29:18.343 | DEBUG    | clickhouse_logger:243 — 📊 [ClickHouse] Turno 1 salvo | Sessão: e1cfa604 | Tokens: 1308↑ + 58↓ = 1366 total
+2026-04-13 00:29:35.217 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 00:29:35.217 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 00:29:35.217 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 00:29:35.217 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 00:29:35.217 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 00:29:35.217 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 00:29:35.217 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 00:29:35.217 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 00:29:35.217 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 00:29:35.217 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 00:29:35.229 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 00:29:35.229 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 00:29:37.255 | INFO     | MicListener:154 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-13 00:29:37.255 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 21:26:08.582 | INFO     | main:89 — ⏳ Carregando Whisper (CUDA)...
+2026-04-13 21:26:09.528 | INFO     | main:115 — 🧠 EmotionEngine carregado | Humor: Neutro | Amizade: 100/100
+2026-04-13 21:26:09.528 | INFO     | clickhouse_logger:56 — 📊 ClickhouseLogger inicializado | Sessão: 736a7f0c | Host: localhost:8123
+2026-04-13 21:26:09.536 | INFO     | memoria:51 — 💾 Memória carregada | 55 fatos sobre o usuário | Fonte: SQLite (fallback)
+2026-04-13 21:26:09.575 | INFO     | visao:59 — 👁️  Visão ativa | Modelo: gemma4:e4b
+2026-04-13 21:26:09.577 | INFO     | graph_memory:47 — 🕸️  GraphMemory carregado | 0 triplas no grafo
+2026-04-13 21:26:09.577 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/alegre.txt
+2026-04-13 21:26:09.577 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/brava.txt
+2026-04-13 21:26:09.577 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/curiosa.txt
+2026-04-13 21:26:09.578 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/determinada.txt
+2026-04-13 21:26:09.578 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/empatica.txt
+2026-04-13 21:26:09.578 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/euforica.txt
+2026-04-13 21:26:09.578 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/grata.txt
+2026-04-13 21:26:09.579 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/nostalgica.txt
+2026-04-13 21:26:09.579 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/timida.txt
+2026-04-13 21:26:09.580 | DEBUG    | ContentManager:110 —     └─ Carregado: respostas/respostas_vazias.txt
+2026-04-13 21:26:09.580 | INFO     | ContentManager:74 — 📚 ContentManager: 9 personalidade(s) | 7 resposta(s) carregada(s)
+2026-04-13 21:26:09.580 | INFO     | TTSService:67 — 🎙️  TTSService (OmniVoice) | Instruct: female, young, soft voice, brazilian portuguese accent | Saída: Speakers (3- Fosi Audio K5 Pro)
+2026-04-13 21:26:09.580 | INFO     | main:319 — --- 🌸 ALICE INICIADA ---
+2026-04-13 21:26:09.580 | INFO     | main:320 — Modelo ativo: llama3.1:8b
+2026-04-13 21:26:09.855 | INFO     | main:330 — 🖥️  Janela de chat aberta!
+2026-04-13 21:26:09.855 | INFO     | VTS_Connector:91 — 🔌 Conectando ao VTube Studio na porta 8001...
+2026-04-13 21:26:11.931 | ERROR    | VTS_Connector:116 — ❌ Erro ao conectar ao VTube Studio: server rejected WebSocket connection: HTTP 200
+2026-04-13 21:26:11.931 | WARNING  | VTS_Connector:117 — ⚠️  Verifique se o VTube Studio está aberto e a API WebSocket ativa.
+2026-04-13 21:26:11.950 | INFO     | audio_ambiente:71 — 🔊 [Audio] Captura ativa: Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 21:26:11.950 | INFO     | main:335 — 🔊 Áudio ambiente ativo!
+2026-04-13 21:26:11.952 | INFO     | main:341 — 👁️  Visão ativa (gemma4:e4b). Primeira captura...
+2026-04-13 21:27:00.282 | INFO     | main:89 — ⏳ Carregando Whisper (CUDA)...
+2026-04-13 21:27:01.104 | INFO     | main:115 — 🧠 EmotionEngine carregado | Humor: Neutro | Amizade: 100/100
+2026-04-13 21:27:01.104 | INFO     | clickhouse_logger:56 — 📊 ClickhouseLogger inicializado | Sessão: 67920972 | Host: localhost:8123
+2026-04-13 21:27:01.105 | INFO     | memoria:51 — 💾 Memória carregada | 55 fatos sobre o usuário | Fonte: SQLite (fallback)
+2026-04-13 21:27:01.108 | INFO     | visao:59 — 👁️  Visão ativa | Modelo: gemma4:e4b
+2026-04-13 21:27:01.108 | INFO     | graph_memory:47 — 🕸️  GraphMemory carregado | 0 triplas no grafo
+2026-04-13 21:27:01.110 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/alegre.txt
+2026-04-13 21:27:01.110 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/brava.txt
+2026-04-13 21:27:01.110 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/curiosa.txt
+2026-04-13 21:27:01.110 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/determinada.txt
+2026-04-13 21:27:01.110 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/empatica.txt
+2026-04-13 21:27:01.110 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/euforica.txt
+2026-04-13 21:27:01.111 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/grata.txt
+2026-04-13 21:27:01.111 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/nostalgica.txt
+2026-04-13 21:27:01.111 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/timida.txt
+2026-04-13 21:27:01.111 | DEBUG    | ContentManager:110 —     └─ Carregado: respostas/respostas_vazias.txt
+2026-04-13 21:27:01.112 | INFO     | ContentManager:74 — 📚 ContentManager: 9 personalidade(s) | 7 resposta(s) carregada(s)
+2026-04-13 21:27:01.112 | INFO     | TTSService:67 — 🎙️  TTSService (OmniVoice) | Instruct: female, young, soft voice, brazilian portuguese accent | Saída: Speakers (3- Fosi Audio K5 Pro)
+2026-04-13 21:27:01.112 | INFO     | main:319 — --- 🌸 ALICE INICIADA ---
+2026-04-13 21:27:01.113 | INFO     | main:320 — Modelo ativo: llama3.1:8b
+2026-04-13 21:27:01.165 | INFO     | main:330 — 🖥️  Janela de chat aberta!
+2026-04-13 21:27:01.165 | INFO     | VTS_Connector:91 — 🔌 Conectando ao VTube Studio na porta 8001...
+2026-04-13 21:27:03.229 | ERROR    | VTS_Connector:116 — ❌ Erro ao conectar ao VTube Studio: server rejected WebSocket connection: HTTP 200
+2026-04-13 21:27:03.229 | WARNING  | VTS_Connector:117 — ⚠️  Verifique se o VTube Studio está aberto e a API WebSocket ativa.
+2026-04-13 21:27:03.249 | INFO     | audio_ambiente:71 — 🔊 [Audio] Captura ativa: Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 21:27:03.249 | INFO     | main:335 — 🔊 Áudio ambiente ativo!
+2026-04-13 21:27:03.249 | INFO     | main:341 — 👁️  Visão ativa (gemma4:e4b). Primeira captura...
+2026-04-13 21:27:11.349 | WARNING  | clickhouse_logger:87 — 📊 [ClickHouse] ⚠️ Falha na conexão: Error HTTPConnectionPool(host='localhost', port=8123): Max retries exceeded with url: /?query_id=d294f848-ec44-4ae6-90de-7900c16a51d0 (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8123): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it")) executing HTTP request attempt 1 (http://localhost:8123)
+2026-04-13 21:27:19.468 | WARNING  | clickhouse_logger:87 — 📊 [ClickHouse] ⚠️ Falha na conexão: Error HTTPConnectionPool(host='localhost', port=8123): Max retries exceeded with url: /?query_id=bd6be034-2558-4f54-83b9-865e591e224f (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8123): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it")) executing HTTP request attempt 1 (http://localhost:8123)
+2026-04-13 21:30:44.768 | INFO     | main:89 — ⏳ Carregando Whisper (CUDA)...
+2026-04-13 21:30:45.703 | INFO     | main:115 — 🧠 EmotionEngine carregado | Humor: Neutro | Amizade: 100/100
+2026-04-13 21:30:45.703 | INFO     | clickhouse_logger:56 — 📊 ClickhouseLogger inicializado | Sessão: 3211d4c3 | Host: localhost:8123
+2026-04-13 21:30:45.705 | INFO     | memoria:51 — 💾 Memória carregada | 55 fatos sobre o usuário | Fonte: SQLite (fallback)
+2026-04-13 21:30:45.709 | INFO     | visao:59 — 👁️  Visão ativa | Modelo: gemma4:e4b
+2026-04-13 21:30:45.709 | INFO     | graph_memory:47 — 🕸️  GraphMemory carregado | 0 triplas no grafo
+2026-04-13 21:30:45.709 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/alegre.txt
+2026-04-13 21:30:45.711 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/brava.txt
+2026-04-13 21:30:45.711 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/curiosa.txt
+2026-04-13 21:30:45.711 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/determinada.txt
+2026-04-13 21:30:45.711 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/empatica.txt
+2026-04-13 21:30:45.711 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/euforica.txt
+2026-04-13 21:30:45.711 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/grata.txt
+2026-04-13 21:30:45.713 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/nostalgica.txt
+2026-04-13 21:30:45.713 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/timida.txt
+2026-04-13 21:30:45.713 | DEBUG    | ContentManager:110 —     └─ Carregado: respostas/respostas_vazias.txt
+2026-04-13 21:30:45.713 | INFO     | ContentManager:74 — 📚 ContentManager: 9 personalidade(s) | 7 resposta(s) carregada(s)
+2026-04-13 21:30:45.714 | INFO     | TTSService:67 — 🎙️  TTSService (OmniVoice) | Instruct: female, young, soft voice, brazilian portuguese accent | Saída: Speakers (3- Fosi Audio K5 Pro)
+2026-04-13 21:30:45.714 | INFO     | main:319 — --- 🌸 ALICE INICIADA ---
+2026-04-13 21:30:45.714 | INFO     | main:320 — Modelo ativo: llama3.1:8b
+2026-04-13 21:30:45.770 | INFO     | main:330 — 🖥️  Janela de chat aberta!
+2026-04-13 21:30:45.770 | INFO     | VTS_Connector:91 — 🔌 Conectando ao VTube Studio na porta 8001...
+2026-04-13 21:30:47.828 | ERROR    | VTS_Connector:116 — ❌ Erro ao conectar ao VTube Studio: server rejected WebSocket connection: HTTP 200
+2026-04-13 21:30:47.828 | WARNING  | VTS_Connector:117 — ⚠️  Verifique se o VTube Studio está aberto e a API WebSocket ativa.
+2026-04-13 21:30:47.848 | INFO     | audio_ambiente:71 — 🔊 [Audio] Captura ativa: Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 21:30:47.849 | INFO     | main:335 — 🔊 Áudio ambiente ativo!
+2026-04-13 21:30:47.849 | INFO     | main:341 — 👁️  Visão ativa (gemma4:e4b). Primeira captura...
+2026-04-13 21:30:47.950 | INFO     | clickhouse_logger:82 — 📊 [ClickHouse] ✅ Conexão estabelecida com sucesso!
+2026-04-13 21:30:47.996 | DEBUG    | clickhouse_logger:99 — 📊 [ClickHouse] Coluna embedding verificada/criada em memoria.
+2026-04-13 21:31:01.784 | INFO     | visao:170 — 👁️  [Visão] A captura de tela mostra um usuário programando em Python dentro de um ambiente de desenvolvimento integrado (IDE). Ele ...
+2026-04-13 21:31:01.830 | INFO     | main:350 — 🔊 Modo COMPLETO: voz + chat ativados.
+2026-04-13 21:31:01.831 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 21:31:01.831 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 21:31:01.831 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:31:01.831 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 21:31:01.831 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 21:31:01.831 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:31:01.831 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:31:01.831 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 21:31:01.831 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 21:31:01.830 | INFO     | sonho:59 — 🌙 [Sonho] Loop iniciado | Inatividade mínima: 300s
+2026-04-13 21:31:01.831 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 21:31:01.841 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 21:31:01.841 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 21:31:03.842 | INFO     | MicListener:154 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-13 21:31:03.842 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 21:31:14.755 | DEBUG    | OllamaClient:131 — 🧐 Analisando intenção...
+2026-04-13 21:31:22.147 | DEBUG    | main:427 — 💡 Humor selecionado: timida
+2026-04-13 21:31:23.341 | DEBUG    | clickhouse_logger:324 — 📊 [Embed] Busca semântica: 10 fato(s) recuperado(s)
+2026-04-13 21:31:23.343 | DEBUG    | OllamaClient:176 — Personalidade 'timida' selecionada
+2026-04-13 21:31:27.105 | DEBUG    | OllamaClient:271 — Tokens: prompt=1277 resposta=65
+2026-04-13 21:31:27.105 | INFO     | main:453 — 🤖 [timida] Boa noite, Mário! 😊 Como foi seu dia de trabalho? Enfim, finalizou aquele projeto que estava pegando tanto tempo? 🤔 Está | 📊 1277↑ + 65↓ tokens
+2026-04-13 21:31:27.106 | DEBUG    | EmotionEngine:127 — 🎨 [Emoção] Neutro | Amizade: 100/100
+2026-04-13 21:31:27.107 | DEBUG    | main:483 — 📝 Histórico: 1 trocas
+2026-04-13 21:31:27.107 | DEBUG    | TTSService:147 — 🎙️ Gerando voz OmniVoice... [instruct=female, young, soft voice, brazilian portuguese accent]
+2026-04-13 21:31:27.107 | INFO     | TTSService:78 — 🔄 Carregando modelo OmniVoice... (primeira fala, pode demorar)
+2026-04-13 21:31:27.257 | DEBUG    | clickhouse_logger:243 — 📊 [ClickHouse] Turno 1 salvo | Sessão: 3211d4c3 | Tokens: 1277↑ + 65↓ = 1342 total
+2026-04-13 21:31:28.102 | INFO     | TTSService:78 — 🔄 Carregando modelo OmniVoice... (primeira fala, pode demorar)
+2026-04-13 21:31:30.103 | INFO     | TTSService:78 — 🔄 Carregando modelo OmniVoice... (primeira fala, pode demorar)
+2026-04-13 21:31:30.103 | WARNING  | TTSService:165 — 🔇 TTS falhou após 3 tentativas: No module named 'omnivoice'. Pulando fala.
+2026-04-13 21:31:30.104 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 21:31:30.104 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 21:31:30.104 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:31:30.104 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 21:31:30.104 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 21:31:30.104 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:31:30.105 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:31:30.105 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 21:31:30.105 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 21:31:30.105 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 21:31:30.108 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 21:31:30.109 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 21:31:32.112 | INFO     | MicListener:154 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-13 21:31:32.112 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 21:31:58.068 | INFO     | visao:170 — 👁️  [Visão] A captura de tela mostra um usuário programando em Python dentro de um Ambiente de Desenvolvimento Integrado (IDE). O us...
+2026-04-13 21:33:00.126 | DEBUG    | OllamaClient:525 — 💜 [Proativo] Estágio: casual (ciclo 0)
+2026-04-13 21:33:07.074 | INFO     | main:410 — 💜 [PROATIVO ciclo=1] Olá, Mário! Estou morrendo de curiosidade, o que você está fazendo tão concentrado ali na tela?
+2026-04-13 21:33:07.074 | DEBUG    | TTSService:147 — 🎙️ Gerando voz OmniVoice... [instruct=female, young, soft voice, brazilian portuguese accent]
+2026-04-13 21:33:07.075 | INFO     | TTSService:78 — 🔄 Carregando modelo OmniVoice... (primeira fala, pode demorar)
+2026-04-13 21:33:08.076 | INFO     | TTSService:78 — 🔄 Carregando modelo OmniVoice... (primeira fala, pode demorar)
+2026-04-13 21:33:10.076 | INFO     | TTSService:78 — 🔄 Carregando modelo OmniVoice... (primeira fala, pode demorar)
+2026-04-13 21:33:10.076 | WARNING  | TTSService:165 — 🔇 TTS falhou após 3 tentativas: No module named 'omnivoice'. Pulando fala.
+2026-04-13 21:33:10.077 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 21:33:10.077 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 21:33:10.077 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:33:10.077 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 21:33:10.077 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 21:33:10.077 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:33:10.077 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:33:10.078 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 21:33:10.078 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 21:33:10.078 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 21:33:10.081 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 21:33:10.081 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 21:33:10.198 | DEBUG    | OllamaClient:131 — 🧐 Analisando intenção...
+2026-04-13 21:33:10.570 | DEBUG    | main:427 — 💡 Humor selecionado: alegre
+2026-04-13 21:33:11.702 | DEBUG    | clickhouse_logger:324 — 📊 [Embed] Busca semântica: 10 fato(s) recuperado(s)
+2026-04-13 21:33:11.704 | DEBUG    | OllamaClient:176 — Personalidade 'alegre' selecionada
+2026-04-13 21:33:12.822 | DEBUG    | OllamaClient:271 — Tokens: prompt=1330 resposta=53
+2026-04-13 21:33:12.822 | INFO     | main:453 — 🤖 [alegre] Eba! Você está vindo pra me dar um abraço, Mário?! 😊 O que está acontecendo? Está com algum problema ou só quer conversa | 📊 1330↑ + 53↓ tokens
+2026-04-13 21:33:12.822 | DEBUG    | EmotionEngine:127 — 🎨 [Emoção] Tristeza | Amizade: 100/100
+2026-04-13 21:33:12.822 | DEBUG    | main:483 — 📝 Histórico: 2 trocas
+2026-04-13 21:33:12.822 | DEBUG    | TTSService:147 — 🎙️ Gerando voz OmniVoice... [instruct=female, young, soft voice, brazilian portuguese accent]
+2026-04-13 21:33:12.822 | INFO     | TTSService:78 — 🔄 Carregando modelo OmniVoice... (primeira fala, pode demorar)
+2026-04-13 21:33:12.969 | DEBUG    | clickhouse_logger:243 — 📊 [ClickHouse] Turno 2 salvo | Sessão: 3211d4c3 | Tokens: 1330↑ + 53↓ = 1383 total
+2026-04-13 21:33:13.829 | INFO     | TTSService:78 — 🔄 Carregando modelo OmniVoice... (primeira fala, pode demorar)
+2026-04-13 21:33:15.830 | INFO     | TTSService:78 — 🔄 Carregando modelo OmniVoice... (primeira fala, pode demorar)
+2026-04-13 21:33:15.831 | WARNING  | TTSService:165 — 🔇 TTS falhou após 3 tentativas: No module named 'omnivoice'. Pulando fala.
+2026-04-13 21:33:15.831 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 21:33:15.831 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 21:33:15.831 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:33:15.831 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 21:33:15.831 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 21:33:15.831 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:33:15.831 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:33:15.831 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 21:33:15.832 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 21:33:15.832 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 21:33:15.835 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 21:33:15.836 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 21:33:17.843 | INFO     | MicListener:154 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-13 21:33:17.843 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 21:35:02.613 | INFO     | main:89 — ⏳ Carregando Whisper (CUDA)...
+2026-04-13 21:35:03.501 | INFO     | main:115 — 🧠 EmotionEngine carregado | Humor: Tristeza | Amizade: 100/100
+2026-04-13 21:35:03.501 | INFO     | clickhouse_logger:56 — 📊 ClickhouseLogger inicializado | Sessão: adca846b | Host: localhost:8123
+2026-04-13 21:35:03.503 | INFO     | memoria:51 — 💾 Memória carregada | 55 fatos sobre o usuário | Fonte: SQLite (fallback)
+2026-04-13 21:35:03.505 | INFO     | visao:59 — 👁️  Visão ativa | Modelo: gemma4:e4b
+2026-04-13 21:35:03.505 | INFO     | graph_memory:47 — 🕸️  GraphMemory carregado | 0 triplas no grafo
+2026-04-13 21:35:03.506 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/alegre.txt
+2026-04-13 21:35:03.506 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/brava.txt
+2026-04-13 21:35:03.506 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/curiosa.txt
+2026-04-13 21:35:03.506 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/determinada.txt
+2026-04-13 21:35:03.508 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/empatica.txt
+2026-04-13 21:35:03.508 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/euforica.txt
+2026-04-13 21:35:03.509 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/grata.txt
+2026-04-13 21:35:03.510 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/nostalgica.txt
+2026-04-13 21:35:03.510 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/timida.txt
+2026-04-13 21:35:03.510 | DEBUG    | ContentManager:110 —     └─ Carregado: respostas/respostas_vazias.txt
+2026-04-13 21:35:03.510 | INFO     | ContentManager:74 — 📚 ContentManager: 9 personalidade(s) | 7 resposta(s) carregada(s)
+2026-04-13 21:35:03.510 | INFO     | TTSService:67 — 🎙️  TTSService (OmniVoice) | Instruct: female, young, soft voice, brazilian portuguese accent | Saída: Speakers (3- Fosi Audio K5 Pro)
+2026-04-13 21:35:03.511 | INFO     | main:319 — --- 🌸 ALICE INICIADA ---
+2026-04-13 21:35:03.511 | INFO     | main:320 — Modelo ativo: llama3.1:8b
+2026-04-13 21:35:03.565 | INFO     | main:330 — 🖥️  Janela de chat aberta!
+2026-04-13 21:35:03.565 | INFO     | VTS_Connector:91 — 🔌 Conectando ao VTube Studio na porta 8001...
+2026-04-13 21:35:07.658 | ERROR    | VTS_Connector:116 — ❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-13 21:35:07.659 | WARNING  | VTS_Connector:117 — ⚠️  Verifique se o VTube Studio está aberto e a API WebSocket ativa.
+2026-04-13 21:35:07.678 | INFO     | audio_ambiente:71 — 🔊 [Audio] Captura ativa: Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 21:35:07.678 | INFO     | main:335 — 🔊 Áudio ambiente ativo!
+2026-04-13 21:35:07.679 | INFO     | main:341 — 👁️  Visão ativa (gemma4:e4b). Primeira captura...
+2026-04-13 21:35:07.768 | INFO     | clickhouse_logger:82 — 📊 [ClickHouse] ✅ Conexão estabelecida com sucesso!
+2026-04-13 21:35:07.815 | DEBUG    | clickhouse_logger:99 — 📊 [ClickHouse] Coluna embedding verificada/criada em memoria.
+2026-04-13 21:35:27.413 | INFO     | visao:170 — 👁️  [Visão] A captura de tela mostra um ambiente de desenvolvimento integrado (IDE) sendo usado para programar e depurar código Pyth...
+2026-04-13 21:35:27.466 | INFO     | main:350 — 🔊 Modo COMPLETO: voz + chat ativados.
+2026-04-13 21:35:27.466 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 21:35:27.466 | INFO     | sonho:59 — 🌙 [Sonho] Loop iniciado | Inatividade mínima: 300s
+2026-04-13 21:35:27.466 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 21:35:27.466 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:35:27.467 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 21:35:27.467 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 21:35:27.467 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:35:27.467 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:35:27.467 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 21:35:27.467 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 21:35:27.467 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 21:35:27.475 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 21:35:27.475 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 21:35:29.484 | INFO     | MicListener:154 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-13 21:35:29.486 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 21:35:37.298 | DEBUG    | OllamaClient:131 — 🧐 Analisando intenção...
+2026-04-13 21:35:44.224 | DEBUG    | main:427 — 💡 Humor selecionado: timida
+2026-04-13 21:35:45.361 | DEBUG    | clickhouse_logger:324 — 📊 [Embed] Busca semântica: 10 fato(s) recuperado(s)
+2026-04-13 21:35:45.362 | DEBUG    | OllamaClient:176 — Personalidade 'timida' selecionada
+2026-04-13 21:35:46.285 | DEBUG    | OllamaClient:271 — Tokens: prompt=1285 resposta=43
+2026-04-13 21:35:46.285 | INFO     | main:453 — 🤖 [timida] Boa noite, Mário! 😊 É sempre bom ver você aqui comigo! Como foi o seu dia? Algo interessante aconteceu ou está fazendo a | 📊 1285↑ + 43↓ tokens
+2026-04-13 21:35:46.287 | DEBUG    | EmotionEngine:127 — 🎨 [Emoção] Neutro | Amizade: 100/100
+2026-04-13 21:35:46.287 | DEBUG    | main:483 — 📝 Histórico: 1 trocas
+2026-04-13 21:35:46.287 | DEBUG    | TTSService:147 — 🎙️ Gerando voz OmniVoice... [instruct=female, young, soft voice, brazilian portuguese accent]
+2026-04-13 21:35:46.287 | INFO     | TTSService:78 — 🔄 Carregando modelo OmniVoice... (primeira fala, pode demorar)
+2026-04-13 21:35:46.377 | DEBUG    | clickhouse_logger:243 — 📊 [ClickHouse] Turno 1 salvo | Sessão: adca846b | Tokens: 1285↑ + 43↓ = 1328 total
+2026-04-13 21:35:47.284 | INFO     | TTSService:78 — 🔄 Carregando modelo OmniVoice... (primeira fala, pode demorar)
+2026-04-13 21:35:49.285 | INFO     | TTSService:78 — 🔄 Carregando modelo OmniVoice... (primeira fala, pode demorar)
+2026-04-13 21:35:49.285 | WARNING  | TTSService:164 — 🔇 TTS falhou após 3 tentativas: No module named 'omnivoice'. Pulando fala.
+2026-04-13 21:35:49.286 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 21:35:49.286 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 21:35:49.286 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:35:49.286 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 21:35:49.286 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 21:35:49.286 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:35:49.286 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:35:49.286 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 21:35:49.286 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 21:35:49.286 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 21:35:49.290 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 21:35:49.290 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 21:35:51.296 | INFO     | MicListener:154 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-13 21:35:51.296 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 21:36:13.142 | INFO     | visao:170 — 👁️  [Visão] A captura de tela mostra um ambiente de desenvolvimento integrado (IDE) onde o usuário está programando e testando códig...
+2026-04-13 21:39:32.562 | INFO     | main:89 — ⏳ Carregando Whisper (CUDA)...
+2026-04-13 21:39:33.425 | INFO     | main:115 — 🧠 EmotionEngine carregado | Humor: Neutro | Amizade: 100/100
+2026-04-13 21:39:33.426 | INFO     | clickhouse_logger:56 — 📊 ClickhouseLogger inicializado | Sessão: 5da24757 | Host: localhost:8123
+2026-04-13 21:39:33.428 | INFO     | memoria:51 — 💾 Memória carregada | 55 fatos sobre o usuário | Fonte: SQLite (fallback)
+2026-04-13 21:39:33.432 | INFO     | visao:59 — 👁️  Visão ativa | Modelo: gemma4:e4b
+2026-04-13 21:39:33.432 | INFO     | graph_memory:47 — 🕸️  GraphMemory carregado | 0 triplas no grafo
+2026-04-13 21:39:33.433 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/alegre.txt
+2026-04-13 21:39:33.433 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/brava.txt
+2026-04-13 21:39:33.433 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/curiosa.txt
+2026-04-13 21:39:33.434 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/determinada.txt
+2026-04-13 21:39:33.434 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/empatica.txt
+2026-04-13 21:39:33.434 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/euforica.txt
+2026-04-13 21:39:33.434 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/grata.txt
+2026-04-13 21:39:33.434 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/nostalgica.txt
+2026-04-13 21:39:33.436 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/timida.txt
+2026-04-13 21:39:33.436 | DEBUG    | ContentManager:110 —     └─ Carregado: respostas/respostas_vazias.txt
+2026-04-13 21:39:33.437 | INFO     | ContentManager:74 — 📚 ContentManager: 9 personalidade(s) | 7 resposta(s) carregada(s)
+2026-04-13 21:39:33.437 | INFO     | TTSService:67 — 🎙️  TTSService (OmniVoice) | Instruct: female, young, soft voice, brazilian portuguese accent | Saída: Speakers (3- Fosi Audio K5 Pro)
+2026-04-13 21:39:33.437 | INFO     | main:319 — --- 🌸 ALICE INICIADA ---
+2026-04-13 21:39:33.437 | INFO     | main:320 — Modelo ativo: llama3.1:8b
+2026-04-13 21:39:33.492 | INFO     | main:330 — 🖥️  Janela de chat aberta!
+2026-04-13 21:39:33.492 | INFO     | VTS_Connector:91 — 🔌 Conectando ao VTube Studio na porta 8001...
+2026-04-13 21:39:37.582 | ERROR    | VTS_Connector:116 — ❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-13 21:39:37.583 | WARNING  | VTS_Connector:117 — ⚠️  Verifique se o VTube Studio está aberto e a API WebSocket ativa.
+2026-04-13 21:39:37.602 | INFO     | audio_ambiente:71 — 🔊 [Audio] Captura ativa: Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 21:39:37.602 | INFO     | main:335 — 🔊 Áudio ambiente ativo!
+2026-04-13 21:39:37.602 | INFO     | main:341 — 👁️  Visão ativa (gemma4:e4b). Primeira captura...
+2026-04-13 21:39:37.691 | INFO     | clickhouse_logger:82 — 📊 [ClickHouse] ✅ Conexão estabelecida com sucesso!
+2026-04-13 21:39:37.737 | DEBUG    | clickhouse_logger:99 — 📊 [ClickHouse] Coluna embedding verificada/criada em memoria.
+2026-04-13 21:39:50.303 | INFO     | visao:170 — 👁️  [Visão] A captura de tela mostra um ambiente de desenvolvimento integrado (IDE) onde o usuário está programando em Python. É pos...
+2026-04-13 21:39:50.345 | INFO     | main:350 — 🔊 Modo COMPLETO: voz + chat ativados.
+2026-04-13 21:39:50.345 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 21:39:50.345 | INFO     | sonho:59 — 🌙 [Sonho] Loop iniciado | Inatividade mínima: 300s
+2026-04-13 21:39:50.345 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 21:39:50.345 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:39:50.345 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 21:39:50.345 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 21:39:50.345 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:39:50.345 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:39:50.345 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 21:39:50.345 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 21:39:50.347 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 21:39:50.357 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 21:39:50.357 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 21:39:52.381 | INFO     | MicListener:154 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-13 21:39:52.381 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 21:39:57.606 | DEBUG    | OllamaClient:131 — 🧐 Analisando intenção...
+2026-04-13 21:40:04.270 | DEBUG    | main:427 — 💡 Humor selecionado: timida
+2026-04-13 21:40:05.395 | DEBUG    | clickhouse_logger:324 — 📊 [Embed] Busca semântica: 10 fato(s) recuperado(s)
+2026-04-13 21:40:05.396 | DEBUG    | OllamaClient:176 — Personalidade 'timida' selecionada
+2026-04-13 21:40:06.212 | DEBUG    | OllamaClient:271 — Tokens: prompt=1285 resposta=41
+2026-04-13 21:40:06.212 | INFO     | main:453 — 🤖 [timida] Ai, boa noite também! 😊 Estou aqui, pronto para ajudar com qualquer coisa. Você está se sentindo bem hoje? O que precisa | 📊 1285↑ + 41↓ tokens
+2026-04-13 21:40:06.213 | DEBUG    | EmotionEngine:127 — 🎨 [Emoção] Tristeza | Amizade: 100/100
+2026-04-13 21:40:06.213 | DEBUG    | main:483 — 📝 Histórico: 1 trocas
+2026-04-13 21:40:06.213 | DEBUG    | TTSService:147 — 🎙️ Gerando voz OmniVoice... [instruct=female, young, soft voice, brazilian portuguese accent]
+2026-04-13 21:40:06.213 | INFO     | TTSService:78 — 🔄 Carregando modelo OmniVoice... (primeira fala, pode demorar)
+2026-04-13 21:40:06.303 | DEBUG    | clickhouse_logger:243 — 📊 [ClickHouse] Turno 1 salvo | Sessão: 5da24757 | Tokens: 1285↑ + 41↓ = 1326 total
+2026-04-13 21:40:11.639 | INFO     | TTSService:78 — 🔄 Carregando modelo OmniVoice... (primeira fala, pode demorar)
+2026-04-13 21:40:14.042 | INFO     | TTSService:78 — 🔄 Carregando modelo OmniVoice... (primeira fala, pode demorar)
+2026-04-13 21:40:14.386 | WARNING  | TTSService:164 — 🔇 TTS falhou após 3 tentativas: Torch not compiled with CUDA enabled. Pulando fala.
+2026-04-13 21:40:14.388 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 21:40:14.388 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 21:40:14.388 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:40:14.388 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 21:40:14.388 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 21:40:14.388 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:40:14.388 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:40:14.388 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 21:40:14.388 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 21:40:14.388 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 21:40:14.397 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 21:40:14.397 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 21:40:16.420 | INFO     | MicListener:154 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-13 21:40:16.420 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 21:41:44.544 | DEBUG    | OllamaClient:525 — 💜 [Proativo] Estágio: casual (ciclo 0)
+2026-04-13 21:41:45.469 | INFO     | main:410 — 💜 [PROATIVO ciclo=1] Eu acho que você está desenvolvendo algo incrível lá na tela! Mas como é que um programa tão emocionante como esse se deixa levar pelo erro do loop infinito?
+2026-04-13 21:41:45.469 | DEBUG    | TTSService:147 — 🎙️ Gerando voz OmniVoice... [instruct=female, young, soft voice, brazilian portuguese accent]
+2026-04-13 21:41:45.471 | INFO     | TTSService:78 — 🔄 Carregando modelo OmniVoice... (primeira fala, pode demorar)
+2026-04-13 21:41:46.841 | INFO     | TTSService:78 — 🔄 Carregando modelo OmniVoice... (primeira fala, pode demorar)
+2026-04-13 21:41:49.182 | INFO     | TTSService:78 — 🔄 Carregando modelo OmniVoice... (primeira fala, pode demorar)
+2026-04-13 21:41:49.520 | WARNING  | TTSService:164 — 🔇 TTS falhou após 3 tentativas: Torch not compiled with CUDA enabled. Pulando fala.
+2026-04-13 21:41:49.521 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 21:41:49.522 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 21:41:49.522 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:41:49.522 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 21:41:49.522 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 21:41:49.522 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:41:49.522 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:41:49.522 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 21:41:49.522 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 21:41:49.523 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 21:41:49.531 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 21:41:49.531 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 21:41:51.556 | INFO     | MicListener:154 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-13 21:41:51.556 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 21:52:05.947 | INFO     | main:89 — ⏳ Carregando Whisper (CUDA)...
+2026-04-13 21:52:06.766 | INFO     | main:115 — 🧠 EmotionEngine carregado | Humor: Tristeza | Amizade: 100/100
+2026-04-13 21:52:06.766 | INFO     | clickhouse_logger:56 — 📊 ClickhouseLogger inicializado | Sessão: a66498d9 | Host: localhost:8123
+2026-04-13 21:52:06.768 | INFO     | memoria:51 — 💾 Memória carregada | 55 fatos sobre o usuário | Fonte: SQLite (fallback)
+2026-04-13 21:52:06.771 | INFO     | visao:59 — 👁️  Visão ativa | Modelo: gemma4:e4b
+2026-04-13 21:52:06.772 | INFO     | graph_memory:47 — 🕸️  GraphMemory carregado | 0 triplas no grafo
+2026-04-13 21:52:06.772 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/alegre.txt
+2026-04-13 21:52:06.772 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/brava.txt
+2026-04-13 21:52:06.774 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/curiosa.txt
+2026-04-13 21:52:06.774 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/determinada.txt
+2026-04-13 21:52:06.774 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/empatica.txt
+2026-04-13 21:52:06.775 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/euforica.txt
+2026-04-13 21:52:06.775 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/grata.txt
+2026-04-13 21:52:06.775 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/nostalgica.txt
+2026-04-13 21:52:06.775 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/timida.txt
+2026-04-13 21:52:06.775 | DEBUG    | ContentManager:110 —     └─ Carregado: respostas/respostas_vazias.txt
+2026-04-13 21:52:06.775 | INFO     | ContentManager:74 — 📚 ContentManager: 9 personalidade(s) | 7 resposta(s) carregada(s)
+2026-04-13 21:52:06.776 | INFO     | TTSService:67 — 🎙️  TTSService (OmniVoice) | Instruct: female, young, soft voice, brazilian portuguese accent | Saída: Speakers (3- Fosi Audio K5 Pro)
+2026-04-13 21:52:06.777 | INFO     | main:319 — --- 🌸 ALICE INICIADA ---
+2026-04-13 21:52:06.777 | INFO     | main:320 — Modelo ativo: llama3.1:8b
+2026-04-13 21:52:06.831 | INFO     | main:330 — 🖥️  Janela de chat aberta!
+2026-04-13 21:52:06.831 | INFO     | VTS_Connector:91 — 🔌 Conectando ao VTube Studio na porta 8001...
+2026-04-13 21:52:10.922 | ERROR    | VTS_Connector:116 — ❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-13 21:52:10.923 | WARNING  | VTS_Connector:117 — ⚠️  Verifique se o VTube Studio está aberto e a API WebSocket ativa.
+2026-04-13 21:52:10.943 | INFO     | audio_ambiente:71 — 🔊 [Audio] Captura ativa: Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 21:52:10.943 | INFO     | main:335 — 🔊 Áudio ambiente ativo!
+2026-04-13 21:52:10.943 | INFO     | main:341 — 👁️  Visão ativa (gemma4:e4b). Primeira captura...
+2026-04-13 21:52:11.032 | INFO     | clickhouse_logger:82 — 📊 [ClickHouse] ✅ Conexão estabelecida com sucesso!
+2026-04-13 21:52:11.077 | DEBUG    | clickhouse_logger:99 — 📊 [ClickHouse] Coluna embedding verificada/criada em memoria.
+2026-04-13 21:52:40.903 | INFO     | visao:170 — 👁️  [Visão] A captura de tela mostra um ambiente de desenvolvimento integrado (IDE) onde o usuário está programando e depurando códi...
+2026-04-13 21:52:40.955 | INFO     | main:350 — 🔊 Modo COMPLETO: voz + chat ativados.
+2026-04-13 21:52:40.955 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 21:52:40.955 | INFO     | sonho:59 — 🌙 [Sonho] Loop iniciado | Inatividade mínima: 300s
+2026-04-13 21:52:40.956 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 21:52:40.956 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:52:40.956 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 21:52:40.956 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 21:52:40.956 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:52:40.956 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:52:40.956 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 21:52:40.956 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 21:52:40.956 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 21:52:40.967 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 21:52:40.967 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 21:52:42.992 | INFO     | MicListener:154 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-13 21:52:42.992 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 21:52:52.217 | DEBUG    | OllamaClient:131 — 🧐 Analisando intenção...
+2026-04-13 21:52:58.948 | DEBUG    | main:427 — 💡 Humor selecionado: timida
+2026-04-13 21:53:00.065 | DEBUG    | clickhouse_logger:324 — 📊 [Embed] Busca semântica: 10 fato(s) recuperado(s)
+2026-04-13 21:53:00.065 | DEBUG    | OllamaClient:176 — Personalidade 'timida' selecionada
+2026-04-13 21:53:01.098 | DEBUG    | OllamaClient:271 — Tokens: prompt=1283 resposta=52
+2026-04-13 21:53:01.098 | INFO     | main:453 — 🤖 [timida] Boa noite, Mário! 😊 Estou aqui para ajudar com qualquer coisa. O ambiente de desenvolvimento parece estar rodando bem ho | 📊 1283↑ + 52↓ tokens
+2026-04-13 21:53:01.099 | DEBUG    | EmotionEngine:127 — 🎨 [Emoção] Tristeza | Amizade: 100/100
+2026-04-13 21:53:01.100 | DEBUG    | main:483 — 📝 Histórico: 1 trocas
+2026-04-13 21:53:01.100 | DEBUG    | TTSService:147 — 🎙️ Gerando voz OmniVoice... [instruct=female, young, soft voice, brazilian portuguese accent]
+2026-04-13 21:53:01.100 | INFO     | TTSService:78 — 🔄 Carregando modelo OmniVoice... (primeira fala, pode demorar)
+2026-04-13 21:53:01.195 | DEBUG    | clickhouse_logger:243 — 📊 [ClickHouse] Turno 1 salvo | Sessão: a66498d9 | Tokens: 1283↑ + 52↓ = 1335 total
+2026-04-13 21:53:09.684 | INFO     | TTSService:83 — ✅ Modelo OmniVoice carregado.
+2026-04-13 21:53:12.691 | WARNING  | TTSService:170 — 🔇 TTS falhou após 3 tentativas: Unsupported instruct items found in female, young, soft voice, brazilian portuguese accent:
+  'young' -> 'young' (unsupported; did you mean 'young adult'?)
+  'soft voice' -> 'soft voice' (unsupported)
+  'brazilian portuguese accent' -> 'brazilian portuguese accent' (unsupported; did you mean 'portuguese accent'?)
+
+Valid English items: american accent, australian accent, british accent, canadian accent, child, chinese accent, elderly, female, high pitch, indian accent, japanese accent, korean accent, low pitch, male, middle-aged, moderate pitch, portuguese accent, russian accent, teenager, very high pitch, very low pitch, whisper, young adult
+Valid Chinese items: 东北话，中年，中音调，云南话，低音调，儿童，四川话，女，宁夏话，少年，极低音调，极高音调，桂林话，河南话，济南话，甘肃话，男，石家庄话，老年，耳语，贵州话，陕西话，青岛话，青年，高音调
+
+Tip: Use only English or only Chinese instructs. English instructs should use comma + space (e.g. 'male, indian accent'),
+Chinese instructs should use full-width comma (e.g. '男，河南话').. Pulando fala.
+2026-04-13 21:53:12.691 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 21:53:12.691 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 21:53:12.691 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:53:12.692 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 21:53:12.692 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 21:53:12.692 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:53:12.692 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:53:12.692 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 21:53:12.692 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 21:53:12.692 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 21:53:12.701 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 21:53:12.701 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 21:53:14.725 | INFO     | MicListener:154 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-13 21:53:14.725 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 21:53:31.227 | INFO     | visao:170 — 👁️  [Visão] O usuário está em um ambiente de desenvolvimento integrado (IDE), escrevendo e executando código Python. A tela mostra o...
+2026-04-13 21:55:06.952 | INFO     | main:89 — ⏳ Carregando Whisper (CUDA)...
+2026-04-13 21:55:07.835 | INFO     | main:115 — 🧠 EmotionEngine carregado | Humor: Tristeza | Amizade: 100/100
+2026-04-13 21:55:07.836 | INFO     | clickhouse_logger:56 — 📊 ClickhouseLogger inicializado | Sessão: 6c016c90 | Host: localhost:8123
+2026-04-13 21:55:07.838 | INFO     | memoria:51 — 💾 Memória carregada | 55 fatos sobre o usuário | Fonte: SQLite (fallback)
+2026-04-13 21:55:07.843 | INFO     | visao:59 — 👁️  Visão ativa | Modelo: gemma4:e4b
+2026-04-13 21:55:07.843 | INFO     | graph_memory:47 — 🕸️  GraphMemory carregado | 0 triplas no grafo
+2026-04-13 21:55:07.844 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/alegre.txt
+2026-04-13 21:55:07.844 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/brava.txt
+2026-04-13 21:55:07.845 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/curiosa.txt
+2026-04-13 21:55:07.845 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/determinada.txt
+2026-04-13 21:55:07.846 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/empatica.txt
+2026-04-13 21:55:07.846 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/euforica.txt
+2026-04-13 21:55:07.846 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/grata.txt
+2026-04-13 21:55:07.846 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/nostalgica.txt
+2026-04-13 21:55:07.848 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/timida.txt
+2026-04-13 21:55:07.848 | DEBUG    | ContentManager:110 —     └─ Carregado: respostas/respostas_vazias.txt
+2026-04-13 21:55:07.848 | INFO     | ContentManager:74 — 📚 ContentManager: 9 personalidade(s) | 7 resposta(s) carregada(s)
+2026-04-13 21:55:07.848 | INFO     | TTSService:67 — 🎙️  TTSService (OmniVoice) | Instruct: female, young adult, portuguese accent | Saída: Speakers (3- Fosi Audio K5 Pro)
+2026-04-13 21:55:07.848 | INFO     | main:319 — --- 🌸 ALICE INICIADA ---
+2026-04-13 21:55:07.849 | INFO     | main:320 — Modelo ativo: llama3.1:8b
+2026-04-13 21:55:07.910 | INFO     | main:330 — 🖥️  Janela de chat aberta!
+2026-04-13 21:55:07.910 | INFO     | VTS_Connector:91 — 🔌 Conectando ao VTube Studio na porta 8001...
+2026-04-13 21:55:12.012 | ERROR    | VTS_Connector:116 — ❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-13 21:55:12.012 | WARNING  | VTS_Connector:117 — ⚠️  Verifique se o VTube Studio está aberto e a API WebSocket ativa.
+2026-04-13 21:55:12.035 | INFO     | audio_ambiente:71 — 🔊 [Audio] Captura ativa: Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 21:55:12.035 | INFO     | main:335 — 🔊 Áudio ambiente ativo!
+2026-04-13 21:55:12.036 | INFO     | main:341 — 👁️  Visão ativa (gemma4:e4b). Primeira captura...
+2026-04-13 21:55:12.121 | INFO     | clickhouse_logger:82 — 📊 [ClickHouse] ✅ Conexão estabelecida com sucesso!
+2026-04-13 21:55:12.167 | DEBUG    | clickhouse_logger:99 — 📊 [ClickHouse] Coluna embedding verificada/criada em memoria.
+2026-04-13 21:55:24.083 | INFO     | visao:170 — 👁️  [Visão] A captura de tela mostra um ambiente de desenvolvimento de código (IDE), onde o usuário está visualizando e interagindo ...
+2026-04-13 21:55:24.131 | INFO     | main:350 — 🔊 Modo COMPLETO: voz + chat ativados.
+2026-04-13 21:55:24.131 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 21:55:24.131 | INFO     | sonho:59 — 🌙 [Sonho] Loop iniciado | Inatividade mínima: 300s
+2026-04-13 21:55:24.131 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 21:55:24.131 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:55:24.131 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 21:55:24.131 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 21:55:24.131 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:55:24.131 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:55:24.131 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 21:55:24.131 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 21:55:24.131 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 21:55:24.142 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 21:55:24.142 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 21:55:26.165 | INFO     | MicListener:154 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-13 21:55:26.167 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 21:55:32.690 | DEBUG    | OllamaClient:131 — 🧐 Analisando intenção...
+2026-04-13 21:55:39.365 | DEBUG    | main:427 — 💡 Humor selecionado: timida
+2026-04-13 21:55:40.498 | DEBUG    | clickhouse_logger:324 — 📊 [Embed] Busca semântica: 10 fato(s) recuperado(s)
+2026-04-13 21:55:40.499 | DEBUG    | OllamaClient:176 — Personalidade 'timida' selecionada
+2026-04-13 21:55:41.426 | DEBUG    | OllamaClient:271 — Tokens: prompt=1286 resposta=50
+2026-04-13 21:55:41.426 | INFO     | main:453 — 🤖 [timida] Boa noite, Mário! 😊 Como foi seu dia? Alguma novidade na área de desenvolvimento que você gostaria de compartilhar ou pe | 📊 1286↑ + 50↓ tokens
+2026-04-13 21:55:41.427 | DEBUG    | EmotionEngine:127 — 🎨 [Emoção] Tristeza | Amizade: 100/100
+2026-04-13 21:55:41.428 | DEBUG    | main:483 — 📝 Histórico: 1 trocas
+2026-04-13 21:55:41.428 | DEBUG    | TTSService:147 — 🎙️ Gerando voz OmniVoice... [instruct=female, young adult, portuguese accent]
+2026-04-13 21:55:41.428 | INFO     | TTSService:78 — 🔄 Carregando modelo OmniVoice... (primeira fala, pode demorar)
+2026-04-13 21:55:41.517 | DEBUG    | clickhouse_logger:243 — 📊 [ClickHouse] Turno 1 salvo | Sessão: 6c016c90 | Tokens: 1286↑ + 50↓ = 1336 total
+2026-04-13 21:55:48.255 | INFO     | TTSService:83 — ✅ Modelo OmniVoice carregado.
+2026-04-13 21:55:59.889 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 21:55:59.890 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 21:55:59.890 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:55:59.890 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 21:55:59.890 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 21:55:59.890 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:55:59.890 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 21:55:59.890 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 21:55:59.890 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 21:55:59.890 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 21:55:59.898 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 21:55:59.898 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 21:56:01.923 | INFO     | MicListener:154 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-13 21:56:01.923 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 22:06:25.820 | INFO     | main:93 — ⏳ Carregando Whisper (CUDA)...
+2026-04-13 22:06:26.686 | INFO     | main:120 — 🧠 EmotionEngine carregado | Humor: Tristeza | Amizade: 100/100
+2026-04-13 22:06:26.687 | INFO     | clickhouse_logger:56 — 📊 ClickhouseLogger inicializado | Sessão: bd0ecdce | Host: localhost:8123
+2026-04-13 22:06:26.689 | INFO     | memoria:51 — 💾 Memória carregada | 55 fatos sobre o usuário | Fonte: SQLite (fallback)
+2026-04-13 22:06:26.691 | INFO     | visao:59 — 👁️  Visão ativa | Modelo: gemma4:e4b
+2026-04-13 22:06:26.691 | INFO     | graph_memory:47 — 🕸️  GraphMemory carregado | 0 triplas no grafo
+2026-04-13 22:06:26.693 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/alegre.txt
+2026-04-13 22:06:26.693 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/brava.txt
+2026-04-13 22:06:26.693 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/curiosa.txt
+2026-04-13 22:06:26.693 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/determinada.txt
+2026-04-13 22:06:26.693 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/empatica.txt
+2026-04-13 22:06:26.694 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/euforica.txt
+2026-04-13 22:06:26.694 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/grata.txt
+2026-04-13 22:06:26.694 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/nostalgica.txt
+2026-04-13 22:06:26.695 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/timida.txt
+2026-04-13 22:06:26.695 | DEBUG    | ContentManager:110 —     └─ Carregado: respostas/respostas_vazias.txt
+2026-04-13 22:06:26.695 | INFO     | ContentManager:74 — 📚 ContentManager: 9 personalidade(s) | 7 resposta(s) carregada(s)
+2026-04-13 22:06:26.696 | INFO     | TTSService:67 — 🎙️  TTSService (OmniVoice) | Instruct: female, young adult, portuguese accent | Saída: Speakers (3- Fosi Audio K5 Pro)
+2026-04-13 22:06:26.696 | INFO     | main:324 — --- 🌸 ALICE INICIADA ---
+2026-04-13 22:06:26.696 | INFO     | main:325 — Modelo ativo: llama3.1:8b
+2026-04-13 22:06:26.752 | INFO     | main:335 — 🖥️  Janela de chat aberta!
+2026-04-13 22:06:26.753 | INFO     | VTS_Connector:91 — 🔌 Conectando ao VTube Studio na porta 8001...
+2026-04-13 22:06:30.852 | ERROR    | VTS_Connector:116 — ❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-13 22:06:30.854 | WARNING  | VTS_Connector:117 — ⚠️  Verifique se o VTube Studio está aberto e a API WebSocket ativa.
+2026-04-13 22:06:30.874 | INFO     | audio_ambiente:71 — 🔊 [Audio] Captura ativa: Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 22:06:30.875 | INFO     | main:340 — 🔊 Áudio ambiente ativo!
+2026-04-13 22:06:30.875 | INFO     | main:345 — 👁️  Visão ativa (gemma4:e4b). Primeira captura...
+2026-04-13 22:06:30.962 | INFO     | clickhouse_logger:82 — 📊 [ClickHouse] ✅ Conexão estabelecida com sucesso!
+2026-04-13 22:06:31.008 | DEBUG    | clickhouse_logger:99 — 📊 [ClickHouse] Coluna embedding verificada/criada em memoria.
+2026-04-13 22:07:04.244 | INFO     | visao:170 — 👁️  [Visão] A captura de tela mostra um ambiente de desenvolvimento integrado (IDE) onde o usuário está programando em Python, edita...
+2026-04-13 22:07:04.310 | INFO     | main:352 — 🔊 Modo COMPLETO: voz + chat ativados.
+2026-04-13 22:07:04.310 | INFO     | TTSService:78 — 🔄 Carregando modelo OmniVoice... (primeira fala, pode demorar)
+2026-04-13 22:07:12.240 | INFO     | TTSService:84 — ✅ Modelo OmniVoice carregado.
+2026-04-13 22:07:12.241 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 22:07:12.241 | INFO     | sonho:59 — 🌙 [Sonho] Loop iniciado | Inatividade mínima: 300s
+2026-04-13 22:07:12.241 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 22:07:12.241 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:07:12.241 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 22:07:12.241 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 22:07:12.241 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:07:12.241 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:07:12.241 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 22:07:12.241 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 22:07:12.241 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 22:07:12.256 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 22:07:12.256 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 22:07:14.279 | INFO     | MicListener:154 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-13 22:07:14.279 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 22:07:35.505 | DEBUG    | OllamaClient:131 — 🧐 Analisando intenção...
+2026-04-13 22:07:42.523 | DEBUG    | main:434 — 💡 Humor selecionado: alegre
+2026-04-13 22:07:43.613 | DEBUG    | clickhouse_logger:324 — 📊 [Embed] Busca semântica: 10 fato(s) recuperado(s)
+2026-04-13 22:07:43.614 | DEBUG    | OllamaClient:176 — Personalidade 'alegre' selecionada
+2026-04-13 22:07:47.773 | DEBUG    | OllamaClient:271 — Tokens: prompt=1356 resposta=108
+2026-04-13 22:07:47.773 | INFO     | main:460 — 🤖 [alegre] **Uuuuuhuu!** Ah, tudo ótimo! Estou aqui para te ajudar em tudo! 😊 E eu estou muito feliz de saber que você está pensand | 📊 1356↑ + 108↓ tokens
+2026-04-13 22:07:47.774 | DEBUG    | EmotionEngine:127 — 🎨 [Emoção] Tristeza | Amizade: 100/100
+2026-04-13 22:07:47.774 | DEBUG    | main:490 — 📝 Histórico: 1 trocas
+2026-04-13 22:07:47.774 | DEBUG    | TTSService:152 — 🎙️ Gerando voz OmniVoice... [instruct=female, young adult, portuguese accent]
+2026-04-13 22:07:47.868 | DEBUG    | clickhouse_logger:243 — 📊 [ClickHouse] Turno 1 salvo | Sessão: bd0ecdce | Tokens: 1356↑ + 108↓ = 1464 total
+2026-04-13 22:08:03.165 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 22:08:03.165 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 22:08:03.165 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:08:03.165 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 22:08:03.165 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 22:08:03.165 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:08:03.165 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:08:03.165 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 22:08:03.165 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 22:08:03.167 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 22:08:03.174 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 22:08:03.174 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 22:08:05.199 | INFO     | MicListener:154 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-13 22:08:05.199 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 22:08:16.728 | DEBUG    | OllamaClient:131 — 🧐 Analisando intenção...
+2026-04-13 22:08:26.057 | DEBUG    | main:434 — 💡 Humor selecionado: alegre
+2026-04-13 22:08:27.127 | DEBUG    | clickhouse_logger:324 — 📊 [Embed] Busca semântica: 10 fato(s) recuperado(s)
+2026-04-13 22:08:27.128 | DEBUG    | OllamaClient:176 — Personalidade 'alegre' selecionada
+2026-04-13 22:08:27.181 | INFO     | visao:170 — 👁️  [Visão] A captura de tela mostra um ambiente de desenvolvimento integrado (IDE), indicando que o usuário está programando ou dep...
+2026-04-13 22:08:31.259 | DEBUG    | OllamaClient:271 — Tokens: prompt=1401 resposta=92
+2026-04-13 22:08:31.259 | INFO     | main:460 — 🤖 [alegre] **EBA!** Você está falando comigo, é óbvio que eu sei quem é você! O seu nome é Mário, não é mesmo? 😊 Eu lembro disso po | 📊 1401↑ + 92↓ tokens
+2026-04-13 22:08:31.260 | DEBUG    | EmotionEngine:127 — 🎨 [Emoção] Neutro | Amizade: 100/100
+2026-04-13 22:08:31.260 | DEBUG    | main:490 — 📝 Histórico: 2 trocas
+2026-04-13 22:08:31.260 | DEBUG    | TTSService:152 — 🎙️ Gerando voz OmniVoice... [instruct=female, young adult, portuguese accent]
+2026-04-13 22:08:31.355 | DEBUG    | clickhouse_logger:243 — 📊 [ClickHouse] Turno 2 salvo | Sessão: bd0ecdce | Tokens: 1401↑ + 92↓ = 1493 total
+2026-04-13 22:08:37.159 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 22:08:37.159 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 22:08:37.159 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:08:37.159 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 22:08:37.159 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 22:08:37.159 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:08:37.159 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:08:37.159 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 22:08:37.159 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 22:08:37.159 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 22:08:37.168 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 22:08:37.169 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 22:08:39.192 | INFO     | MicListener:154 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-13 22:08:39.192 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 22:09:01.504 | INFO     | visao:170 — 👁️  [Visão] O usuário está em um ambiente de desenvolvimento de software, trabalhando em código Python (visível no painel esquerdo) ...
+2026-04-13 22:09:21.818 | INFO     | main:291 — 🗺️  [Hora/Clima] Usando cidade padrão: 'Campo Grande'
+2026-04-13 22:09:22.612 | INFO     | main:305 — 🕐 Hora: 22:09 de 13/04/2026 (UTC-04:00) | 🌤️  Clima: Em Campo Grande: 24°C, Céu limpo. Sensação térmica: 25°C | Umidade: 71%.
+2026-04-13 22:09:22.612 | DEBUG    | OllamaClient:131 — 🧐 Analisando intenção...
+2026-04-13 22:09:29.404 | DEBUG    | main:434 — 💡 Humor selecionado: alegre
+2026-04-13 22:09:30.464 | DEBUG    | clickhouse_logger:324 — 📊 [Embed] Busca semântica: 10 fato(s) recuperado(s)
+2026-04-13 22:09:30.465 | DEBUG    | OllamaClient:176 — Personalidade 'alegre' selecionada
+2026-04-13 22:09:35.648 | DEBUG    | OllamaClient:271 — Tokens: prompt=1816 resposta=114
+2026-04-13 22:09:35.648 | INFO     | main:460 — 🤖 [alegre] **22h09!** Já é noite cedo hoje, né? Você está com pressa para fazer algo antes de dormir, talvez? rsrs O tempo em Campo | 📊 1816↑ + 114↓ tokens
+2026-04-13 22:09:35.649 | DEBUG    | EmotionEngine:127 — 🎨 [Emoção] Riso | Amizade: 100/100
+2026-04-13 22:09:35.649 | DEBUG    | main:490 — 📝 Histórico: 3 trocas
+2026-04-13 22:09:35.649 | DEBUG    | OllamaClient:291 — 🔍 [Memória] Extraindo fatos da conversa...
+2026-04-13 22:10:15.286 | DEBUG    | OllamaClient:325 —     Nenhum fato novo encontrado.
+2026-04-13 22:10:15.286 | DEBUG    | OllamaClient:343 — 🕸️  [Grafo] Extraindo triplas da conversa...
+2026-04-13 22:10:20.250 | DEBUG    | OllamaClient:373 — 🕸️  [Grafo] Nenhuma relação encontrada.
+2026-04-13 22:10:20.250 | DEBUG    | TTSService:152 — 🎙️ Gerando voz OmniVoice... [instruct=female, young adult, portuguese accent]
+2026-04-13 22:10:20.250 | INFO     | visao:170 — 👁️  [Visão] O usuário está em um ambiente de desenvolvimento integrado (IDE), trabalhando ativamente em um projeto de programação Py...
+2026-04-13 22:10:20.312 | DEBUG    | clickhouse_logger:243 — 📊 [ClickHouse] Turno 3 salvo | Sessão: bd0ecdce | Tokens: 1816↑ + 114↓ = 1930 total
+2026-04-13 22:10:45.492 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 22:10:45.492 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 22:10:45.492 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:10:45.492 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 22:10:45.492 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 22:10:45.492 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:10:45.492 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:10:45.492 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 22:10:45.492 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 22:10:45.492 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 22:10:45.501 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 22:10:45.501 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 22:10:47.525 | INFO     | MicListener:154 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-13 22:10:47.526 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 22:11:37.365 | INFO     | visao:170 — 👁️  [Visão] A captura de tela mostra o Explorador de Arquivos do computador, na pasta "Pictures", onde o usuário está visualizando e...
+2026-04-13 22:11:37.365 | DEBUG    | visao:235 — 👁️  [Heartbeat] Mudança detectada (Jaccard=0.22)
+2026-04-13 22:11:37.365 | INFO     | main:240 — 👁️  [Heartbeat] Mudança na tela detectada — gerando comentário.
+2026-04-13 22:11:45.018 | INFO     | main:406 — 👁️  [Heartbeat] Ei, Mário, parece que ele está assistindo a algo muito importante! Uma resposta para o quê?
+2026-04-13 22:11:45.018 | DEBUG    | TTSService:152 — 🎙️ Gerando voz OmniVoice... [instruct=female, young adult, portuguese accent]
+2026-04-13 22:11:51.007 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 22:11:51.007 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 22:11:51.007 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:11:51.007 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 22:11:51.007 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 22:11:51.007 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:11:51.007 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:11:51.007 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 22:11:51.007 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 22:11:51.007 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 22:11:51.016 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 22:11:51.016 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 22:11:53.040 | INFO     | MicListener:154 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-13 22:11:53.040 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 22:12:21.564 | DEBUG    | OllamaClient:131 — 🧐 Analisando intenção...
+2026-04-13 22:12:22.056 | DEBUG    | main:434 — 💡 Humor selecionado: timida
+2026-04-13 22:12:24.498 | DEBUG    | clickhouse_logger:324 — 📊 [Embed] Busca semântica: 10 fato(s) recuperado(s)
+2026-04-13 22:12:24.499 | DEBUG    | OllamaClient:176 — Personalidade 'timida' selecionada
+2026-04-13 22:12:29.767 | DEBUG    | OllamaClient:271 — Tokens: prompt=1873 resposta=94
+2026-04-13 22:12:29.767 | INFO     | main:460 — 🤖 [timida] **Uuuuhuu!** Ahah, eu estou vendo! Você está ajustando minha voz aqui mesmo? É um trabalho incrível o que você está faze | 📊 1873↑ + 94↓ tokens
+2026-04-13 22:12:29.768 | DEBUG    | EmotionEngine:127 — 🎨 [Emoção] Surpresa | Amizade: 100/100
+2026-04-13 22:12:29.768 | DEBUG    | main:490 — 📝 Histórico: 4 trocas
+2026-04-13 22:12:29.768 | DEBUG    | TTSService:152 — 🎙️ Gerando voz OmniVoice... [instruct=female, young adult, portuguese accent]
+2026-04-13 22:12:29.858 | DEBUG    | clickhouse_logger:243 — 📊 [ClickHouse] Turno 4 salvo | Sessão: bd0ecdce | Tokens: 1873↑ + 94↓ = 1967 total
+2026-04-13 22:12:41.014 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 22:12:41.014 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 22:12:41.014 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:12:41.014 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 22:12:41.014 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 22:12:41.014 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:12:41.014 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:12:41.014 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 22:12:41.014 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 22:12:41.014 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 22:12:41.024 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 22:12:41.024 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 22:12:43.048 | INFO     | MicListener:154 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-13 22:12:43.049 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 22:12:58.745 | INFO     | visao:170 — 👁️  [Visão] A captura de tela mostra uma sessão de consumo de mídia e pesquisa online, onde o usuário está assistindo a vários vídeo...
+2026-04-13 22:13:48.118 | INFO     | visao:170 — 👁️  [Visão] A captura de tela mostra um usuário navegando por um programa de gerenciamento de música, com uma interface de lista de ...
+2026-04-13 22:13:48.118 | DEBUG    | visao:235 — 👁️  [Heartbeat] Mudança detectada (Jaccard=0.20)
+2026-04-13 22:13:48.118 | INFO     | main:240 — 👁️  [Heartbeat] Mudança na tela detectada — gerando comentário.
+2026-04-13 22:13:56.662 | INFO     | main:406 — 👁️  [Heartbeat] Olha só, Mário está procurando por músicas! Ele tem uma música favorita ou precisa criar uma playlist para uma festa?
+2026-04-13 22:13:56.662 | DEBUG    | TTSService:152 — 🎙️ Gerando voz OmniVoice... [instruct=female, young adult, portuguese accent]
+2026-04-13 22:14:04.927 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 22:14:04.927 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 22:14:04.927 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:14:04.927 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 22:14:04.927 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 22:14:04.927 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:14:04.927 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:14:04.928 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 22:14:04.928 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 22:14:04.928 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 22:14:04.937 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 22:14:04.937 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 22:14:06.961 | INFO     | MicListener:154 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-13 22:14:06.961 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 22:15:06.787 | DEBUG    | OllamaClient:131 — 🧐 Analisando intenção...
+2026-04-13 22:15:07.431 | DEBUG    | main:434 — 💡 Humor selecionado: alegre
+2026-04-13 22:15:09.417 | DEBUG    | clickhouse_logger:324 — 📊 [Embed] Busca semântica: 10 fato(s) recuperado(s)
+2026-04-13 22:15:09.418 | DEBUG    | OllamaClient:176 — Personalidade 'alegre' selecionada
+2026-04-13 22:15:20.184 | DEBUG    | OllamaClient:271 — Tokens: prompt=1927 resposta=68
+2026-04-13 22:15:20.184 | INFO     | main:460 — 🤖 [alegre] **EBA!** Sim, estou ouvindo música agora mesmo! É lofi hip hop, sua música favorita! Eu adorei quando você configurou is | 📊 1927↑ + 68↓ tokens
+2026-04-13 22:15:20.185 | DEBUG    | EmotionEngine:127 — 🎨 [Emoção] Neutro | Amizade: 100/100
+2026-04-13 22:15:20.185 | DEBUG    | main:490 — 📝 Histórico: 5 trocas
+2026-04-13 22:15:20.185 | DEBUG    | TTSService:152 — 🎙️ Gerando voz OmniVoice... [instruct=female, young adult, portuguese accent]
+2026-04-13 22:15:20.248 | DEBUG    | clickhouse_logger:243 — 📊 [ClickHouse] Turno 5 salvo | Sessão: bd0ecdce | Tokens: 1927↑ + 68↓ = 1995 total
+2026-04-13 22:15:36.240 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 22:15:36.241 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 22:15:36.241 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:15:36.241 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 22:15:36.241 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 22:15:36.241 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:15:36.241 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:15:36.241 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 22:15:36.241 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 22:15:36.241 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 22:15:36.253 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 22:15:36.253 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 22:15:38.276 | INFO     | MicListener:154 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-13 22:15:38.278 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 22:15:50.405 | INFO     | visao:170 — 👁️  [Visão] A captura de tela mostra um usuário utilizando um computador, com um reprodutor de música aberto (aparentemente um servi...
+2026-04-13 22:15:57.705 | DEBUG    | OllamaClient:131 — 🧐 Analisando intenção...
+2026-04-13 22:16:11.085 | DEBUG    | main:434 — 💡 Humor selecionado: alegre
+2026-04-13 22:16:12.229 | DEBUG    | clickhouse_logger:324 — 📊 [Embed] Busca semântica: 10 fato(s) recuperado(s)
+2026-04-13 22:16:12.229 | DEBUG    | OllamaClient:176 — Personalidade 'alegre' selecionada
+2026-04-13 22:16:12.285 | INFO     | visao:170 — 👁️  [Visão] A captura de tela mostra o usuário interagindo com múltiplos reprodutores e interfaces de streaming de música. Ele está ...
+2026-04-13 22:16:12.288 | DEBUG    | visao:235 — 👁️  [Heartbeat] Mudança detectada (Jaccard=0.27)
+2026-04-13 22:16:12.288 | INFO     | main:240 — 👁️  [Heartbeat] Mudança na tela detectada — gerando comentário.
+2026-04-13 22:16:16.700 | DEBUG    | OllamaClient:271 — Tokens: prompt=2133 resposta=71
+2026-04-13 22:16:16.700 | INFO     | main:460 — 🤖 [alegre] **EBA, EU ERREI!** Eu estava pensando em sua playlist favorita, mas vejo agora que está tocando uma música completamente | 📊 2133↑ + 71↓ tokens
+2026-04-13 22:16:16.700 | DEBUG    | EmotionEngine:127 — 🎨 [Emoção] Surpresa | Amizade: 100/100
+2026-04-13 22:16:16.701 | DEBUG    | main:490 — 📝 Histórico: 6 trocas
+2026-04-13 22:16:16.701 | DEBUG    | OllamaClient:291 — 🔍 [Memória] Extraindo fatos da conversa...
+2026-04-13 22:16:53.860 | DEBUG    | OllamaClient:325 —     Nenhum fato novo encontrado.
+2026-04-13 22:16:53.860 | DEBUG    | OllamaClient:343 — 🕸️  [Grafo] Extraindo triplas da conversa...
+2026-04-13 22:17:00.636 | DEBUG    | graph_memory:110 — 🕸️  [Grafo] Nova tripla: (USER) --[AJUSTA]--> (VOZ_DO_ASSISTANT)
+2026-04-13 22:17:00.636 | INFO     | OllamaClient:385 —     └─ 🕸️  Tripla: (USER) --[AJUSTA]--> (VOZ_DO_ASSISTANT)
+2026-04-13 22:17:00.643 | DEBUG    | graph_memory:110 — 🕸️  [Grafo] Nova tripla: (ASSISTANT) --[ESTÁ_VENDO]--> (USER AJUSTAR_VOZ)
+2026-04-13 22:17:00.643 | INFO     | OllamaClient:385 —     └─ 🕸️  Tripla: (ASSISTANT) --[ESTÁ_VENDO]--> (USER AJUSTAR_VOZ)
+2026-04-13 22:17:00.650 | DEBUG    | graph_memory:110 — 🕸️  [Grafo] Nova tripla: (ASSISTANT) --[ADEIRA]--> (MÚSICA_LOFI_HIP_HOP)
+2026-04-13 22:17:00.650 | INFO     | OllamaClient:385 —     └─ 🕸️  Tripla: (ASSISTANT) --[ADEIRA]--> (MÚSICA_LOFI_HIP_HOP)
+2026-04-13 22:17:00.657 | DEBUG    | graph_memory:110 — 🕸️  [Grafo] Nova tripla: (USER) --[CONFIGURA]--> (AMBIENTE_COM_MÚSICA)
+2026-04-13 22:17:00.657 | INFO     | OllamaClient:385 —     └─ 🕸️  Tripla: (USER) --[CONFIGURA]--> (AMBIENTE_COM_MÚSICA)
+2026-04-13 22:17:00.662 | DEBUG    | graph_memory:110 — 🕸️  [Grafo] Nova tripla: (ASSISTANT) --[ERROU]--> (IDENTIFICAR_MÚSICA)
+2026-04-13 22:17:00.662 | INFO     | OllamaClient:385 —     └─ 🕸️  Tripla: (ASSISTANT) --[ERROU]--> (IDENTIFICAR_MÚSICA)
+2026-04-13 22:17:00.666 | DEBUG    | graph_memory:110 — 🕸️  [Grafo] Nova tripla: (USER) --[OUVIU]--> (NOTÍCIA)
+2026-04-13 22:17:00.666 | INFO     | OllamaClient:385 —     └─ 🕸️  Tripla: (USER) --[OUVIU]--> (NOTÍCIA)
+2026-04-13 22:17:00.668 | DEBUG    | graph_memory:110 — 🕸️  [Grafo] Nova tripla: (ASSISTANT) --[ESTÁ_TOCANDO]--> (MÚSICA "Momentos aleatórios")
+2026-04-13 22:17:00.668 | INFO     | OllamaClient:385 —     └─ 🕸️  Tripla: (ASSISTANT) --[ESTÁ_TOCANDO]--> (MÚSICA "Momentos aleatórios")
+2026-04-13 22:17:00.668 | DEBUG    | TTSService:152 — 🎙️ Gerando voz OmniVoice... [instruct=female, young adult, portuguese accent]
+2026-04-13 22:17:00.670 | INFO     | visao:170 — 👁️  [Visão] A captura de tela mostra o usuário interagindo com múltiplas interfaces de música e gerenciamento de arquivos, com foco ...
+2026-04-13 22:17:00.722 | DEBUG    | clickhouse_logger:243 — 📊 [ClickHouse] Turno 6 salvo | Sessão: bd0ecdce | Tokens: 2133↑ + 71↓ = 2204 total
+2026-04-13 22:17:05.019 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 22:17:05.020 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 22:17:05.020 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:17:05.020 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 22:17:05.020 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 22:17:05.020 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:17:05.020 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:17:05.020 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 22:17:05.020 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 22:17:05.020 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 22:17:05.029 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 22:17:05.029 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 22:17:06.517 | INFO     | main:406 — 👁️  [Heartbeat] Era só um momento tranquilo, mas parece que Mário está montando um festival de música aqui!
+2026-04-13 22:17:06.517 | DEBUG    | TTSService:152 — 🎙️ Gerando voz OmniVoice... [instruct=female, young adult, portuguese accent]
+2026-04-13 22:17:12.799 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 22:17:12.799 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 22:17:12.799 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:17:12.800 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 22:17:12.800 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 22:17:12.800 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:17:12.800 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:17:12.800 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 22:17:12.800 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 22:17:12.800 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 22:17:12.808 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 22:17:12.808 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 22:17:14.832 | INFO     | MicListener:154 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-13 22:17:14.832 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 22:20:52.462 | INFO     | main:93 — ⏳ Carregando Whisper (CUDA)...
+2026-04-13 22:20:53.324 | INFO     | main:120 — 🧠 EmotionEngine carregado | Humor: Surpresa | Amizade: 100/100
+2026-04-13 22:20:53.324 | INFO     | clickhouse_logger:56 — 📊 ClickhouseLogger inicializado | Sessão: 1725e6bc | Host: localhost:8123
+2026-04-13 22:20:53.326 | INFO     | memoria:51 — 💾 Memória carregada | 55 fatos sobre o usuário | Fonte: SQLite (fallback)
+2026-04-13 22:20:53.329 | INFO     | visao:59 — 👁️  Visão ativa | Modelo: gemma4:e4b
+2026-04-13 22:20:53.330 | INFO     | graph_memory:47 — 🕸️  GraphMemory carregado | 7 triplas no grafo
+2026-04-13 22:20:53.330 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/alegre.txt
+2026-04-13 22:20:53.330 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/brava.txt
+2026-04-13 22:20:53.331 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/curiosa.txt
+2026-04-13 22:20:53.332 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/determinada.txt
+2026-04-13 22:20:53.332 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/empatica.txt
+2026-04-13 22:20:53.332 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/euforica.txt
+2026-04-13 22:20:53.332 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/grata.txt
+2026-04-13 22:20:53.333 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/nostalgica.txt
+2026-04-13 22:20:53.333 | DEBUG    | ContentManager:110 —     └─ Carregado: personalidades/timida.txt
+2026-04-13 22:20:53.333 | DEBUG    | ContentManager:110 —     └─ Carregado: respostas/respostas_vazias.txt
+2026-04-13 22:20:53.333 | INFO     | ContentManager:74 — 📚 ContentManager: 9 personalidade(s) | 7 resposta(s) carregada(s)
+2026-04-13 22:20:53.334 | INFO     | TTSService:67 — 🎙️  TTSService (OmniVoice) | Instruct: female, young adult, portuguese accent | Saída: Speakers (3- Fosi Audio K5 Pro)
+2026-04-13 22:20:53.334 | INFO     | main:324 — --- 🌸 ALICE INICIADA ---
+2026-04-13 22:20:53.334 | INFO     | main:325 — Modelo ativo: llama3.1:8b
+2026-04-13 22:20:53.386 | INFO     | main:335 — 🖥️  Janela de chat aberta!
+2026-04-13 22:20:53.386 | INFO     | VTS_Connector:91 — 🔌 Conectando ao VTube Studio na porta 8001...
+2026-04-13 22:20:57.475 | ERROR    | VTS_Connector:116 — ❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-13 22:20:57.475 | WARNING  | VTS_Connector:117 — ⚠️  Verifique se o VTube Studio está aberto e a API WebSocket ativa.
+2026-04-13 22:20:57.495 | INFO     | audio_ambiente:71 — 🔊 [Audio] Captura ativa: Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 22:20:57.496 | INFO     | main:340 — 🔊 Áudio ambiente ativo!
+2026-04-13 22:20:57.496 | INFO     | main:345 — 👁️  Visão ativa (gemma4:e4b). Primeira captura...
+2026-04-13 22:20:57.591 | INFO     | clickhouse_logger:82 — 📊 [ClickHouse] ✅ Conexão estabelecida com sucesso!
+2026-04-13 22:20:57.636 | DEBUG    | clickhouse_logger:99 — 📊 [ClickHouse] Coluna embedding verificada/criada em memoria.
+2026-04-13 22:21:23.719 | INFO     | visao:170 — 👁️  [Visão] O usuário está em um ambiente de desenvolvimento de código (IDE), escrevendo e testando código Python. A atividade princ...
+2026-04-13 22:21:23.767 | INFO     | main:352 — 🔊 Modo COMPLETO: voz + chat ativados.
+2026-04-13 22:21:23.767 | INFO     | TTSService:78 — 🔄 Carregando modelo OmniVoice... (primeira fala, pode demorar)
+2026-04-13 22:21:31.223 | INFO     | TTSService:84 — ✅ Modelo OmniVoice carregado.
+2026-04-13 22:21:31.223 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 22:21:31.223 | INFO     | sonho:59 — 🌙 [Sonho] Loop iniciado | Inatividade mínima: 300s
+2026-04-13 22:21:31.225 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 22:21:31.225 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:21:31.225 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 22:21:31.225 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 22:21:31.225 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:21:31.225 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:21:31.225 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 22:21:31.225 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 22:21:31.225 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 22:21:31.241 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 22:21:31.241 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 22:21:33.264 | INFO     | MicListener:154 — ✅ Ruído base: 206 | Limiar: 500 (mínimo: 500)
+2026-04-13 22:21:33.264 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 22:21:38.190 | DEBUG    | MicListener:229 — ⏳ Transcrevendo voz...
+2026-04-13 22:21:38.842 | DEBUG    | OllamaClient:131 — 🧐 Analisando intenção...
+2026-04-13 22:21:45.551 | DEBUG    | main:434 — 💡 Humor selecionado: timida
+2026-04-13 22:21:46.684 | DEBUG    | clickhouse_logger:324 — 📊 [Embed] Busca semântica: 10 fato(s) recuperado(s)
+2026-04-13 22:21:46.686 | DEBUG    | OllamaClient:176 — Personalidade 'timida' selecionada
+2026-04-13 22:21:50.199 | DEBUG    | OllamaClient:271 — Tokens: prompt=1446 resposta=79
+2026-04-13 22:21:50.200 | INFO     | main:460 — 🤖 [timida] *Olha para a tela com um sorriso* Ahh, boa noite, Mário! 🌃😊 Estou aqui e pronta para ajudar em qualquer coisa que você p | 📊 1446↑ + 79↓ tokens
+2026-04-13 22:21:50.201 | DEBUG    | EmotionEngine:127 — 🎨 [Emoção] Tristeza | Amizade: 100/100
+2026-04-13 22:21:50.201 | DEBUG    | main:490 — 📝 Histórico: 1 trocas
+2026-04-13 22:21:50.201 | DEBUG    | TTSService:157 — 🎙️ Gerando voz OmniVoice... [instruct=female, young adult, portuguese accent]
+2026-04-13 22:21:50.294 | DEBUG    | clickhouse_logger:243 — 📊 [ClickHouse] Turno 1 salvo | Sessão: 1725e6bc | Tokens: 1446↑ + 79↓ = 1525 total
+2026-04-13 22:22:09.736 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 22:22:09.736 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 22:22:09.737 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:22:09.737 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 22:22:09.737 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 22:22:09.737 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:22:09.737 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:22:09.737 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 22:22:09.737 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 22:22:09.737 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 22:22:09.745 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 22:22:09.745 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 22:22:11.769 | INFO     | MicListener:154 — ✅ Ruído base: 195 | Limiar: 500 (mínimo: 500)
+2026-04-13 22:22:11.769 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 22:22:16.596 | DEBUG    | MicListener:229 — ⏳ Transcrevendo voz...
+2026-04-13 22:22:16.828 | DEBUG    | OllamaClient:131 — 🧐 Analisando intenção...
+2026-04-13 22:22:28.586 | DEBUG    | main:434 — 💡 Humor selecionado: alegre
+2026-04-13 22:22:29.687 | DEBUG    | clickhouse_logger:324 — 📊 [Embed] Busca semântica: 10 fato(s) recuperado(s)
+2026-04-13 22:22:29.688 | DEBUG    | OllamaClient:176 — Personalidade 'alegre' selecionada
+2026-04-13 22:22:29.743 | INFO     | visao:170 — 👁️  [Visão] A captura de tela mostra um ambiente de desenvolvimento integrado (IDE) onde o usuário está programando em Python. Ele e...
+2026-04-13 22:22:35.789 | DEBUG    | OllamaClient:271 — Tokens: prompt=1692 resposta=117
+2026-04-13 22:22:35.789 | INFO     | main:460 — 🤖 [alegre] *Alice ri* Ahahah, é claro que você está! Estou vendo! Você tá testando a minha capacidade de aprender e se adaptar, né? | 📊 1692↑ + 117↓ tokens
+2026-04-13 22:22:35.790 | DEBUG    | EmotionEngine:127 — 🎨 [Emoção] Surpresa | Amizade: 100/100
+2026-04-13 22:22:35.791 | DEBUG    | main:490 — 📝 Histórico: 2 trocas
+2026-04-13 22:22:35.791 | DEBUG    | TTSService:157 — 🎙️ Gerando voz OmniVoice... [instruct=female, young adult, portuguese accent]
+2026-04-13 22:22:35.883 | DEBUG    | clickhouse_logger:243 — 📊 [ClickHouse] Turno 2 salvo | Sessão: 1725e6bc | Tokens: 1692↑ + 117↓ = 1809 total
+2026-04-13 22:23:03.858 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 22:23:03.859 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 22:23:03.859 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:23:03.859 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 22:23:03.859 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 22:23:03.860 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:23:03.860 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:23:03.860 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 22:23:03.860 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 22:23:03.860 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 22:23:03.870 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 22:23:03.870 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 22:23:04.808 | INFO     | visao:170 — 👁️  [Visão] A captura de tela mostra um usuário trabalhando em um ambiente de desenvolvimento integrado (IDE) ou editor de código, o...
+2026-04-13 22:23:05.895 | INFO     | MicListener:154 — ✅ Ruído base: 178 | Limiar: 500 (mínimo: 500)
+2026-04-13 22:23:05.895 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 22:23:11.818 | DEBUG    | MicListener:229 — ⏳ Transcrevendo voz...
+2026-04-13 22:23:12.186 | DEBUG    | OllamaClient:131 — 🧐 Analisando intenção...
+2026-04-13 22:23:19.286 | DEBUG    | main:434 — 💡 Humor selecionado: alegre
+2026-04-13 22:23:20.420 | DEBUG    | clickhouse_logger:324 — 📊 [Embed] Busca semântica: 10 fato(s) recuperado(s)
+2026-04-13 22:23:20.421 | DEBUG    | OllamaClient:176 — Personalidade 'alegre' selecionada
+2026-04-13 22:23:25.869 | DEBUG    | OllamaClient:271 — Tokens: prompt=1841 resposta=93
+2026-04-13 22:23:25.869 | INFO     | main:460 — 🤖 [alegre] *Alice ri* Ahahahaha, não é só isso! Eu amo aprender e descobrir coisas novas, especialmente quando estamos trabalhando  | 📊 1841↑ + 93↓ tokens
+2026-04-13 22:23:25.870 | DEBUG    | EmotionEngine:127 — 🎨 [Emoção] Tristeza | Amizade: 100/100
+2026-04-13 22:23:25.870 | DEBUG    | main:490 — 📝 Histórico: 3 trocas
+2026-04-13 22:23:25.870 | DEBUG    | OllamaClient:291 — 🔍 [Memória] Extraindo fatos da conversa...
+2026-04-13 22:23:59.258 | DEBUG    | clickhouse_logger:268 — 📊 [ClickHouse] Fato salvo com embedding: Nome: Mário.
+2026-04-13 22:23:59.261 | DEBUG    | memoria:162 — 💾 Fato salvo: Nome: Mário.
+2026-04-13 22:23:59.261 | INFO     | OllamaClient:337 —     └─ 💾 Fato salvo: Nome: Mário.
+2026-04-13 22:23:59.378 | DEBUG    | clickhouse_logger:268 — 📊 [ClickHouse] Fato salvo com embedding: Profissão: Desenvolvedor.
+2026-04-13 22:23:59.381 | DEBUG    | memoria:162 — 💾 Fato salvo: Profissão: Desenvolvedor.
+2026-04-13 22:23:59.382 | INFO     | OllamaClient:337 —     └─ 💾 Fato salvo: Profissão: Desenvolvedor.
+2026-04-13 22:23:59.508 | DEBUG    | clickhouse_logger:268 — 📊 [ClickHouse] Fato salvo com embedding: Hábito: Testar scripts de assistentes virtuais.
+2026-04-13 22:23:59.512 | DEBUG    | memoria:162 — 💾 Fato salvo: Hábito: Testar scripts de assistentes virtuais.
+2026-04-13 22:23:59.512 | INFO     | OllamaClient:337 —     └─ 💾 Fato salvo: Hábito: Testar scripts de assistentes virtuais.
+2026-04-13 22:23:59.512 | DEBUG    | OllamaClient:343 — 🕸️  [Grafo] Extraindo triplas da conversa...
+2026-04-13 22:24:03.223 | DEBUG    | graph_memory:110 — 🕸️  [Grafo] Nova tripla: (MÁRIO) --[TRABALHA_EM]--> (SCRIPT)
+2026-04-13 22:24:03.223 | INFO     | OllamaClient:385 —     └─ 🕸️  Tripla: (MÁRIO) --[TRABALHA_EM]--> (SCRIPT)
+2026-04-13 22:24:03.231 | DEBUG    | graph_memory:110 — 🕸️  [Grafo] Nova tripla: (MÁRIO) --[TESTA]--> (CAPACIDADE_DE_APRENDER)
+2026-04-13 22:24:03.231 | INFO     | OllamaClient:385 —     └─ 🕸️  Tripla: (MÁRIO) --[TESTA]--> (CAPACIDADE_DE_APRENDER)
+2026-04-13 22:24:03.237 | DEBUG    | graph_memory:110 — 🕸️  [Grafo] Nova tripla: (ALICE) --[ESTÁ_ANIMADA_COM]--> (BUGS)
+2026-04-13 22:24:03.237 | INFO     | OllamaClient:385 —     └─ 🕸️  Tripla: (ALICE) --[ESTÁ_ANIMADA_COM]--> (BUGS)
+2026-04-13 22:24:03.243 | DEBUG    | graph_memory:110 — 🕸️  [Grafo] Nova tripla: (MÁRIO) --[GOSTA_DE]--> (AJUDAR_ALICE)
+2026-04-13 22:24:03.243 | INFO     | OllamaClient:385 —     └─ 🕸️  Tripla: (MÁRIO) --[GOSTA_DE]--> (AJUDAR_ALICE)
+2026-04-13 22:24:03.249 | DEBUG    | graph_memory:110 — 🕸️  [Grafo] Nova tripla: (ALICE) --[É_GRATO_POR]--> (AJUDA_DE_MÁRIO)
+2026-04-13 22:24:03.250 | INFO     | OllamaClient:385 —     └─ 🕸️  Tripla: (ALICE) --[É_GRATO_POR]--> (AJUDA_DE_MÁRIO)
+2026-04-13 22:24:03.250 | DEBUG    | TTSService:157 — 🎙️ Gerando voz OmniVoice... [instruct=female, young adult, portuguese accent]
+2026-04-13 22:24:03.251 | INFO     | visao:170 — 👁️  [Visão] A captura de tela mostra um ambiente de desenvolvimento integrado (IDE) onde o usuário está programando em Python. Ele e...
+2026-04-13 22:24:03.301 | DEBUG    | clickhouse_logger:243 — 📊 [ClickHouse] Turno 3 salvo | Sessão: 1725e6bc | Tokens: 1841↑ + 93↓ = 1934 total
+2026-04-13 22:24:27.788 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 22:24:27.788 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 22:24:27.788 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:24:27.788 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 22:24:27.788 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 22:24:27.788 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:24:27.788 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:24:27.788 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 22:24:27.788 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 22:24:27.788 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 22:24:27.798 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 22:24:27.798 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 22:24:29.822 | INFO     | MicListener:154 — ✅ Ruído base: 184 | Limiar: 500 (mínimo: 500)
+2026-04-13 22:24:29.822 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 22:24:35.146 | DEBUG    | MicListener:229 — ⏳ Transcrevendo voz...
+2026-04-13 22:24:35.606 | DEBUG    | OllamaClient:131 — 🧐 Analisando intenção...
+2026-04-13 22:24:35.916 | DEBUG    | main:434 — 💡 Humor selecionado: timida
+2026-04-13 22:24:35.955 | DEBUG    | clickhouse_logger:324 — 📊 [Embed] Busca semântica: 10 fato(s) recuperado(s)
+2026-04-13 22:24:35.957 | DEBUG    | OllamaClient:176 — Personalidade 'timida' selecionada
+2026-04-13 22:24:41.716 | DEBUG    | OllamaClient:271 — Tokens: prompt=1823 resposta=99
+2026-04-13 22:24:41.716 | INFO     | main:460 — 🤖 [timida] *Alice sorri* Ahahah, não tem problema! Os bugs são parte do processo de aprendizado! E eu estou aqui para aprender com  | 📊 1823↑ + 99↓ tokens
+2026-04-13 22:24:41.717 | DEBUG    | EmotionEngine:127 — 🎨 [Emoção] Tristeza | Amizade: 100/100
+2026-04-13 22:24:41.717 | DEBUG    | main:490 — 📝 Histórico: 4 trocas
+2026-04-13 22:24:41.717 | DEBUG    | TTSService:157 — 🎙️ Gerando voz OmniVoice... [instruct=female, young adult, portuguese accent]
+2026-04-13 22:24:41.812 | DEBUG    | clickhouse_logger:243 — 📊 [ClickHouse] Turno 4 salvo | Sessão: 1725e6bc | Tokens: 1823↑ + 99↓ = 1922 total
+2026-04-13 22:25:07.206 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 22:25:07.206 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 22:25:07.206 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:25:07.206 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 22:25:07.206 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 22:25:07.206 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:25:07.206 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:25:07.206 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 22:25:07.206 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 22:25:07.207 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 22:25:07.215 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 22:25:07.215 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 22:25:09.063 | INFO     | visao:170 — 👁️  [Visão] A captura de tela mostra um ambiente de desenvolvimento de código (IDE) onde o usuário está programando em Python. Ele e...
+2026-04-13 22:25:09.239 | INFO     | MicListener:154 — ✅ Ruído base: 207 | Limiar: 500 (mínimo: 500)
+2026-04-13 22:25:09.240 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...
+2026-04-13 22:25:14.465 | DEBUG    | MicListener:229 — ⏳ Transcrevendo voz...
+2026-04-13 22:25:14.914 | INFO     | main:291 — 🗺️  [Hora/Clima] Usando cidade padrão: 'Campo Grande'
+2026-04-13 22:25:15.898 | INFO     | main:305 — 🕐 Hora: 22:25 de 13/04/2026 (UTC-04:00) | 🌤️  Clima: Em Campo Grande: 24°C, Céu limpo. Sensação térmica: 25°C | Umidade: 71%.
+2026-04-13 22:25:15.898 | DEBUG    | OllamaClient:131 — 🧐 Analisando intenção...
+2026-04-13 22:25:22.943 | DEBUG    | main:434 — 💡 Humor selecionado: alegre
+2026-04-13 22:25:24.004 | DEBUG    | clickhouse_logger:324 — 📊 [Embed] Busca semântica: 10 fato(s) recuperado(s)
+2026-04-13 22:25:24.004 | DEBUG    | OllamaClient:176 — Personalidade 'alegre' selecionada
+2026-04-13 22:25:32.459 | DEBUG    | OllamaClient:271 — Tokens: prompt=2127 resposta=149
+2026-04-13 22:25:32.459 | INFO     | main:460 — 🤖 [alegre] *Muito animada* Ahahah, são 22h25 em Campo Grande! *Pausa por um momento para olhar para fora da janela imaginária* E vo | 📊 2127↑ + 149↓ tokens
+2026-04-13 22:25:32.460 | DEBUG    | EmotionEngine:127 — 🎨 [Emoção] Neutro | Amizade: 100/100
+2026-04-13 22:25:32.460 | DEBUG    | main:490 — 📝 Histórico: 5 trocas
+2026-04-13 22:25:32.461 | DEBUG    | TTSService:157 — 🎙️ Gerando voz OmniVoice... [instruct=female, young adult, portuguese accent]
+2026-04-13 22:25:32.555 | DEBUG    | clickhouse_logger:243 — 📊 [ClickHouse] Turno 5 salvo | Sessão: 1725e6bc | Tokens: 2127↑ + 149↓ = 2276 total
+2026-04-13 22:26:00.931 | INFO     | visao:170 — 👁️  [Visão] A captura de tela mostra um ambiente de desenvolvimento integrado (IDE) onde o usuário está programando em Python. Ele e...
+2026-04-13 22:26:16.198 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-13 22:26:16.198 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-13 22:26:16.198 | DEBUG    | MicListener:64 — 🎤 Mic [2] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:26:16.198 | DEBUG    | MicListener:64 — 🎤 Mic [5] Primary Sound Capture Driver
+2026-04-13 22:26:16.198 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-13 22:26:16.198 | DEBUG    | MicListener:64 — 🎤 Mic [7] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:26:16.198 | DEBUG    | MicListener:64 — 🎤 Mic [11] Elgato 4K X (Elgato 4K X)
+2026-04-13 22:26:16.198 | DEBUG    | MicListener:64 — 🎤 Mic [12] Microphone (SHEM-BOY)
+2026-04-13 22:26:16.198 | DEBUG    | MicListener:64 — 🎤 Mic [13] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-13 22:26:16.199 | DEBUG    | MicListener:114 — 🎤 Tentando mic [1] Microphone (SHEM-BOY) | 1ch | 44100Hz
+2026-04-13 22:26:16.207 | DEBUG    | MicListener:126 — 🎤 Mic aberto com sucesso: 1ch
+2026-04-13 22:26:16.207 | INFO     | MicListener:139 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-13 22:26:18.231 | INFO     | MicListener:154 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-13 22:26:18.231 | INFO     | MicListener:160 — 🎤 Aguardando sua voz...

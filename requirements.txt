@@ -1,0 +1,48 @@
+# --- Cérebro (LLM Local) ---
+ollama             # Integração oficial com o Ollama (Llama 3, Qwen)
+
+# --- Ouvido (Speech-to-Text) ---
+faster-whisper     # Transcrição de áudio ultra-rápida via GPU/CPU
+pyaudiowpatch      # Captura de áudio do microfone + WASAPI Loopback (Windows)
+
+# --- Voz (Text-to-Speech) ---
+# edge-tts removido — substituído pelo OmniVoice (TTS local offline)
+omnivoice                          # TTS local multilíngue zero-shot (k2-fsa/OmniVoice)
+# Instalar PyTorch com CUDA 12.x separadamente (não incluído no pip install -r):
+#   pip install torch==2.8.0+cu128 torchaudio==2.8.0+cu128 --index-url https://download.pytorch.org/whl/cu128
+torch>=2.0.0                       # PyTorch (CUDA 12.x — instalar pelo comando acima)
+torchaudio>=2.0.0                  # Processamento de áudio para PyTorch
+soundfile                          # Salvar áudio WAV gerado pelo OmniVoice
+pygame                             # Reprodução do áudio gerado
+
+# --- Corpo e Animação ---
+pyvts              # API para controlar o VTube Studio (Live2D)
+python-osc         # Protocolo VMC para modelos 3D (VSeeFace/VNyan)
+
+# --- Utilidades e Performance ---
+asyncio            # Gestão de tarefas assíncronas (essencial para não travar a IA)
+python-dotenv      # Para guardar chaves ou configurações em ficheiro .env
+numpy<2.0.0        # Garantir compatibilidade com bibliotecas de áudio/IA
+audioop-lts; python_version >= '3.13' # Suporte contínuo ao módulo audioop para versões futuras
+
+# --- Bibliotecas Nativas de Aceleração (Windows AI) ---
+nvidia-cublas-cu12 # Injeta suporte à Álgebra Linear em Placas de Vídeo no Windows
+nvidia-cudnn-cu12  # Redes Neurais Profundas (Para o Whisper não ter que depender do processador)
+
+# --- Ferramentas de Desenvolvimento ---
+ruff               # Linter e formatador de código Python ultra-rápido
+
+# --- Logs e Monitoramento ---
+loguru             # Logging estruturado com rotação de arquivo e cores no terminal
+clickhouse-connect # Cliente oficial HTTP para ClickHouse (memória de interações)
+
+# --- Visão Computacional ---
+mss                # Captura de screenshots multi-monitor
+Pillow             # Processamento e redimensionamento de imagens (screenshots)
+
+# --- Busca na Internet ---
+ddgs               # Pesquisa real via DuckDuckGo (sem chave de API)
+wikipedia-api      # Acesso a Wikipedia em portugues (fallback de busca)
+
+# --- Música e Multimídia ---
+yt-dlp             # Baixa metadados e streams de áudio do YouTube para exibição no mpv

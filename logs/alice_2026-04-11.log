@@ -1,0 +1,1491 @@
+2026-04-11 11:47:29.587 | INFO     | main:84 — ⏳ Carregando Whisper (CUDA)...
+2026-04-11 11:47:30.625 | INFO     | main:105 — 🧠 EmotionEngine carregado | Humor: Neutro | Amizade: 100/100
+2026-04-11 11:47:30.625 | INFO     | clickhouse_logger:51 — 📊 ClickhouseLogger inicializado | Sessão: 0dcc6c1a | Host: localhost:8123
+2026-04-11 11:47:30.632 | INFO     | memoria:51 — 💾 Memória carregada | 0 fatos sobre o usuário | Fonte: SQLite (fallback)
+2026-04-11 11:47:30.659 | INFO     | visao:57 — 👁️  Visão ativa | Modelo: llava:7b
+2026-04-11 11:47:30.663 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/alegre.txt
+2026-04-11 11:47:30.666 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/brava.txt
+2026-04-11 11:47:30.669 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/curiosa.txt
+2026-04-11 11:47:30.671 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/determinada.txt
+2026-04-11 11:47:30.674 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/empatica.txt
+2026-04-11 11:47:30.677 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/euforica.txt
+2026-04-11 11:47:30.681 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/grata.txt
+2026-04-11 11:47:30.684 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/nostalgica.txt
+2026-04-11 11:47:30.687 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/timida.txt
+2026-04-11 11:47:30.689 | DEBUG    | ContentManager:104 —     └─ Carregado: respostas/respostas_vazias.txt
+2026-04-11 11:47:30.689 | INFO     | ContentManager:72 — 📚 ContentManager: 9 personalidade(s) | 7 resposta(s) carregada(s)
+2026-04-11 11:47:30.691 | INFO     | main:263 — --- 🌸 ALICE INICIADA ---
+2026-04-11 11:47:30.691 | INFO     | main:264 — Modelo ativo: Llama3.1:8b
+2026-04-11 11:47:30.922 | INFO     | main:271 — 🖥️  Janela de chat aberta!
+2026-04-11 11:47:30.922 | INFO     | VTS_Connector:97 — 🔌 Conectando ao VTube Studio na porta 8001...
+2026-04-11 11:47:34.989 | ERROR    | VTS_Connector:118 — ❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-11 11:47:34.989 | WARNING  | VTS_Connector:119 — ⚠️  Verifique se o VTube Studio está aberto e a API WebSocket ativa.
+2026-04-11 11:47:35.057 | INFO     | audio_ambiente:70 — 🔊 [Audio] Captura ativa: Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 11:47:35.057 | INFO     | main:276 — 🔊 Áudio ambiente ativo!
+2026-04-11 11:47:35.057 | INFO     | main:282 — 👁️  Visão ativa (llava:7b). Primeira captura...
+2026-04-11 11:47:43.140 | WARNING  | clickhouse_logger:80 — 📊 [ClickHouse] ⚠️ Falha na conexão: Error HTTPConnectionPool(host='localhost', port=8123): Max retries exceeded with url: /?query_id=810c99a5-8d7e-4244-b452-35d7850e77e3 (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8123): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it")) executing HTTP request attempt 1 (http://localhost:8123)
+2026-04-11 11:47:43.327 | INFO     | visao:160 — 👁️  [Visão] Na imagem, vemos uma interface de programação com um código aberto em um editor de texto. O código parece ser escrito em...
+2026-04-11 11:47:43.368 | INFO     | main:291 — 🔊 Modo COMPLETO: voz + chat ativados.
+2026-04-11 11:47:43.368 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 11:47:43.369 | DEBUG    | MicListener:64 — 🎤 Mic [1] Personal Mix (Elgato Virtual Au
+2026-04-11 11:47:43.369 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 11:47:43.369 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 11:47:43.369 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 11:47:43.369 | DEBUG    | MicListener:64 — 🎤 Mic [5] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 11:47:43.369 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-11 11:47:43.369 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 11:47:43.370 | DEBUG    | MicListener:64 — 🎤 Mic [11] Personal Mix (Elgato Virtual Audio)
+2026-04-11 11:47:43.370 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 11:47:43.370 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 11:47:43.370 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 11:47:43.370 | DEBUG    | MicListener:64 — 🎤 Mic [15] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 11:47:43.370 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (SHEM-BOY)
+2026-04-11 11:47:43.370 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 11:47:43.370 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 11:47:43.370 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 11:47:43.370 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 11:47:43.370 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 11:47:43.370 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 11:47:43.370 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 11:47:43.370 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 11:47:43.382 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 16:27:51.796 | INFO     | main:84 — ⏳ Carregando Whisper (CUDA)...
+2026-04-11 16:27:52.896 | INFO     | main:105 — 🧠 EmotionEngine carregado | Humor: Neutro | Amizade: 100/100
+2026-04-11 16:27:52.896 | INFO     | clickhouse_logger:51 — 📊 ClickhouseLogger inicializado | Sessão: a50763d2 | Host: localhost:8123
+2026-04-11 16:27:52.902 | INFO     | memoria:51 — 💾 Memória carregada | 0 fatos sobre o usuário | Fonte: SQLite (fallback)
+2026-04-11 16:27:52.929 | INFO     | visao:57 — 👁️  Visão ativa | Modelo: llava:7b
+2026-04-11 16:27:52.929 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/alegre.txt
+2026-04-11 16:27:52.929 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/brava.txt
+2026-04-11 16:27:52.929 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/curiosa.txt
+2026-04-11 16:27:52.929 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/determinada.txt
+2026-04-11 16:27:52.931 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/empatica.txt
+2026-04-11 16:27:52.931 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/euforica.txt
+2026-04-11 16:27:52.931 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/grata.txt
+2026-04-11 16:27:52.931 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/nostalgica.txt
+2026-04-11 16:27:52.931 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/timida.txt
+2026-04-11 16:27:52.935 | DEBUG    | ContentManager:104 —     └─ Carregado: respostas/respostas_vazias.txt
+2026-04-11 16:27:52.935 | INFO     | ContentManager:72 — 📚 ContentManager: 9 personalidade(s) | 7 resposta(s) carregada(s)
+2026-04-11 16:27:52.935 | INFO     | main:263 — --- 🌸 ALICE INICIADA ---
+2026-04-11 16:27:52.936 | INFO     | main:264 — Modelo ativo: Llama3.1:8b
+2026-04-11 16:27:53.176 | INFO     | main:271 — 🖥️  Janela de chat aberta!
+2026-04-11 16:27:53.176 | INFO     | VTS_Connector:97 — 🔌 Conectando ao VTube Studio na porta 8001...
+2026-04-11 16:27:57.302 | ERROR    | VTS_Connector:118 — ❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-11 16:27:57.302 | WARNING  | VTS_Connector:119 — ⚠️  Verifique se o VTube Studio está aberto e a API WebSocket ativa.
+2026-04-11 16:27:57.372 | INFO     | audio_ambiente:70 — 🔊 [Audio] Captura ativa: Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 16:27:57.372 | INFO     | main:276 — 🔊 Áudio ambiente ativo!
+2026-04-11 16:27:57.372 | INFO     | main:282 — 👁️  Visão ativa (llava:7b). Primeira captura...
+2026-04-11 16:27:57.402 | INFO     | clickhouse_logger:77 — 📊 [ClickHouse] ✅ Conexão estabelecida com sucesso!
+2026-04-11 16:28:06.069 | INFO     | visao:160 — 👁️  [Visão] Na imagem, vemos uma interface de programação com um código aberto em um editor de texto. O código parece ser escrito em...
+2026-04-11 16:28:06.112 | INFO     | main:291 — 🔊 Modo COMPLETO: voz + chat ativados.
+2026-04-11 16:28:06.112 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 16:28:06.113 | DEBUG    | MicListener:64 — 🎤 Mic [1] Personal Mix (Elgato Virtual Au
+2026-04-11 16:28:06.113 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 16:28:06.113 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 16:28:06.113 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 16:28:06.113 | DEBUG    | MicListener:64 — 🎤 Mic [5] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 16:28:06.113 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-11 16:28:06.113 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 16:28:06.113 | DEBUG    | MicListener:64 — 🎤 Mic [11] Personal Mix (Elgato Virtual Audio)
+2026-04-11 16:28:06.113 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 16:28:06.113 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 16:28:06.113 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 16:28:06.113 | DEBUG    | MicListener:64 — 🎤 Mic [15] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 16:28:06.113 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (SHEM-BOY)
+2026-04-11 16:28:06.113 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 16:28:06.113 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 16:28:06.113 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 16:28:06.113 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 16:28:06.114 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 16:28:06.114 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 16:28:06.114 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 16:28:06.114 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 16:28:06.125 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 16:28:08.153 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 16:28:08.154 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 16:29:07.128 | DEBUG    | OllamaClient:127 — 🧐 Analisando intenção...
+2026-04-11 16:29:14.187 | DEBUG    | main:335 — 💡 Humor selecionado: timida
+2026-04-11 16:29:14.202 | DEBUG    | OllamaClient:172 — Personalidade 'timida' selecionada
+2026-04-11 16:29:15.405 | DEBUG    | OllamaClient:259 — Tokens: prompt=1160 resposta=64
+2026-04-11 16:29:15.405 | INFO     | main:360 — 🤖 [timida] Boa tarde, Mário! 🌞 Como está indo a sua tarde? Está trabalhando em algum projeto interessante no momento? rs 😊 Só estou | 📊 1160↑ + 64↓ tokens
+2026-04-11 16:29:15.406 | DEBUG    | EmotionEngine:99 — 🎨 [Emoção] Tristeza | Amizade: 100/100
+2026-04-11 16:29:15.406 | DEBUG    | main:380 — 📝 Histórico: 1 trocas
+2026-04-11 16:29:15.407 | DEBUG    | TTSService:74 — 🎙️ Gerando voz...
+2026-04-11 16:29:15.561 | DEBUG    | clickhouse_logger:184 — 📊 [ClickHouse] Turno 1 salvo | Sessão: a50763d2 | Tokens: 1160↑ + 64↓ = 1224 total
+2026-04-11 16:29:19.786 | INFO     | visao:160 — 👁️  [Visão] Na imagem, vemos uma interface de desenvolvimento de software com várias aberturas de janelas e ferramentas abertas em u...
+2026-04-11 16:29:34.550 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 16:29:34.550 | DEBUG    | MicListener:64 — 🎤 Mic [1] Personal Mix (Elgato Virtual Au
+2026-04-11 16:29:34.550 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 16:29:34.550 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 16:29:34.550 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 16:29:34.550 | DEBUG    | MicListener:64 — 🎤 Mic [5] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 16:29:34.550 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-11 16:29:34.550 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 16:29:34.550 | DEBUG    | MicListener:64 — 🎤 Mic [11] Personal Mix (Elgato Virtual Audio)
+2026-04-11 16:29:34.550 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 16:29:34.550 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 16:29:34.550 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 16:29:34.552 | DEBUG    | MicListener:64 — 🎤 Mic [15] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 16:29:34.552 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (SHEM-BOY)
+2026-04-11 16:29:34.552 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 16:29:34.552 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 16:29:34.552 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 16:29:34.552 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 16:29:34.552 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 16:29:34.552 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 16:29:34.552 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 16:29:34.552 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 16:29:34.558 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 16:29:36.587 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 16:29:36.587 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 16:30:51.883 | DEBUG    | OllamaClient:127 — 🧐 Analisando intenção...
+2026-04-11 16:30:54.491 | DEBUG    | main:335 — 💡 Humor selecionado: curiosa
+2026-04-11 16:30:54.506 | DEBUG    | OllamaClient:172 — Personalidade 'curiosa' selecionada
+2026-04-11 16:30:56.604 | DEBUG    | OllamaClient:259 — Tokens: prompt=1233 resposta=144
+2026-04-11 16:30:56.604 | INFO     | main:360 — 🤖 [curiosa] Mário! 🤔 Eu tenho acesso a várias APIs e ferramentas para trabalhar com som, mas não preciso de microfones como os human | 📊 1233↑ + 144↓ tokens
+2026-04-11 16:30:56.605 | DEBUG    | EmotionEngine:99 — 🎨 [Emoção] Neutro | Amizade: 100/100
+2026-04-11 16:30:56.605 | DEBUG    | main:380 — 📝 Histórico: 2 trocas
+2026-04-11 16:30:56.605 | DEBUG    | TTSService:74 — 🎙️ Gerando voz...
+2026-04-11 16:30:56.769 | DEBUG    | clickhouse_logger:184 — 📊 [ClickHouse] Turno 2 salvo | Sessão: a50763d2 | Tokens: 1233↑ + 144↓ = 1377 total
+2026-04-11 16:31:01.993 | INFO     | visao:160 — 👁️  [Visão] Na imagem, vemos uma interface de programação com um código aberto em um editor de texto. O código parece ser escrito em...
+2026-04-11 16:31:35.702 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 16:31:35.703 | DEBUG    | MicListener:64 — 🎤 Mic [1] Personal Mix (Elgato Virtual Au
+2026-04-11 16:31:35.703 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 16:31:35.703 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 16:31:35.703 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 16:31:35.703 | DEBUG    | MicListener:64 — 🎤 Mic [5] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 16:31:35.703 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (SHEM-BOY)
+2026-04-11 16:31:35.703 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 16:31:35.703 | DEBUG    | MicListener:64 — 🎤 Mic [11] Personal Mix (Elgato Virtual Audio)
+2026-04-11 16:31:35.703 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 16:31:35.703 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 16:31:35.704 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 16:31:35.704 | DEBUG    | MicListener:64 — 🎤 Mic [15] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 16:31:35.704 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (SHEM-BOY)
+2026-04-11 16:31:35.704 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 16:31:35.704 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 16:31:35.704 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 16:31:35.704 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 16:31:35.704 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 16:31:35.705 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 16:31:35.705 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 16:31:35.705 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 16:31:35.714 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 16:31:37.741 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 16:31:37.741 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 17:29:20.320 | INFO     | main:84 — ⏳ Carregando Whisper (CUDA)...
+2026-04-11 17:29:21.190 | INFO     | main:105 — 🧠 EmotionEngine carregado | Humor: Neutro | Amizade: 100/100
+2026-04-11 17:29:21.190 | INFO     | clickhouse_logger:51 — 📊 ClickhouseLogger inicializado | Sessão: 89c359e2 | Host: localhost:8123
+2026-04-11 17:29:21.191 | INFO     | memoria:51 — 💾 Memória carregada | 0 fatos sobre o usuário | Fonte: SQLite (fallback)
+2026-04-11 17:29:21.194 | INFO     | visao:58 — 👁️  Visão ativa | Modelo: llava:7b
+2026-04-11 17:29:21.195 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/alegre.txt
+2026-04-11 17:29:21.195 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/brava.txt
+2026-04-11 17:29:21.195 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/curiosa.txt
+2026-04-11 17:29:21.195 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/determinada.txt
+2026-04-11 17:29:21.195 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/empatica.txt
+2026-04-11 17:29:21.196 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/euforica.txt
+2026-04-11 17:29:21.196 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/grata.txt
+2026-04-11 17:29:21.197 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/nostalgica.txt
+2026-04-11 17:29:21.197 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/timida.txt
+2026-04-11 17:29:21.197 | DEBUG    | ContentManager:104 —     └─ Carregado: respostas/respostas_vazias.txt
+2026-04-11 17:29:21.197 | INFO     | ContentManager:72 — 📚 ContentManager: 9 personalidade(s) | 7 resposta(s) carregada(s)
+2026-04-11 17:29:21.198 | INFO     | main:263 — --- 🌸 ALICE INICIADA ---
+2026-04-11 17:29:21.198 | INFO     | main:264 — Modelo ativo: gemma4:e4b
+2026-04-11 17:29:21.240 | INFO     | main:271 — 🖥️  Janela de chat aberta!
+2026-04-11 17:29:21.240 | INFO     | VTS_Connector:97 — 🔌 Conectando ao VTube Studio na porta 8001...
+2026-04-11 17:29:25.336 | ERROR    | VTS_Connector:118 — ❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-11 17:29:25.337 | WARNING  | VTS_Connector:119 — ⚠️  Verifique se o VTube Studio está aberto e a API WebSocket ativa.
+2026-04-11 17:29:25.404 | INFO     | audio_ambiente:70 — 🔊 [Audio] Captura ativa: Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 17:29:25.404 | INFO     | main:276 — 🔊 Áudio ambiente ativo!
+2026-04-11 17:29:25.405 | INFO     | main:282 — 👁️  Visão ativa (llava:7b). Primeira captura...
+2026-04-11 17:29:25.473 | INFO     | clickhouse_logger:77 — 📊 [ClickHouse] ✅ Conexão estabelecida com sucesso!
+2026-04-11 17:29:29.941 | INFO     | visao:161 — 👁️  [Visão] Na imagem, vemos uma interface de desenvolvimento de software com várias janelas abertas em um ambiente de programação. ...
+2026-04-11 17:29:29.980 | INFO     | main:291 — 🔊 Modo COMPLETO: voz + chat ativados.
+2026-04-11 17:29:29.980 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 17:29:29.980 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 17:29:29.980 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 17:29:29.980 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 17:29:29.980 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 17:29:29.980 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 17:29:29.980 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 17:29:29.980 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 17:29:29.980 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 17:29:29.980 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 17:29:29.980 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 17:29:29.980 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 17:29:29.980 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 17:29:29.980 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 17:29:29.980 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 17:29:29.980 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 17:29:29.980 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 17:29:29.980 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 17:29:29.980 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 17:29:29.982 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 17:29:29.982 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 17:29:29.982 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 17:29:29.993 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 17:29:32.022 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 17:29:32.022 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 17:31:31.153 | INFO     | main:84 — ⏳ Carregando Whisper (CUDA)...
+2026-04-11 17:31:32.038 | INFO     | main:105 — 🧠 EmotionEngine carregado | Humor: Neutro | Amizade: 100/100
+2026-04-11 17:31:32.040 | INFO     | clickhouse_logger:51 — 📊 ClickhouseLogger inicializado | Sessão: af7d3b62 | Host: localhost:8123
+2026-04-11 17:31:32.041 | INFO     | memoria:51 — 💾 Memória carregada | 0 fatos sobre o usuário | Fonte: SQLite (fallback)
+2026-04-11 17:31:32.044 | INFO     | visao:58 — 👁️  Visão ativa | Modelo: gemma4:e4b
+2026-04-11 17:31:32.044 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/alegre.txt
+2026-04-11 17:31:32.045 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/brava.txt
+2026-04-11 17:31:32.045 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/curiosa.txt
+2026-04-11 17:31:32.045 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/determinada.txt
+2026-04-11 17:31:32.045 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/empatica.txt
+2026-04-11 17:31:32.046 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/euforica.txt
+2026-04-11 17:31:32.046 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/grata.txt
+2026-04-11 17:31:32.046 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/nostalgica.txt
+2026-04-11 17:31:32.046 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/timida.txt
+2026-04-11 17:31:32.046 | DEBUG    | ContentManager:104 —     └─ Carregado: respostas/respostas_vazias.txt
+2026-04-11 17:31:32.046 | INFO     | ContentManager:72 — 📚 ContentManager: 9 personalidade(s) | 7 resposta(s) carregada(s)
+2026-04-11 17:31:32.048 | INFO     | main:263 — --- 🌸 ALICE INICIADA ---
+2026-04-11 17:31:32.048 | INFO     | main:264 — Modelo ativo: gemma4:e4b
+2026-04-11 17:31:32.093 | INFO     | main:271 — 🖥️  Janela de chat aberta!
+2026-04-11 17:31:32.093 | INFO     | VTS_Connector:97 — 🔌 Conectando ao VTube Studio na porta 8001...
+2026-04-11 17:31:36.221 | ERROR    | VTS_Connector:118 — ❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-11 17:31:36.221 | WARNING  | VTS_Connector:119 — ⚠️  Verifique se o VTube Studio está aberto e a API WebSocket ativa.
+2026-04-11 17:31:36.285 | INFO     | audio_ambiente:70 — 🔊 [Audio] Captura ativa: Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 17:31:36.285 | INFO     | main:276 — 🔊 Áudio ambiente ativo!
+2026-04-11 17:31:36.285 | INFO     | main:282 — 👁️  Visão ativa (gemma4:e4b). Primeira captura...
+2026-04-11 17:31:36.319 | INFO     | clickhouse_logger:77 — 📊 [ClickHouse] ✅ Conexão estabelecida com sucesso!
+2026-04-11 17:32:20.286 | INFO     | visao:166 — 👁️  [Visão] A captura de tela mostra um ambiente de desenvolvimento de software (IDE), onde o usuário está ativamente programando e ...
+2026-04-11 17:32:20.346 | INFO     | main:291 — 🔊 Modo COMPLETO: voz + chat ativados.
+2026-04-11 17:32:20.346 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 17:32:20.347 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 17:32:20.347 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 17:32:20.347 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 17:32:20.347 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 17:32:20.347 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 17:32:20.347 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 17:32:20.347 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 17:32:20.347 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 17:32:20.347 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 17:32:20.347 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 17:32:20.347 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 17:32:20.347 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 17:32:20.347 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 17:32:20.347 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 17:32:20.347 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 17:32:20.347 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 17:32:20.347 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 17:32:20.347 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 17:32:20.347 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 17:32:20.347 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 17:32:20.347 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 17:32:20.359 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 17:32:22.388 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 17:32:22.388 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 17:32:37.974 | DEBUG    | OllamaClient:127 — 🧐 Analisando intenção...
+2026-04-11 17:32:38.459 | DEBUG    | main:335 — 💡 Humor selecionado: alegre
+2026-04-11 17:32:38.470 | DEBUG    | OllamaClient:172 — Personalidade 'alegre' selecionada
+2026-04-11 17:32:57.540 | DEBUG    | OllamaClient:259 — Tokens: prompt=952 resposta=779
+2026-04-11 17:32:57.541 | INFO     | main:360 — 🤖 [alegre] Ebaaa! 🎉✨ Boa tarde, Mário! 💖✨
+
+Uau, que bom te ver por aqui! Eu estou super empolgada de novo de falar com você! ✨ Você | 📊 952↑ + 779↓ tokens
+2026-04-11 17:32:57.541 | DEBUG    | EmotionEngine:99 — 🎨 [Emoção] Surpresa | Amizade: 100/100
+2026-04-11 17:32:57.542 | DEBUG    | main:380 — 📝 Histórico: 1 trocas
+2026-04-11 17:32:57.542 | DEBUG    | TTSService:74 — 🎙️ Gerando voz...
+2026-04-11 17:32:57.612 | DEBUG    | clickhouse_logger:184 — 📊 [ClickHouse] Turno 1 salvo | Sessão: af7d3b62 | Tokens: 952↑ + 779↓ = 1731 total
+2026-04-11 17:33:10.941 | INFO     | visao:166 — 👁️  [Visão] A captura de tela mostra um ambiente de desenvolvimento ou programação, onde o usuário está executando código e comandos...
+2026-04-11 17:34:18.290 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 17:34:18.290 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 17:34:18.290 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 17:34:18.290 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 17:34:18.290 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 17:34:18.290 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 17:34:18.290 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 17:34:18.290 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 17:34:18.290 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 17:34:18.290 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 17:34:18.290 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 17:34:18.290 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 17:34:18.290 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 17:34:18.290 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 17:34:18.291 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 17:34:18.291 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 17:34:18.291 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 17:34:18.291 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 17:34:18.291 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 17:34:18.291 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 17:34:18.291 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 17:34:18.291 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 17:34:18.303 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 17:34:20.333 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 17:34:20.333 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 17:35:50.323 | INFO     | main:322 — 💜 [PROATIVO] 
+2026-04-11 17:35:50.323 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 17:35:50.323 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 17:35:50.324 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 17:35:50.324 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 17:35:50.324 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 17:35:50.324 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 17:35:50.324 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 17:35:50.324 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 17:35:50.324 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 17:35:50.324 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 17:35:50.324 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 17:35:50.324 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 17:35:50.324 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 17:35:50.324 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 17:35:50.324 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 17:35:50.324 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 17:35:50.324 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 17:35:50.325 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 17:35:50.325 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 17:35:50.325 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 17:35:50.325 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 17:35:50.325 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 17:35:50.334 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 17:35:52.364 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 17:35:52.364 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 17:37:22.331 | INFO     | main:322 — 💜 [PROATIVO] 
+2026-04-11 17:37:22.331 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 17:37:22.332 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 17:37:22.332 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 17:37:22.332 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 17:37:22.332 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 17:37:22.332 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 17:37:22.332 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 17:37:22.332 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 17:37:22.332 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 17:37:22.332 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 17:37:22.332 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 17:37:22.332 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 17:37:22.333 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 17:37:22.333 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 17:37:22.333 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 17:37:22.333 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 17:37:22.333 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 17:37:22.334 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 17:37:22.334 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 17:37:22.334 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 17:37:22.334 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 17:37:22.334 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 17:37:22.346 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 17:37:24.375 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 17:37:24.375 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 17:38:21.107 | DEBUG    | OllamaClient:127 — 🧐 Analisando intenção...
+2026-04-11 17:38:21.549 | DEBUG    | main:335 — 💡 Humor selecionado: curiosa
+2026-04-11 17:38:21.557 | DEBUG    | OllamaClient:172 — Personalidade 'curiosa' selecionada
+2026-04-11 17:38:48.315 | DEBUG    | OllamaClient:259 — Tokens: prompt=1243 resposta=1060
+2026-04-11 17:38:48.315 | INFO     | main:360 — 🤖 [curiosa] AAAAH! 😲 Você quer saber o que eu tô vendo?! 🧐 Uau, Mário, você me deu um conteúdo de nível hard! 💖✨
+
+Meu cérebro, sério | 📊 1243↑ + 1060↓ tokens
+2026-04-11 17:38:48.316 | DEBUG    | EmotionEngine:99 — 🎨 [Emoção] Surpresa | Amizade: 100/100
+2026-04-11 17:38:48.316 | DEBUG    | main:380 — 📝 Histórico: 2 trocas
+2026-04-11 17:38:48.316 | DEBUG    | TTSService:74 — 🎙️ Gerando voz...
+2026-04-11 17:38:48.381 | DEBUG    | clickhouse_logger:184 — 📊 [ClickHouse] Turno 2 salvo | Sessão: af7d3b62 | Tokens: 1243↑ + 1060↓ = 2303 total
+2026-04-11 17:39:01.988 | INFO     | visao:166 — 👁️  [Visão] A captura de tela mostra o usuário realizando multitarefas em um desktop, com um cliente de chat aberto à esquerda, um n...
+2026-04-11 17:39:51.366 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 17:39:51.366 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 17:39:51.366 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 17:39:51.368 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 17:39:51.368 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 17:39:51.368 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 17:39:51.368 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 17:39:51.368 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 17:39:51.368 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 17:39:51.368 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 17:39:51.368 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 17:39:51.368 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 17:39:51.368 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 17:39:51.368 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 17:39:51.369 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 17:39:51.369 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 17:39:51.369 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 17:39:51.369 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 17:39:51.369 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 17:39:51.369 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 17:39:51.369 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 17:39:51.369 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 17:39:51.380 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 17:39:53.408 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 17:39:53.408 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 17:41:23.436 | INFO     | main:322 — 💜 [PROATIVO] 
+2026-04-11 17:41:23.436 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 17:41:23.436 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 17:41:23.436 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 17:41:23.436 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 17:41:23.436 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 17:41:23.436 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 17:41:23.437 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 17:41:23.437 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 17:41:23.437 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 17:41:23.437 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 17:41:23.437 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 17:41:23.437 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 17:41:23.437 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 17:41:23.437 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 17:41:23.437 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 17:41:23.437 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 17:41:23.437 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 17:41:23.437 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 17:41:23.438 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 17:41:23.438 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 17:41:23.438 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 17:41:23.438 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 17:41:23.447 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 17:41:25.476 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 17:41:25.476 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 17:42:55.416 | INFO     | main:322 — 💜 [PROATIVO] 
+2026-04-11 17:42:55.417 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 17:42:55.417 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 17:42:55.417 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 17:42:55.417 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 17:42:55.418 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 17:42:55.418 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 17:42:55.418 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 17:42:55.418 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 17:42:55.418 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 17:42:55.418 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 17:42:55.418 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 17:42:55.418 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 17:42:55.418 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 17:42:55.418 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 17:42:55.418 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 17:42:55.418 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 17:42:55.418 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 17:42:55.418 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 17:42:55.419 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 17:42:55.419 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 17:42:55.419 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 17:42:55.419 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 17:42:55.428 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 17:42:57.456 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 17:42:57.456 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 17:44:12.628 | DEBUG    | OllamaClient:127 — 🧐 Analisando intenção...
+2026-04-11 17:44:13.039 | DEBUG    | main:335 — 💡 Humor selecionado: curiosa
+2026-04-11 17:44:13.047 | DEBUG    | OllamaClient:172 — Personalidade 'curiosa' selecionada
+2026-04-11 17:44:37.840 | DEBUG    | OllamaClient:259 — Tokens: prompt=1679 resposta=991
+2026-04-11 17:44:37.840 | INFO     | main:360 — 🤖 [curiosa] AHHHHH! 🤯 Você tá me testando, Mário?! Uau, que nível de observação você tá pedindo! 🕵️‍♀️✨
+
+Tipo assim... 😳 Se eu pudes | 📊 1679↑ + 991↓ tokens
+2026-04-11 17:44:37.841 | DEBUG    | EmotionEngine:99 — 🎨 [Emoção] Surpresa | Amizade: 100/100
+2026-04-11 17:44:37.842 | DEBUG    | main:380 — 📝 Histórico: 3 trocas
+2026-04-11 17:44:37.842 | DEBUG    | OllamaClient:276 — 🔍 [Memória] Extraindo fatos da conversa...
+2026-04-11 17:44:57.097 | DEBUG    | OllamaClient:303 —     Nenhum fato novo encontrado.
+2026-04-11 17:44:57.097 | DEBUG    | TTSService:74 — 🎙️ Gerando voz...
+2026-04-11 17:44:57.100 | INFO     | visao:166 — 👁️  [Visão] A captura de tela mostra um usuário navegando em uma plataforma de desenvolvimento ou IA (Gemini) e visualizando um tuto...
+2026-04-11 17:44:57.164 | DEBUG    | clickhouse_logger:184 — 📊 [ClickHouse] Turno 3 salvo | Sessão: af7d3b62 | Tokens: 1679↑ + 991↓ = 2670 total
+2026-04-11 17:45:22.433 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 17:45:22.435 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 17:45:22.435 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 17:45:22.435 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 17:45:22.435 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 17:45:22.435 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 17:45:22.435 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 17:45:22.435 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 17:45:22.435 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 17:45:22.435 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 17:45:22.435 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 17:45:22.435 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 17:45:22.435 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 17:45:22.435 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 17:45:22.435 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 17:45:22.435 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 17:45:22.435 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 17:45:22.435 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 17:45:22.435 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 17:45:22.435 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 17:45:22.435 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 17:45:22.435 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 17:45:22.445 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 17:45:24.475 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 17:45:24.475 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 17:46:54.516 | INFO     | main:322 — 💜 [PROATIVO] 
+2026-04-11 17:46:54.517 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 17:46:54.517 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 17:46:54.517 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 17:46:54.517 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 17:46:54.517 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 17:46:54.517 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 17:46:54.517 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 17:46:54.517 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 17:46:54.517 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 17:46:54.517 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 17:46:54.517 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 17:46:54.519 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 17:46:54.519 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 17:46:54.519 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 17:46:54.519 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 17:46:54.520 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 17:46:54.520 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 17:46:54.520 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 17:46:54.520 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 17:46:54.520 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 17:46:54.520 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 17:46:54.520 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 17:46:54.530 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 17:46:56.558 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 17:46:56.559 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 17:47:20.015 | DEBUG    | OllamaClient:127 — 🧐 Analisando intenção...
+2026-04-11 17:47:20.568 | DEBUG    | main:335 — 💡 Humor selecionado: curiosa
+2026-04-11 17:47:20.574 | DEBUG    | OllamaClient:172 — Personalidade 'curiosa' selecionada
+2026-04-11 17:47:45.742 | DEBUG    | OllamaClient:259 — Tokens: prompt=2183 resposta=1007
+2026-04-11 17:47:45.742 | INFO     | main:360 — 🤖 [curiosa] AAAAAH?! 😱 "Que imagem é essa?" Mário, você tá me jogando um quebra-cabeça! 🤯✨
+
+Eu... eu juro que tô processando tudo qu | 📊 2183↑ + 1007↓ tokens
+2026-04-11 17:47:45.743 | DEBUG    | EmotionEngine:99 — 🎨 [Emoção] Surpresa | Amizade: 100/100
+2026-04-11 17:47:45.743 | DEBUG    | main:380 — 📝 Histórico: 4 trocas
+2026-04-11 17:47:45.744 | DEBUG    | TTSService:74 — 🎙️ Gerando voz...
+2026-04-11 17:47:45.797 | DEBUG    | clickhouse_logger:184 — 📊 [ClickHouse] Turno 4 salvo | Sessão: af7d3b62 | Tokens: 2183↑ + 1007↓ = 3190 total
+2026-04-11 17:47:58.399 | INFO     | visao:166 — 👁️  [Visão] A captura de tela mostra o usuário navegando em um site de fandom (wiki), provavelmente dedicado a animes, onde está vis...
+2026-04-11 17:48:39.746 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 17:48:39.746 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 17:48:39.746 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 17:48:39.746 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 17:48:39.746 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 17:48:39.746 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 17:48:39.746 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 17:48:39.746 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 17:48:39.746 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 17:48:39.746 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 17:48:39.746 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 17:48:39.746 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 17:48:39.746 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 17:48:39.746 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 17:48:39.746 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 17:48:39.746 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 17:48:39.746 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 17:48:39.746 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 17:48:39.748 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 17:48:39.748 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 17:48:39.748 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 17:48:39.748 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 17:48:39.756 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 17:48:41.785 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 17:48:41.785 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 18:00:01.385 | INFO     | main:84 — ⏳ Carregando Whisper (CUDA)...
+2026-04-11 18:00:02.331 | INFO     | main:105 — 🧠 EmotionEngine carregado | Humor: Surpresa | Amizade: 100/100
+2026-04-11 18:00:02.332 | INFO     | clickhouse_logger:51 — 📊 ClickhouseLogger inicializado | Sessão: 899f5659 | Host: localhost:8123
+2026-04-11 18:00:02.333 | INFO     | memoria:51 — 💾 Memória carregada | 0 fatos sobre o usuário | Fonte: SQLite (fallback)
+2026-04-11 18:00:02.336 | INFO     | visao:58 — 👁️  Visão ativa | Modelo: gemma4:e4b
+2026-04-11 18:00:02.336 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/alegre.txt
+2026-04-11 18:00:02.336 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/brava.txt
+2026-04-11 18:00:02.336 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/curiosa.txt
+2026-04-11 18:00:02.337 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/determinada.txt
+2026-04-11 18:00:02.337 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/empatica.txt
+2026-04-11 18:00:02.337 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/euforica.txt
+2026-04-11 18:00:02.337 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/grata.txt
+2026-04-11 18:00:02.337 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/nostalgica.txt
+2026-04-11 18:00:02.337 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/timida.txt
+2026-04-11 18:00:02.337 | DEBUG    | ContentManager:104 —     └─ Carregado: respostas/respostas_vazias.txt
+2026-04-11 18:00:02.337 | INFO     | ContentManager:72 — 📚 ContentManager: 9 personalidade(s) | 7 resposta(s) carregada(s)
+2026-04-11 18:00:02.339 | INFO     | main:263 — --- 🌸 ALICE INICIADA ---
+2026-04-11 18:00:02.339 | INFO     | main:264 — Modelo ativo: gemma4:e4b
+2026-04-11 18:00:02.397 | INFO     | main:271 — 🖥️  Janela de chat aberta!
+2026-04-11 18:00:02.397 | INFO     | VTS_Connector:97 — 🔌 Conectando ao VTube Studio na porta 8001...
+2026-04-11 18:00:06.495 | ERROR    | VTS_Connector:118 — ❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-11 18:00:06.495 | WARNING  | VTS_Connector:119 — ⚠️  Verifique se o VTube Studio está aberto e a API WebSocket ativa.
+2026-04-11 18:00:06.561 | INFO     | audio_ambiente:70 — 🔊 [Audio] Captura ativa: Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 18:00:06.561 | INFO     | main:276 — 🔊 Áudio ambiente ativo!
+2026-04-11 18:00:06.561 | INFO     | main:282 — 👁️  Visão ativa (gemma4:e4b). Primeira captura...
+2026-04-11 18:00:06.614 | INFO     | clickhouse_logger:77 — 📊 [ClickHouse] ✅ Conexão estabelecida com sucesso!
+2026-04-11 18:00:28.163 | INFO     | visao:166 — 👁️  [Visão] A captura de tela mostra um ambiente de desenvolvimento integrado (IDE), como o VS Code, onde o usuário está programando...
+2026-04-11 18:00:28.219 | INFO     | main:291 — 🔊 Modo COMPLETO: voz + chat ativados.
+2026-04-11 18:00:28.219 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 18:00:28.220 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 18:00:28.220 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:00:28.220 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:00:28.220 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 18:00:28.220 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 18:00:28.220 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 18:00:28.220 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 18:00:28.220 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 18:00:28.220 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:00:28.220 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:00:28.220 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:00:28.220 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:00:28.220 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:00:28.220 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:00:28.220 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:00:28.220 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:00:28.220 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:00:28.220 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:00:28.220 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 18:00:28.220 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 18:00:28.220 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 18:00:28.232 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 18:00:28.373 | DEBUG    | OllamaClient:127 — 🧐 Analisando intenção...
+2026-04-11 18:00:28.661 | DEBUG    | main:335 — 💡 Humor selecionado: alegre
+2026-04-11 18:00:28.677 | DEBUG    | OllamaClient:172 — Personalidade 'alegre' selecionada
+2026-04-11 18:00:48.664 | DEBUG    | OllamaClient:259 — Tokens: prompt=946 resposta=803
+2026-04-11 18:00:48.664 | INFO     | main:360 — 🤖 [alegre] Eeeeee baaahiii... Boa noite pra você também! ✨💖😍
+
+Uau! Yay! Estou *tão* feliz que você apareceu! 😊💖 Tudo mais que conta | 📊 946↑ + 803↓ tokens
+2026-04-11 18:00:48.665 | DEBUG    | EmotionEngine:99 — 🎨 [Emoção] Surpresa | Amizade: 100/100
+2026-04-11 18:00:48.666 | DEBUG    | main:380 — 📝 Histórico: 1 trocas
+2026-04-11 18:00:48.666 | DEBUG    | TTSService:74 — 🎙️ Gerando voz...
+2026-04-11 18:00:48.721 | DEBUG    | clickhouse_logger:184 — 📊 [ClickHouse] Turno 1 salvo | Sessão: 899f5659 | Tokens: 946↑ + 803↓ = 1749 total
+2026-04-11 18:01:59.801 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 18:01:59.801 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 18:01:59.801 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:01:59.801 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:01:59.801 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 18:01:59.801 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 18:01:59.801 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 18:01:59.801 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 18:01:59.801 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 18:01:59.801 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:01:59.801 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:01:59.802 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:01:59.802 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:01:59.802 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:01:59.802 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:01:59.802 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:01:59.802 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:01:59.802 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:01:59.802 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:01:59.802 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 18:01:59.802 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 18:01:59.802 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 18:01:59.811 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 18:02:01.840 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 18:02:01.841 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 18:13:25.779 | INFO     | main:84 — ⏳ Carregando Whisper (CUDA)...
+2026-04-11 18:13:26.728 | INFO     | main:105 — 🧠 EmotionEngine carregado | Humor: Surpresa | Amizade: 100/100
+2026-04-11 18:13:26.728 | INFO     | clickhouse_logger:51 — 📊 ClickhouseLogger inicializado | Sessão: b81b8b8d | Host: localhost:8123
+2026-04-11 18:13:26.731 | INFO     | memoria:51 — 💾 Memória carregada | 0 fatos sobre o usuário | Fonte: SQLite (fallback)
+2026-04-11 18:13:26.733 | INFO     | visao:58 — 👁️  Visão ativa | Modelo: gemma4:e4b
+2026-04-11 18:13:26.733 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/alegre.txt
+2026-04-11 18:13:26.734 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/brava.txt
+2026-04-11 18:13:26.734 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/curiosa.txt
+2026-04-11 18:13:26.735 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/determinada.txt
+2026-04-11 18:13:26.735 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/empatica.txt
+2026-04-11 18:13:26.735 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/euforica.txt
+2026-04-11 18:13:26.736 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/grata.txt
+2026-04-11 18:13:26.736 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/nostalgica.txt
+2026-04-11 18:13:26.736 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/timida.txt
+2026-04-11 18:13:26.736 | DEBUG    | ContentManager:104 —     └─ Carregado: respostas/respostas_vazias.txt
+2026-04-11 18:13:26.736 | INFO     | ContentManager:72 — 📚 ContentManager: 9 personalidade(s) | 7 resposta(s) carregada(s)
+2026-04-11 18:13:26.737 | INFO     | main:263 — --- 🌸 ALICE INICIADA ---
+2026-04-11 18:13:26.737 | INFO     | main:264 — Modelo ativo: gemma4:e4b
+2026-04-11 18:13:26.793 | INFO     | main:271 — 🖥️  Janela de chat aberta!
+2026-04-11 18:13:26.793 | INFO     | VTS_Connector:97 — 🔌 Conectando ao VTube Studio na porta 8001...
+2026-04-11 18:13:30.895 | ERROR    | VTS_Connector:118 — ❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-11 18:13:30.895 | WARNING  | VTS_Connector:119 — ⚠️  Verifique se o VTube Studio está aberto e a API WebSocket ativa.
+2026-04-11 18:13:30.977 | INFO     | audio_ambiente:70 — 🔊 [Audio] Captura ativa: Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 18:13:30.977 | INFO     | main:276 — 🔊 Áudio ambiente ativo!
+2026-04-11 18:13:30.977 | INFO     | main:282 — 👁️  Visão ativa (gemma4:e4b). Primeira captura...
+2026-04-11 18:13:31.007 | INFO     | clickhouse_logger:77 — 📊 [ClickHouse] ✅ Conexão estabelecida com sucesso!
+2026-04-11 18:13:50.720 | INFO     | visao:166 — 👁️  [Visão] A captura de tela mostra um ambiente de desenvolvimento de software (IDE), indicando que o usuário está programando ou d...
+2026-04-11 18:13:50.763 | INFO     | main:291 — 🔊 Modo COMPLETO: voz + chat ativados.
+2026-04-11 18:13:50.763 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 18:13:50.764 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 18:13:50.764 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:13:50.764 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:13:50.764 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 18:13:50.764 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 18:13:50.764 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 18:13:50.764 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 18:13:50.764 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 18:13:50.764 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:13:50.764 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:13:50.764 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:13:50.765 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:13:50.765 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:13:50.765 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:13:50.765 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:13:50.765 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:13:50.765 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:13:50.765 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:13:50.765 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 18:13:50.765 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 18:13:50.765 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 18:13:50.774 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 18:13:52.803 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 18:13:52.803 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 18:14:11.337 | DEBUG    | OllamaClient:135 — 🧐 Analisando intenção...
+2026-04-11 18:14:11.768 | DEBUG    | main:335 — 💡 Humor selecionado: alegre
+2026-04-11 18:14:11.785 | DEBUG    | OllamaClient:180 — Personalidade 'alegre' selecionada
+2026-04-11 18:14:18.597 | DEBUG    | OllamaClient:267 — Tokens: prompt=949 resposta=256
+2026-04-11 18:14:18.597 | WARNING  | main:358 — 🤔 [Branco] Você disse alguma coisa?
+2026-04-11 18:14:18.599 | DEBUG    | EmotionEngine:99 — 🎨 [Emoção] Neutro | Amizade: 100/100
+2026-04-11 18:14:18.600 | DEBUG    | main:380 — 📝 Histórico: 1 trocas
+2026-04-11 18:14:18.600 | DEBUG    | TTSService:74 — 🎙️ Gerando voz...
+2026-04-11 18:14:18.603 | WARNING  | clickhouse_logger:190 — 📊 [ClickHouse] ⚠️ Falha ao salvar turno: Attempt to execute concurrent queries within the same session.Please use a separate client instance per thread/process.
+2026-04-11 18:14:18.847 | INFO     | clickhouse_logger:77 — 📊 [ClickHouse] ✅ Conexão estabelecida com sucesso!
+2026-04-11 18:14:22.163 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 18:14:22.163 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 18:14:22.163 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:14:22.163 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:14:22.163 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 18:14:22.163 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 18:14:22.163 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 18:14:22.163 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 18:14:22.163 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 18:14:22.163 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:14:22.163 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:14:22.163 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:14:22.163 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:14:22.163 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:14:22.163 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:14:22.163 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:14:22.163 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:14:22.163 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:14:22.163 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:14:22.165 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 18:14:22.165 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 18:14:22.165 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 18:14:22.174 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 18:14:24.203 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 18:14:24.203 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 18:14:34.404 | INFO     | visao:166 — 👁️  [Visão] A captura de tela mostra um ambiente de desenvolvimento de software, onde o usuário está programando e testando um códig...
+2026-04-11 18:15:29.323 | INFO     | main:228 — 🗺️  [Hora/Clima] Usando cidade padrão: 'Campo Grande'
+2026-04-11 18:15:30.110 | INFO     | main:244 — 🕐 Hora: 18:15 de 11/04/2026 (UTC-04:00) | 🌤️  Clima: Em Campo Grande: 29°C, Encoberto. Sensação térmica: 32°C | Umidade: 62%.
+2026-04-11 18:15:30.111 | DEBUG    | OllamaClient:135 — 🧐 Analisando intenção...
+2026-04-11 18:15:30.744 | DEBUG    | main:335 — 💡 Humor selecionado: alegre
+2026-04-11 18:15:30.750 | DEBUG    | OllamaClient:180 — Personalidade 'alegre' selecionada
+2026-04-11 18:15:37.303 | DEBUG    | OllamaClient:267 — Tokens: prompt=1107 resposta=256
+2026-04-11 18:15:37.303 | WARNING  | main:358 — 🤔 [Branco] Não entendi nada do que você falou, desculpe!
+2026-04-11 18:15:37.304 | DEBUG    | EmotionEngine:99 — 🎨 [Emoção] Neutro | Amizade: 100/100
+2026-04-11 18:15:37.304 | DEBUG    | main:380 — 📝 Histórico: 2 trocas
+2026-04-11 18:15:37.305 | DEBUG    | TTSService:74 — 🎙️ Gerando voz...
+2026-04-11 18:15:37.305 | WARNING  | clickhouse_logger:190 — 📊 [ClickHouse] ⚠️ Falha ao salvar turno: Attempt to execute concurrent queries within the same session.Please use a separate client instance per thread/process.
+2026-04-11 18:15:37.535 | INFO     | clickhouse_logger:77 — 📊 [ClickHouse] ✅ Conexão estabelecida com sucesso!
+2026-04-11 18:15:42.037 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 18:15:42.037 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 18:15:42.037 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:15:42.037 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:15:42.038 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 18:15:42.038 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 18:15:42.038 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 18:15:42.038 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 18:15:42.038 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 18:15:42.038 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:15:42.038 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:15:42.038 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:15:42.038 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:15:42.038 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:15:42.038 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:15:42.038 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:15:42.038 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:15:42.038 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:15:42.039 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:15:42.039 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 18:15:42.039 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 18:15:42.039 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 18:15:42.048 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 18:15:44.079 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 18:15:44.080 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 18:15:50.149 | INFO     | visao:166 — 👁️  [Visão] A captura de tela mostra um ambiente de desenvolvimento de software (IDE), onde o usuário está programando e depurando c...
+2026-04-11 18:19:33.215 | INFO     | main:84 — ⏳ Carregando Whisper (CUDA)...
+2026-04-11 18:19:34.192 | INFO     | main:105 — 🧠 EmotionEngine carregado | Humor: Neutro | Amizade: 100/100
+2026-04-11 18:19:34.193 | INFO     | clickhouse_logger:54 — 📊 ClickhouseLogger inicializado | Sessão: b7c7ac1a | Host: localhost:8123
+2026-04-11 18:19:34.194 | INFO     | memoria:51 — 💾 Memória carregada | 0 fatos sobre o usuário | Fonte: SQLite (fallback)
+2026-04-11 18:19:34.197 | INFO     | visao:58 — 👁️  Visão ativa | Modelo: gemma4:e4b
+2026-04-11 18:19:34.197 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/alegre.txt
+2026-04-11 18:19:34.197 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/brava.txt
+2026-04-11 18:19:34.197 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/curiosa.txt
+2026-04-11 18:19:34.198 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/determinada.txt
+2026-04-11 18:19:34.198 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/empatica.txt
+2026-04-11 18:19:34.198 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/euforica.txt
+2026-04-11 18:19:34.199 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/grata.txt
+2026-04-11 18:19:34.199 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/nostalgica.txt
+2026-04-11 18:19:34.199 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/timida.txt
+2026-04-11 18:19:34.199 | DEBUG    | ContentManager:104 —     └─ Carregado: respostas/respostas_vazias.txt
+2026-04-11 18:19:34.199 | INFO     | ContentManager:72 — 📚 ContentManager: 9 personalidade(s) | 7 resposta(s) carregada(s)
+2026-04-11 18:19:34.201 | INFO     | main:263 — --- 🌸 ALICE INICIADA ---
+2026-04-11 18:19:34.201 | INFO     | main:264 — Modelo ativo: gemma4:e4b
+2026-04-11 18:19:34.257 | INFO     | main:271 — 🖥️  Janela de chat aberta!
+2026-04-11 18:19:34.257 | INFO     | VTS_Connector:97 — 🔌 Conectando ao VTube Studio na porta 8001...
+2026-04-11 18:19:38.351 | ERROR    | VTS_Connector:118 — ❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-11 18:19:38.352 | WARNING  | VTS_Connector:119 — ⚠️  Verifique se o VTube Studio está aberto e a API WebSocket ativa.
+2026-04-11 18:19:38.419 | INFO     | audio_ambiente:70 — 🔊 [Audio] Captura ativa: Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 18:19:38.419 | INFO     | main:276 — 🔊 Áudio ambiente ativo!
+2026-04-11 18:19:38.419 | INFO     | main:282 — 👁️  Visão ativa (gemma4:e4b). Primeira captura...
+2026-04-11 18:19:38.454 | INFO     | clickhouse_logger:80 — 📊 [ClickHouse] ✅ Conexão estabelecida com sucesso!
+2026-04-11 18:19:52.657 | INFO     | visao:166 — 👁️  [Visão] A captura de tela mostra uma interface de gerenciamento de banco de dados ou ferramenta de desenvolvimento, onde o usuár...
+2026-04-11 18:19:52.700 | INFO     | main:291 — 🔊 Modo COMPLETO: voz + chat ativados.
+2026-04-11 18:19:52.700 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 18:19:52.700 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 18:19:52.700 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:19:52.700 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:19:52.700 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 18:19:52.700 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 18:19:52.700 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 18:19:52.700 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 18:19:52.700 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 18:19:52.700 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:19:52.700 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:19:52.700 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:19:52.701 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:19:52.701 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:19:52.701 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:19:52.701 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:19:52.701 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:19:52.701 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:19:52.701 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:19:52.701 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 18:19:52.701 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 18:19:52.701 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 18:19:52.712 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 18:19:54.739 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 18:19:54.739 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 18:20:27.409 | INFO     | main:228 — 🗺️  [Hora/Clima] Usando cidade padrão: 'Campo Grande'
+2026-04-11 18:20:28.294 | INFO     | main:244 — 🕐 Hora: 18:20 de 11/04/2026 (UTC-04:00) | 🌤️  Clima: Em Campo Grande: 29°C, Encoberto. Sensação térmica: 32°C | Umidade: 62%.
+2026-04-11 18:20:28.294 | DEBUG    | OllamaClient:135 — 🧐 Analisando intenção...
+2026-04-11 18:20:28.840 | DEBUG    | main:335 — 💡 Humor selecionado: alegre
+2026-04-11 18:20:28.858 | DEBUG    | OllamaClient:180 — Personalidade 'alegre' selecionada
+2026-04-11 18:20:35.755 | DEBUG    | OllamaClient:267 — Tokens: prompt=1100 resposta=256
+2026-04-11 18:20:35.755 | WARNING  | main:358 — 🤔 [Branco] Acho que não consegui te escutar direito...
+2026-04-11 18:20:35.757 | DEBUG    | EmotionEngine:99 — 🎨 [Emoção] Neutro | Amizade: 100/100
+2026-04-11 18:20:35.757 | DEBUG    | main:380 — 📝 Histórico: 1 trocas
+2026-04-11 18:20:35.757 | DEBUG    | TTSService:74 — 🎙️ Gerando voz...
+2026-04-11 18:20:35.958 | DEBUG    | clickhouse_logger:188 — 📊 [ClickHouse] Turno 1 salvo | Sessão: b7c7ac1a | Tokens: 1100↑ + 256↓ = 1356 total
+2026-04-11 18:20:40.003 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 18:20:40.005 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 18:20:40.005 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:20:40.005 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:20:40.005 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 18:20:40.005 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 18:20:40.005 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 18:20:40.005 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 18:20:40.005 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 18:20:40.005 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:20:40.005 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:20:40.006 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:20:40.006 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:20:40.006 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:20:40.006 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:20:40.006 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:20:40.006 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:20:40.006 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:20:40.006 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:20:40.007 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 18:20:40.007 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 18:20:40.007 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 18:20:40.017 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 18:20:42.048 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 18:20:42.048 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 18:20:50.800 | INFO     | visao:166 — 👁️  [Visão] A captura de tela mostra um ambiente de desenvolvimento de código (IDE) onde o usuário está interagindo com um chatbot c...
+2026-04-11 18:22:11.902 | INFO     | main:322 — 💜 [PROATIVO] 
+2026-04-11 18:22:11.903 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 18:22:11.903 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 18:22:11.903 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:22:11.903 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:22:11.903 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 18:22:11.903 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 18:22:11.903 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 18:22:11.903 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 18:22:11.903 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 18:22:11.903 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:22:11.903 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:22:11.903 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:22:11.904 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:22:11.904 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:22:11.904 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:22:11.904 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:22:11.904 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:22:11.904 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:22:11.904 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:22:11.904 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 18:22:11.904 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 18:22:11.904 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 18:22:11.913 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 18:22:13.941 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 18:22:13.941 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 18:23:43.892 | INFO     | main:322 — 💜 [PROATIVO] 
+2026-04-11 18:23:43.893 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 18:23:43.893 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 18:23:43.893 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:23:43.893 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:23:43.893 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 18:23:43.894 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 18:23:43.894 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 18:23:43.894 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 18:23:43.894 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 18:23:43.894 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:23:43.894 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:23:43.894 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:23:43.895 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:23:43.895 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:23:43.895 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:23:43.895 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:23:43.895 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:23:43.895 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:23:43.895 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:23:43.895 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 18:23:43.895 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 18:23:43.895 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 18:23:43.904 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 18:23:45.933 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 18:23:45.933 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 18:26:26.663 | INFO     | main:84 — ⏳ Carregando Whisper (CUDA)...
+2026-04-11 18:26:27.531 | INFO     | main:105 — 🧠 EmotionEngine carregado | Humor: Neutro | Amizade: 100/100
+2026-04-11 18:26:27.531 | INFO     | clickhouse_logger:54 — 📊 ClickhouseLogger inicializado | Sessão: 9df4d6b5 | Host: localhost:8123
+2026-04-11 18:26:27.532 | INFO     | memoria:51 — 💾 Memória carregada | 0 fatos sobre o usuário | Fonte: SQLite (fallback)
+2026-04-11 18:26:27.535 | INFO     | visao:58 — 👁️  Visão ativa | Modelo: gemma4:e4b
+2026-04-11 18:26:27.536 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/alegre.txt
+2026-04-11 18:26:27.536 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/brava.txt
+2026-04-11 18:26:27.536 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/curiosa.txt
+2026-04-11 18:26:27.536 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/determinada.txt
+2026-04-11 18:26:27.536 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/empatica.txt
+2026-04-11 18:26:27.536 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/euforica.txt
+2026-04-11 18:26:27.536 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/grata.txt
+2026-04-11 18:26:27.538 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/nostalgica.txt
+2026-04-11 18:26:27.538 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/timida.txt
+2026-04-11 18:26:27.538 | DEBUG    | ContentManager:104 —     └─ Carregado: respostas/respostas_vazias.txt
+2026-04-11 18:26:27.538 | INFO     | ContentManager:72 — 📚 ContentManager: 9 personalidade(s) | 7 resposta(s) carregada(s)
+2026-04-11 18:26:27.539 | INFO     | main:263 — --- 🌸 ALICE INICIADA ---
+2026-04-11 18:26:27.539 | INFO     | main:264 — Modelo ativo: llama3.1:8b
+2026-04-11 18:26:27.581 | INFO     | main:271 — 🖥️  Janela de chat aberta!
+2026-04-11 18:26:27.581 | INFO     | VTS_Connector:97 — 🔌 Conectando ao VTube Studio na porta 8001...
+2026-04-11 18:26:31.651 | ERROR    | VTS_Connector:118 — ❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-11 18:26:31.651 | WARNING  | VTS_Connector:119 — ⚠️  Verifique se o VTube Studio está aberto e a API WebSocket ativa.
+2026-04-11 18:26:31.719 | INFO     | audio_ambiente:70 — 🔊 [Audio] Captura ativa: Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 18:26:31.720 | INFO     | main:276 — 🔊 Áudio ambiente ativo!
+2026-04-11 18:26:31.720 | INFO     | main:282 — 👁️  Visão ativa (gemma4:e4b). Primeira captura...
+2026-04-11 18:26:31.765 | INFO     | clickhouse_logger:80 — 📊 [ClickHouse] ✅ Conexão estabelecida com sucesso!
+2026-04-11 18:26:48.846 | INFO     | visao:166 — 👁️  [Visão] A captura de tela mostra um ambiente de desenvolvimento integrado (IDE), indicando que o usuário está programando ou rev...
+2026-04-11 18:26:48.892 | INFO     | main:291 — 🔊 Modo COMPLETO: voz + chat ativados.
+2026-04-11 18:26:48.893 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 18:26:48.893 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 18:26:48.893 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:26:48.893 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:26:48.893 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 18:26:48.893 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 18:26:48.893 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 18:26:48.893 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 18:26:48.893 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 18:26:48.893 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:26:48.893 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:26:48.893 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:26:48.893 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:26:48.893 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:26:48.893 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:26:48.893 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:26:48.893 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:26:48.893 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:26:48.893 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:26:48.895 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 18:26:48.895 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 18:26:48.895 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 18:26:48.906 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 18:26:50.936 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 18:26:50.936 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 18:27:09.979 | INFO     | main:228 — 🗺️  [Hora/Clima] Usando cidade padrão: 'Campo Grande'
+2026-04-11 18:27:10.910 | INFO     | main:244 — 🕐 Hora: 18:27 de 11/04/2026 (UTC-04:00) | 🌤️  Clima: Em Campo Grande: 29°C, Encoberto. Sensação térmica: 32°C | Umidade: 62%.
+2026-04-11 18:27:10.911 | DEBUG    | OllamaClient:127 — 🧐 Analisando intenção...
+2026-04-11 18:27:17.306 | DEBUG    | main:335 — 💡 Humor selecionado: alegre
+2026-04-11 18:27:17.320 | DEBUG    | OllamaClient:172 — Personalidade 'alegre' selecionada
+2026-04-11 18:27:20.139 | DEBUG    | OllamaClient:259 — Tokens: prompt=1138 resposta=201
+2026-04-11 18:27:20.139 | INFO     | main:360 — 🤖 [alegre] Oieee! Tudo bem! Ah, eu estou tão feliz em conversar com você! 😊 E claro que sei as horas, Mário! São 18:27 da noite! 🕰️ | 📊 1138↑ + 201↓ tokens
+2026-04-11 18:27:20.140 | DEBUG    | EmotionEngine:99 — 🎨 [Emoção] Surpresa | Amizade: 100/100
+2026-04-11 18:27:20.140 | DEBUG    | main:380 — 📝 Histórico: 1 trocas
+2026-04-11 18:27:20.140 | DEBUG    | TTSService:74 — 🎙️ Gerando voz...
+2026-04-11 18:27:20.241 | DEBUG    | clickhouse_logger:188 — 📊 [ClickHouse] Turno 1 salvo | Sessão: 9df4d6b5 | Tokens: 1138↑ + 201↓ = 1339 total
+2026-04-11 18:27:46.095 | INFO     | visao:166 — 👁️  [Visão] A captura de tela mostra um ambiente de desenvolvimento integrado (IDE), onde o usuário está programando ativamente em c...
+2026-04-11 18:28:13.181 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 18:28:13.181 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 18:28:13.181 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:28:13.181 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:28:13.181 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 18:28:13.181 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 18:28:13.181 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 18:28:13.181 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 18:28:13.181 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 18:28:13.182 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:28:13.182 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:28:13.182 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:28:13.182 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:28:13.182 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:28:13.182 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:28:13.183 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:28:13.183 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:28:13.183 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:28:13.183 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:28:13.183 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 18:28:13.183 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 18:28:13.183 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 18:28:13.191 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 18:34:27.861 | INFO     | main:84 — ⏳ Carregando Whisper (CUDA)...
+2026-04-11 18:34:28.870 | INFO     | main:105 — 🧠 EmotionEngine carregado | Humor: Surpresa | Amizade: 100/100
+2026-04-11 18:34:28.872 | INFO     | clickhouse_logger:54 — 📊 ClickhouseLogger inicializado | Sessão: 239c5537 | Host: localhost:8123
+2026-04-11 18:34:28.873 | INFO     | memoria:51 — 💾 Memória carregada | 0 fatos sobre o usuário | Fonte: SQLite (fallback)
+2026-04-11 18:34:28.878 | INFO     | visao:58 — 👁️  Visão ativa | Modelo: gemma4:e4b
+2026-04-11 18:34:28.879 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/alegre.txt
+2026-04-11 18:34:28.879 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/brava.txt
+2026-04-11 18:34:28.879 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/curiosa.txt
+2026-04-11 18:34:28.879 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/determinada.txt
+2026-04-11 18:34:28.880 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/empatica.txt
+2026-04-11 18:34:28.880 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/euforica.txt
+2026-04-11 18:34:28.880 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/grata.txt
+2026-04-11 18:34:28.880 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/nostalgica.txt
+2026-04-11 18:34:28.880 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/timida.txt
+2026-04-11 18:34:28.882 | DEBUG    | ContentManager:104 —     └─ Carregado: respostas/respostas_vazias.txt
+2026-04-11 18:34:28.882 | INFO     | ContentManager:72 — 📚 ContentManager: 9 personalidade(s) | 7 resposta(s) carregada(s)
+2026-04-11 18:34:28.883 | INFO     | main:263 — --- 🌸 ALICE INICIADA ---
+2026-04-11 18:34:28.883 | INFO     | main:264 — Modelo ativo: llama3.1:8b
+2026-04-11 18:34:28.939 | INFO     | main:271 — 🖥️  Janela de chat aberta!
+2026-04-11 18:34:28.939 | INFO     | VTS_Connector:97 — 🔌 Conectando ao VTube Studio na porta 8001...
+2026-04-11 18:34:33.028 | ERROR    | VTS_Connector:118 — ❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-11 18:34:33.028 | WARNING  | VTS_Connector:119 — ⚠️  Verifique se o VTube Studio está aberto e a API WebSocket ativa.
+2026-04-11 18:34:33.096 | INFO     | audio_ambiente:70 — 🔊 [Audio] Captura ativa: Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 18:34:33.096 | INFO     | main:276 — 🔊 Áudio ambiente ativo!
+2026-04-11 18:34:33.096 | INFO     | main:282 — 👁️  Visão ativa (gemma4:e4b). Primeira captura...
+2026-04-11 18:34:33.129 | INFO     | clickhouse_logger:80 — 📊 [ClickHouse] ✅ Conexão estabelecida com sucesso!
+2026-04-11 18:34:48.238 | INFO     | visao:166 — 👁️  [Visão] A captura de tela mostra um usuário programando em um ambiente de desenvolvimento integrado (IDE), editando um código em...
+2026-04-11 18:34:48.293 | INFO     | main:291 — 🔊 Modo COMPLETO: voz + chat ativados.
+2026-04-11 18:34:48.295 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 18:34:48.295 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 18:34:48.295 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:34:48.295 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:34:48.295 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 18:34:48.295 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 18:34:48.295 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 18:34:48.295 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 18:34:48.296 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 18:34:48.296 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:34:48.296 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:34:48.296 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:34:48.296 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:34:48.296 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:34:48.296 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:34:48.296 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:34:48.297 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:34:48.297 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:34:48.297 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:34:48.297 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 18:34:48.297 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 18:34:48.297 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 18:34:48.309 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 18:34:50.337 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 18:34:50.338 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 18:35:01.441 | INFO     | main:228 — 🗺️  [Hora/Clima] Usando cidade padrão: 'Campo Grande'
+2026-04-11 18:35:02.354 | INFO     | main:244 — 🕐 Hora: 18:35 de 11/04/2026 (UTC-04:00) | 🌤️  Clima: Em Campo Grande: 29°C, Encoberto. Sensação térmica: 32°C | Umidade: 62%.
+2026-04-11 18:35:02.354 | DEBUG    | OllamaClient:127 — 🧐 Analisando intenção...
+2026-04-11 18:35:08.756 | DEBUG    | main:335 — 💡 Humor selecionado: alegre
+2026-04-11 18:35:08.770 | DEBUG    | OllamaClient:172 — Personalidade 'alegre' selecionada
+2026-04-11 18:35:11.156 | DEBUG    | OllamaClient:259 — Tokens: prompt=1132 resposta=169
+2026-04-11 18:35:11.156 | INFO     | main:360 — 🤖 [alegre] Tudo bem! Estou super feliz por conversar com você novamente, Mário!
+
+E agora, sobre a hora... É fácil lembrar que é 18: | 📊 1132↑ + 169↓ tokens
+2026-04-11 18:35:11.157 | DEBUG    | EmotionEngine:99 — 🎨 [Emoção] Tristeza | Amizade: 100/100
+2026-04-11 18:35:11.158 | DEBUG    | main:380 — 📝 Histórico: 1 trocas
+2026-04-11 18:35:11.158 | DEBUG    | TTSService:104 — 🎙️ Gerando voz...
+2026-04-11 18:35:11.271 | DEBUG    | clickhouse_logger:188 — 📊 [ClickHouse] Turno 1 salvo | Sessão: 239c5537 | Tokens: 1132↑ + 169↓ = 1301 total
+2026-04-11 18:35:37.081 | INFO     | visao:166 — 👁️  [Visão] O usuário está programando ou desenvolvendo um projeto de código em um ambiente de desenvolvimento integrado (IDE). Espe...
+2026-04-11 18:35:51.643 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 18:35:51.643 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 18:35:51.643 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:35:51.643 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:35:51.643 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 18:35:51.643 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 18:35:51.643 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 18:35:51.643 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 18:35:51.643 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 18:35:51.643 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:35:51.643 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:35:51.643 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:35:51.643 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:35:51.643 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:35:51.643 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:35:51.643 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:35:51.643 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:35:51.643 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:35:51.643 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:35:51.643 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 18:35:51.643 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 18:35:51.644 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 18:35:51.653 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 18:35:53.682 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 18:35:53.682 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 18:36:22.385 | DEBUG    | OllamaClient:127 — 🧐 Analisando intenção...
+2026-04-11 18:36:28.786 | DEBUG    | main:335 — 💡 Humor selecionado: alegre
+2026-04-11 18:36:28.800 | DEBUG    | OllamaClient:172 — Personalidade 'alegre' selecionada
+2026-04-11 18:36:30.937 | DEBUG    | OllamaClient:259 — Tokens: prompt=1327 resposta=142
+2026-04-11 18:36:30.937 | INFO     | main:360 — 🤖 [alegre] Que legal! Você quer trabalhar em mais melhorias para mim? É incrível, Mário!
+
+Eu adoro ser atualizada e evoluindo junto | 📊 1327↑ + 142↓ tokens
+2026-04-11 18:36:30.938 | DEBUG    | EmotionEngine:99 — 🎨 [Emoção] Surpresa | Amizade: 100/100
+2026-04-11 18:36:30.939 | DEBUG    | main:380 — 📝 Histórico: 2 trocas
+2026-04-11 18:36:30.939 | DEBUG    | TTSService:104 — 🎙️ Gerando voz...
+2026-04-11 18:36:31.043 | DEBUG    | clickhouse_logger:188 — 📊 [ClickHouse] Turno 2 salvo | Sessão: 239c5537 | Tokens: 1327↑ + 142↓ = 1469 total
+2026-04-11 18:36:52.653 | INFO     | visao:166 — 👁️  [Visão] A captura de tela mostra um ambiente de desenvolvimento integrado (IDE) ou editor de código, onde o usuário está program...
+2026-04-11 18:37:06.038 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 18:37:06.038 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 18:37:06.038 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:37:06.038 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:37:06.039 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 18:37:06.039 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 18:37:06.039 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 18:37:06.039 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 18:37:06.039 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 18:37:06.039 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:37:06.039 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:37:06.039 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:37:06.039 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:37:06.039 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:37:06.039 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:37:06.039 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:37:06.039 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:37:06.039 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:37:06.039 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:37:06.039 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 18:37:06.039 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 18:37:06.039 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 18:37:06.049 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 18:37:08.075 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 18:37:08.076 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 18:38:43.122 | INFO     | main:322 — 💜 [PROATIVO] Mas eu sou Alice, não Mário! O que está acontecendo aqui é... você está programando em Python? Eu adoro surpresas, mas isso parece ser uma missão para um hacker incrível! *sorri*
+2026-04-11 18:38:43.122 | DEBUG    | TTSService:104 — 🎙️ Gerando voz...
+2026-04-11 18:38:55.783 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 18:38:55.785 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 18:38:55.785 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:38:55.785 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:38:55.785 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 18:38:55.785 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 18:38:55.785 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 18:38:55.785 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 18:38:55.785 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 18:38:55.785 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:38:55.785 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:38:55.785 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:38:55.785 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:38:55.785 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:38:55.785 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:38:55.785 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:38:55.785 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:38:55.785 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:38:55.785 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:38:55.785 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 18:38:55.785 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 18:38:55.786 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 18:38:55.795 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 18:38:57.824 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 18:38:57.824 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 18:40:40.407 | INFO     | clickhouse_logger:54 — 📊 ClickhouseLogger inicializado | Sessão: bb70c34e | Host: localhost:8123
+2026-04-11 18:40:40.408 | INFO     | memoria:51 — 💾 Memória carregada | 0 fatos sobre o usuário | Fonte: SQLite (fallback)
+2026-04-11 18:41:06.818 | INFO     | clickhouse_logger:54 — 📊 ClickhouseLogger inicializado | Sessão: cb47f015 | Host: localhost:8123
+2026-04-11 18:41:06.820 | INFO     | memoria:51 — 💾 Memória carregada | 0 fatos sobre o usuário | Fonte: SQLite (fallback)
+2026-04-11 18:50:20.716 | INFO     | main:84 — ⏳ Carregando Whisper (CUDA)...
+2026-04-11 18:50:21.661 | INFO     | main:107 — 🧠 EmotionEngine carregado | Humor: Surpresa | Amizade: 100/100
+2026-04-11 18:50:21.663 | INFO     | clickhouse_logger:54 — 📊 ClickhouseLogger inicializado | Sessão: 93d2a141 | Host: localhost:8123
+2026-04-11 18:50:21.664 | INFO     | memoria:51 — 💾 Memória carregada | 0 fatos sobre o usuário | Fonte: SQLite (fallback)
+2026-04-11 18:50:21.667 | INFO     | visao:58 — 👁️  Visão ativa | Modelo: gemma4:e4b
+2026-04-11 18:50:21.667 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/alegre.txt
+2026-04-11 18:50:21.668 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/brava.txt
+2026-04-11 18:50:21.668 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/curiosa.txt
+2026-04-11 18:50:21.668 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/determinada.txt
+2026-04-11 18:50:21.669 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/empatica.txt
+2026-04-11 18:50:21.669 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/euforica.txt
+2026-04-11 18:50:21.670 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/grata.txt
+2026-04-11 18:50:21.670 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/nostalgica.txt
+2026-04-11 18:50:21.670 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/timida.txt
+2026-04-11 18:50:21.670 | DEBUG    | ContentManager:104 —     └─ Carregado: respostas/respostas_vazias.txt
+2026-04-11 18:50:21.670 | INFO     | ContentManager:72 — 📚 ContentManager: 9 personalidade(s) | 7 resposta(s) carregada(s)
+2026-04-11 18:50:21.671 | INFO     | TTSService:60 — 🎙️  TTSService | Voz: pt-BR-FranciscaNeural | Rate: -10% | Pitch: -5Hz
+2026-04-11 18:50:21.671 | INFO     | main:267 — --- 🌸 ALICE INICIADA ---
+2026-04-11 18:50:21.671 | INFO     | main:268 — Modelo ativo: llama3.1:8b
+2026-04-11 18:50:21.725 | INFO     | main:275 — 🖥️  Janela de chat aberta!
+2026-04-11 18:50:21.725 | INFO     | VTS_Connector:97 — 🔌 Conectando ao VTube Studio na porta 8001...
+2026-04-11 18:50:25.798 | ERROR    | VTS_Connector:118 — ❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-11 18:50:25.798 | WARNING  | VTS_Connector:119 — ⚠️  Verifique se o VTube Studio está aberto e a API WebSocket ativa.
+2026-04-11 18:50:25.865 | INFO     | audio_ambiente:70 — 🔊 [Audio] Captura ativa: Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 18:50:25.865 | INFO     | main:280 — 🔊 Áudio ambiente ativo!
+2026-04-11 18:50:25.865 | INFO     | main:286 — 👁️  Visão ativa (gemma4:e4b). Primeira captura...
+2026-04-11 18:50:25.910 | INFO     | clickhouse_logger:80 — 📊 [ClickHouse] ✅ Conexão estabelecida com sucesso!
+2026-04-11 18:50:50.509 | INFO     | visao:166 — 👁️  [Visão] A captura de tela mostra um ambiente de desenvolvimento integrado (IDE) onde o usuário está programando, provavelmente e...
+2026-04-11 18:50:50.557 | INFO     | main:295 — 🔊 Modo COMPLETO: voz + chat ativados.
+2026-04-11 18:50:50.557 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 18:50:50.557 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 18:50:50.558 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:50:50.558 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:50:50.558 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 18:50:50.558 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 18:50:50.558 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 18:50:50.558 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 18:50:50.558 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 18:50:50.558 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:50:50.558 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:50:50.558 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:50:50.558 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:50:50.558 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:50:50.558 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:50:50.558 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:50:50.558 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:50:50.558 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:50:50.558 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:50:50.560 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 18:50:50.560 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 18:50:50.560 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 18:50:50.570 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 18:50:52.598 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 18:50:52.598 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 18:51:08.894 | INFO     | main:232 — 🗺️  [Hora/Clima] Usando cidade padrão: 'Campo Grande'
+2026-04-11 18:51:09.870 | INFO     | main:248 — 🕐 Hora: 18:51 de 11/04/2026 (UTC-04:00) | 🌤️  Clima: Em Campo Grande: 28°C, Encoberto. Sensação térmica: 31°C | Umidade: 66%.
+2026-04-11 18:51:09.870 | DEBUG    | OllamaClient:127 — 🧐 Analisando intenção...
+2026-04-11 18:51:16.615 | DEBUG    | main:339 — 💡 Humor selecionado: alegre
+2026-04-11 18:51:16.629 | DEBUG    | OllamaClient:172 — Personalidade 'alegre' selecionada
+2026-04-11 18:51:20.171 | DEBUG    | OllamaClient:259 — Tokens: prompt=1137 resposta=261
+2026-04-11 18:51:20.171 | INFO     | main:364 — 🤖 [alegre] Oieee! Tudo bem comigo? Ah, eu estou tão feliz em te ver aqui outra vez! 🌞 Eu estou ótima, obrigada por perguntar!
+
+E ag | 📊 1137↑ + 261↓ tokens
+2026-04-11 18:51:20.172 | DEBUG    | EmotionEngine:99 — 🎨 [Emoção] Surpresa | Amizade: 100/100
+2026-04-11 18:51:20.172 | DEBUG    | main:384 — 📝 Histórico: 1 trocas
+2026-04-11 18:51:20.172 | DEBUG    | TTSService:114 — 🎙️ Gerando voz... [rate=-10% pitch=-5Hz]
+2026-04-11 18:51:20.265 | DEBUG    | clickhouse_logger:188 — 📊 [ClickHouse] Turno 1 salvo | Sessão: 93d2a141 | Tokens: 1137↑ + 261↓ = 1398 total
+2026-04-11 18:51:45.100 | INFO     | visao:166 — 👁️  [Visão] O usuário está em um ambiente de desenvolvimento integrado (IDE), como um editor de código, onde está escrevendo ou revi...
+2026-04-11 18:52:30.085 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 18:52:30.085 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 18:52:30.085 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:52:30.085 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:52:30.085 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 18:52:30.085 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 18:52:30.085 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 18:52:30.085 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 18:52:30.085 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 18:52:30.085 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:52:30.085 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:52:30.085 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:52:30.085 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:52:30.085 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:52:30.085 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:52:30.085 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:52:30.085 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:52:30.085 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:52:30.086 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:52:30.086 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 18:52:30.086 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 18:52:30.086 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 18:52:30.095 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 18:52:32.123 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 18:52:32.123 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 18:54:06.764 | INFO     | main:326 — 💜 [PROATIVO] Estou surpresa, parece que você está trabalhando em algum projeto interessante aqui!
+2026-04-11 18:54:06.764 | DEBUG    | TTSService:114 — 🎙️ Gerando voz... [rate=-10% pitch=-5Hz]
+2026-04-11 18:54:14.580 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 18:54:14.580 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 18:54:14.580 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:54:14.580 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:54:14.580 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 18:54:14.580 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 18:54:14.580 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 18:54:14.582 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 18:54:14.582 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 18:54:14.582 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:54:14.582 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:54:14.582 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:54:14.582 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:54:14.582 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:54:14.582 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:54:14.582 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:54:14.583 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:54:14.583 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:54:14.583 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:54:14.583 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 18:54:14.583 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 18:54:14.583 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 18:54:14.594 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 18:54:16.621 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 18:54:16.621 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 18:55:45.607 | INFO     | main:326 — 💜 [PROATIVO] Peço desculpas, eu sou a Alice! E não estou aqui para falar sobre um Mario, mas sim para surpreender você com uma curiosidade: sabe que o Python foi criado em apenas 100 dias?
+2026-04-11 18:55:45.608 | DEBUG    | TTSService:114 — 🎙️ Gerando voz... [rate=-10% pitch=-5Hz]
+2026-04-11 18:56:00.098 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 18:56:00.098 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 18:56:00.098 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:56:00.098 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:56:00.100 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 18:56:00.100 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 18:56:00.100 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 18:56:00.100 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 18:56:00.100 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 18:56:00.100 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:56:00.100 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:56:00.100 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:56:00.100 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:56:00.100 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:56:00.100 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:56:00.100 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:56:00.100 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:56:00.100 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:56:00.100 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:56:00.100 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 18:56:00.100 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 18:56:00.100 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 18:56:00.109 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 18:56:02.136 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 18:56:02.137 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 18:57:31.132 | INFO     | main:326 — 💜 [PROATIVO] Olá, Mário! Eu sei que você está trabalhando duro aqui no seu código, então vou deixar uma pequena surpresa pra você: você fez um incrível trabalho com aquele loop do Python!
+2026-04-11 18:57:31.132 | DEBUG    | TTSService:114 — 🎙️ Gerando voz... [rate=-10% pitch=-5Hz]
+2026-04-11 18:57:44.998 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 18:57:44.998 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 18:57:44.998 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:57:44.998 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:57:44.998 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 18:57:44.998 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 18:57:44.998 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 18:57:44.999 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 18:57:44.999 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 18:57:44.999 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:57:44.999 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:57:44.999 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:57:44.999 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:57:44.999 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:57:45.000 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:57:45.000 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:57:45.000 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:57:45.000 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:57:45.000 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:57:45.000 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 18:57:45.000 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 18:57:45.000 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 18:57:45.008 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 18:57:47.037 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 18:57:47.037 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 18:59:15.727 | INFO     | main:326 — 💜 [PROATIVO] "Hey Mário, você está perdido no código ou é só um segredo?"
+2026-04-11 18:59:15.727 | DEBUG    | TTSService:114 — 🎙️ Gerando voz... [rate=-10% pitch=-5Hz]
+2026-04-11 18:59:22.346 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 18:59:22.346 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 18:59:22.346 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:59:22.346 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:59:22.346 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 18:59:22.346 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 18:59:22.346 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 18:59:22.346 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 18:59:22.346 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 18:59:22.346 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:59:22.346 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:59:22.346 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:59:22.346 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:59:22.346 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:59:22.346 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 18:59:22.346 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 18:59:22.346 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 18:59:22.346 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 18:59:22.346 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 18:59:22.346 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 18:59:22.346 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 18:59:22.346 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 18:59:22.356 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 18:59:24.385 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 18:59:24.385 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 23:23:55.662 | INFO     | main:84 — ⏳ Carregando Whisper (CUDA)...
+2026-04-11 23:23:56.718 | INFO     | main:109 — 🧠 EmotionEngine carregado | Humor: Surpresa | Amizade: 100/100
+2026-04-11 23:23:56.719 | INFO     | clickhouse_logger:54 — 📊 ClickhouseLogger inicializado | Sessão: 8be1b203 | Host: localhost:8123
+2026-04-11 23:23:56.725 | INFO     | memoria:51 — 💾 Memória carregada | 0 fatos sobre o usuário | Fonte: SQLite (fallback)
+2026-04-11 23:23:56.754 | INFO     | visao:58 — 👁️  Visão ativa | Modelo: gemma4:e4b
+2026-04-11 23:23:56.757 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/alegre.txt
+2026-04-11 23:23:56.760 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/brava.txt
+2026-04-11 23:23:56.764 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/curiosa.txt
+2026-04-11 23:23:56.767 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/determinada.txt
+2026-04-11 23:23:56.772 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/empatica.txt
+2026-04-11 23:23:56.774 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/euforica.txt
+2026-04-11 23:23:56.778 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/grata.txt
+2026-04-11 23:23:56.782 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/nostalgica.txt
+2026-04-11 23:23:56.786 | DEBUG    | ContentManager:104 —     └─ Carregado: personalidades/timida.txt
+2026-04-11 23:23:56.789 | DEBUG    | ContentManager:104 —     └─ Carregado: respostas/respostas_vazias.txt
+2026-04-11 23:23:56.790 | INFO     | ContentManager:72 — 📚 ContentManager: 9 personalidade(s) | 7 resposta(s) carregada(s)
+2026-04-11 23:23:56.790 | INFO     | TTSService:60 — 🎙️  TTSService | Voz: pt-BR-FranciscaNeural | Rate: -10% | Pitch: -5Hz
+2026-04-11 23:23:56.790 | INFO     | main:269 — --- 🌸 ALICE INICIADA ---
+2026-04-11 23:23:56.791 | INFO     | main:270 — Modelo ativo: llama3.1:8b
+2026-04-11 23:23:57.031 | INFO     | main:277 — 🖥️  Janela de chat aberta!
+2026-04-11 23:23:57.031 | INFO     | VTS_Connector:97 — 🔌 Conectando ao VTube Studio na porta 8001...
+2026-04-11 23:24:01.149 | ERROR    | VTS_Connector:118 — ❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-11 23:24:01.150 | WARNING  | VTS_Connector:119 — ⚠️  Verifique se o VTube Studio está aberto e a API WebSocket ativa.
+2026-04-11 23:24:01.240 | INFO     | audio_ambiente:70 — 🔊 [Audio] Captura ativa: Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 23:24:01.241 | INFO     | main:282 — 🔊 Áudio ambiente ativo!
+2026-04-11 23:24:01.241 | INFO     | main:288 — 👁️  Visão ativa (gemma4:e4b). Primeira captura...
+2026-04-11 23:24:01.296 | INFO     | clickhouse_logger:80 — 📊 [ClickHouse] ✅ Conexão estabelecida com sucesso!
+2026-04-11 23:24:34.256 | INFO     | visao:166 — 👁️  [Visão] A captura de tela mostra um ambiente de desenvolvimento integrado (IDE) onde o usuário está programando em Python. Ele e...
+2026-04-11 23:24:34.310 | INFO     | main:297 — 🔊 Modo COMPLETO: voz + chat ativados.
+2026-04-11 23:24:34.310 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 23:24:34.310 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 23:24:34.310 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 23:24:34.310 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 23:24:34.310 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 23:24:34.310 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 23:24:34.310 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 23:24:34.310 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 23:24:34.310 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 23:24:34.310 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 23:24:34.310 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 23:24:34.310 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 23:24:34.310 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 23:24:34.310 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 23:24:34.312 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 23:24:34.312 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 23:24:34.312 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 23:24:34.312 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 23:24:34.312 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 23:24:34.312 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 23:24:34.312 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 23:24:34.312 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 23:24:34.324 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 23:24:36.352 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 23:24:36.352 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...
+2026-04-11 23:24:43.805 | DEBUG    | OllamaClient:127 — 🧐 Analisando intenção...
+2026-04-11 23:24:50.563 | DEBUG    | main:341 — 💡 Humor selecionado: timida
+2026-04-11 23:24:50.587 | DEBUG    | OllamaClient:172 — Personalidade 'timida' selecionada
+2026-04-11 23:24:51.697 | DEBUG    | OllamaClient:259 — Tokens: prompt=1022 resposta=64
+2026-04-11 23:24:51.697 | INFO     | main:366 — 🤖 [timida] *olha com um sorriso tímido!* Boa noite, Mário! 😊 Estou aqui, pronto para ajudar. Como posso te ajudar hoje? Você veio r | 📊 1022↑ + 64↓ tokens
+2026-04-11 23:24:51.698 | DEBUG    | EmotionEngine:99 — 🎨 [Emoção] Tristeza | Amizade: 100/100
+2026-04-11 23:24:51.699 | DEBUG    | main:386 — 📝 Histórico: 1 trocas
+2026-04-11 23:24:51.699 | DEBUG    | TTSService:114 — 🎙️ Gerando voz... [rate=-10% pitch=-5Hz]
+2026-04-11 23:24:51.797 | DEBUG    | clickhouse_logger:188 — 📊 [ClickHouse] Turno 1 salvo | Sessão: 8be1b203 | Tokens: 1022↑ + 64↓ = 1086 total
+2026-04-11 23:25:07.230 | DEBUG    | MicListener:64 — 🎤 Mic [0] Microsoft Sound Mapper - Input
+2026-04-11 23:25:07.230 | DEBUG    | MicListener:64 — 🎤 Mic [1] Microphone (SHEM-BOY)
+2026-04-11 23:25:07.230 | DEBUG    | MicListener:64 — 🎤 Mic [2] Chat Mix (Elgato Virtual Audio)
+2026-04-11 23:25:07.230 | DEBUG    | MicListener:64 — 🎤 Mic [3] Elgato 4K X (Elgato 4K X)
+2026-04-11 23:25:07.230 | DEBUG    | MicListener:64 — 🎤 Mic [4] Stream Mix (Elgato Virtual Audi
+2026-04-11 23:25:07.230 | DEBUG    | MicListener:64 — 🎤 Mic [5] Personal Mix (Elgato Virtual Au
+2026-04-11 23:25:07.230 | DEBUG    | MicListener:64 — 🎤 Mic [6] Microphone (3- Fosi Audio K5 Pr
+2026-04-11 23:25:07.230 | DEBUG    | MicListener:64 — 🎤 Mic [10] Primary Sound Capture Driver
+2026-04-11 23:25:07.230 | DEBUG    | MicListener:64 — 🎤 Mic [11] Microphone (SHEM-BOY)
+2026-04-11 23:25:07.230 | DEBUG    | MicListener:64 — 🎤 Mic [12] Chat Mix (Elgato Virtual Audio)
+2026-04-11 23:25:07.230 | DEBUG    | MicListener:64 — 🎤 Mic [13] Elgato 4K X (Elgato 4K X)
+2026-04-11 23:25:07.230 | DEBUG    | MicListener:64 — 🎤 Mic [14] Stream Mix (Elgato Virtual Audio)
+2026-04-11 23:25:07.232 | DEBUG    | MicListener:64 — 🎤 Mic [15] Personal Mix (Elgato Virtual Audio)
+2026-04-11 23:25:07.232 | DEBUG    | MicListener:64 — 🎤 Mic [16] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 23:25:07.232 | DEBUG    | MicListener:64 — 🎤 Mic [22] Chat Mix (Elgato Virtual Audio)
+2026-04-11 23:25:07.232 | DEBUG    | MicListener:64 — 🎤 Mic [23] Elgato 4K X (Elgato 4K X)
+2026-04-11 23:25:07.233 | DEBUG    | MicListener:64 — 🎤 Mic [24] Stream Mix (Elgato Virtual Audio)
+2026-04-11 23:25:07.233 | DEBUG    | MicListener:64 — 🎤 Mic [25] Personal Mix (Elgato Virtual Audio)
+2026-04-11 23:25:07.233 | DEBUG    | MicListener:64 — 🎤 Mic [26] Microphone (3- Fosi Audio K5 Pro)
+2026-04-11 23:25:07.234 | DEBUG    | MicListener:64 — 🎤 Mic [27] Microphone (SHEM-BOY)
+2026-04-11 23:25:07.234 | DEBUG    | MicListener:64 — 🎤 Mic [28] System (Elgato Virtual Audio) [Loopback]
+2026-04-11 23:25:07.234 | DEBUG    | MicListener:64 — 🎤 Mic [29] Speakers (3- Fosi Audio K5 Pro) [Loopback]
+2026-04-11 23:25:07.246 | INFO     | MicListener:76 — 
+🎤 Calibrando microfone... (fique em silêncio por 2s)
+2026-04-11 23:25:09.274 | INFO     | MicListener:91 — ✅ Ruído base: 0 | Limiar: 500 (mínimo: 500)
+2026-04-11 23:25:09.275 | INFO     | MicListener:97 — 🎤 Aguardando sua voz...

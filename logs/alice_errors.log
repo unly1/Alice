@@ -1,0 +1,186 @@
+2026-03-29 19:23:25 | ERROR | <string>:<module>:6
+❌ Teste error — aparece no terminal e arquivo de erros
+2026-03-29 19:39:37 | ERROR | VTS_Connector:conectar:117
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-03-29 20:05:34 | ERROR | VTS_Connector:conectar:117
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-03-29 20:11:38 | ERROR | VTS_Connector:conectar:117
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-03-29 20:24:31 | ERROR | VTS_Connector:conectar:117
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-03-29 20:33:34 | ERROR | VTS_Connector:conectar:117
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-03-30 15:51:38 | ERROR | VTS_Connector:conectar:117
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-03-31 12:07:34 | ERROR | VTS_Connector:conectar:117
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-03-31 12:07:34 | ERROR | audio_ambiente:iniciar:70
+❌ [Audio] Erro ao iniciar: [Errno -9996] Invalid device info
+2026-03-31 12:11:36 | ERROR | VTS_Connector:conectar:117
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-03-31 12:11:36 | ERROR | audio_ambiente:iniciar:70
+❌ [Audio] Erro ao iniciar: [Errno -9996] Invalid device info
+2026-03-31 12:28:57 | ERROR | audio_ambiente:iniciar:70
+❌ [Audio] Erro ao iniciar: [Errno -9996] Invalid device info
+2026-03-31 12:37:22 | ERROR | audio_ambiente:iniciar:70
+❌ [Audio] Erro ao iniciar: [Errno -9996] Invalid device info
+2026-03-31 12:42:16 | ERROR | audio_ambiente:iniciar:70
+❌ [Audio] Erro ao iniciar: [Errno -9996] Invalid device info
+2026-03-31 12:51:47 | ERROR | audio_ambiente:iniciar:70
+❌ [Audio] Erro ao iniciar: [Errno -9996] Invalid device info
+2026-03-31 13:12:04 | ERROR | audio_ambiente:iniciar:70
+❌ [Audio] Erro ao iniciar: [Errno -9996] Invalid device info
+2026-03-31 14:17:50 | ERROR | audio_ambiente:iniciar:70
+❌ [Audio] Erro ao iniciar: [Errno -9996] Invalid device info
+2026-03-31 17:39:57 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-03-31 17:39:57 | ERROR | audio_ambiente:iniciar:70
+❌ [Audio] Erro ao iniciar: [Errno -9996] Invalid device info
+2026-03-31 17:46:37 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-03-31 17:46:37 | ERROR | audio_ambiente:iniciar:70
+❌ [Audio] Erro ao iniciar: [Errno -9996] Invalid device info
+2026-04-01 21:17:08 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-01 21:23:23 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-01 21:54:13 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-02 09:52:24 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-02 10:01:40 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-02 10:57:08 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-02 11:29:57 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-02 11:31:23 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-02 14:36:01 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-07 15:50:08 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-07 15:59:37 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-07 19:08:06 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-07 19:10:54 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-07 19:25:23 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-08 15:18:50 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-08 15:40:37 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-08 15:54:48 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-08 21:07:25 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-08 21:10:51 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-08 21:13:23 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-08 21:39:09 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-08 22:02:37 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-10 13:17:05 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-10 13:18:13 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-10 15:24:31 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-11 11:47:34 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-11 16:27:57 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-11 17:29:25 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-11 17:31:36 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-11 18:00:06 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-11 18:13:30 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-11 18:19:38 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-11 18:26:31 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-11 18:34:33 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-11 18:50:25 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-11 23:24:01 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-12 10:18:18 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-12 10:49:20 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-12 11:41:26 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-12 11:41:48 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-12 11:58:42 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-12 12:08:38 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-12 12:20:27 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-12 14:02:00 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-12 14:17:33 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-12 15:24:08 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-12 15:26:20 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-12 15:29:14 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-12 15:31:33 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-12 15:33:39 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-12 15:36:18 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-12 15:48:56 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-12 19:54:42 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-12 20:14:04 | ERROR | VTS_Connector:conectar:118
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-12 20:52:43 | ERROR | VTS_Connector:conectar:116
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-12 21:25:52 | ERROR | VTS_Connector:conectar:116
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-12 23:07:11 | ERROR | VTS_Connector:conectar:116
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-12 23:23:04 | ERROR | VTS_Connector:conectar:116
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-12 23:29:55 | ERROR | OllamaClient:pensar:235
+    ERRO: Erro ao executar: MusicTools.tocar_musica() missing 1 required positional argument: 'query'
+2026-04-12 23:51:43 | ERROR | VTS_Connector:conectar:116
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-13 00:27:54 | ERROR | VTS_Connector:conectar:116
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-13 21:26:11 | ERROR | VTS_Connector:conectar:116
+❌ Erro ao conectar ao VTube Studio: server rejected WebSocket connection: HTTP 200
+2026-04-13 21:27:03 | ERROR | VTS_Connector:conectar:116
+❌ Erro ao conectar ao VTube Studio: server rejected WebSocket connection: HTTP 200
+2026-04-13 21:30:47 | ERROR | VTS_Connector:conectar:116
+❌ Erro ao conectar ao VTube Studio: server rejected WebSocket connection: HTTP 200
+2026-04-13 21:35:07 | ERROR | VTS_Connector:conectar:116
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-13 21:39:37 | ERROR | VTS_Connector:conectar:116
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-13 21:52:10 | ERROR | VTS_Connector:conectar:116
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-13 21:55:12 | ERROR | VTS_Connector:conectar:116
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-13 22:06:30 | ERROR | VTS_Connector:conectar:116
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-13 22:20:57 | ERROR | VTS_Connector:conectar:116
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-14 22:54:29 | ERROR | VTS_Connector:conectar:116
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
+2026-04-15 15:03:56 | ERROR | VTS_Connector:conectar:116
+❌ Erro ao conectar ao VTube Studio: [WinError 1225] The remote computer refused the network connection
