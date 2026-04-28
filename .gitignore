@@ -1,0 +1,29 @@
+# Environments
+.env
+.venv/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Cache
+__pycache__/
+*.py[cod]
+*$py.class
+.ruff_cache/
+
+# Databases
+*.db
+*.sqlite3
+
+# Logs
+logs/
+*.log
+
+# Audio/Media
+audio/resposta.wav
+
+# IDEs
+.vscode/
+.idea/
