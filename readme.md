@@ -1,4 +1,4 @@
-# 🌸 Projeto Alice: Assistente VTuber Local Inteligente
+# 🌸 Projeto Alice: Assistente Local Inteligente
 
 ### Por que "Alice"?
 "ALICE" é também o nome do conceito que se tornou a fundação de todo esse projeto.
