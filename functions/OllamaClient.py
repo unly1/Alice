@@ -443,6 +443,8 @@ class OllamaClient:
         Gera um comentário espontâneo sobre o que mudou na tela.
         Chamado pelo vision heartbeat quando uma mudança relevante é detectada.
         """
+        if not self.visao:
+            return ""
         descricao = self.visao.ultima_descricao
         nome = self.emotion_engine.estado_atual.get("nome_usuario", "")
         nome_str = f", {nome}" if nome else ""
@@ -489,7 +491,7 @@ class OllamaClient:
         humor = self.emotion_engine.estado_atual.get("humor", "Neutro")
         nome = self.emotion_engine.estado_atual.get("nome_usuario", "")
         nome_str = f", {nome}" if nome else ""
-        contexto_visual = await self.visao.construir_bloco_visao()
+        contexto_visual = await self.visao.construir_bloco_visao() if self.visao else ""
 
         if ciclo <= 1:
             estagio = "casual"

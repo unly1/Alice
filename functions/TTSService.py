@@ -78,8 +78,9 @@ class TTSService:
             log.info("🔄 Carregando modelo OmniVoice... (primeira fala, pode demorar)")
             from omnivoice import OmniVoice
 
+            dispositivo_map = os.getenv("TTS_DEVICE", "cpu")
             self._modelo = OmniVoice.from_pretrained(
-                "k2-fsa/OmniVoice", device_map="cuda:0"
+                "k2-fsa/OmniVoice", device_map=dispositivo_map
             )
             log.info("✅ Modelo OmniVoice carregado.")
         return self._modelo

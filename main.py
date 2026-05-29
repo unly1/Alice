@@ -36,7 +36,6 @@ from functions.EmotionEngine import EmotionEngine
 from functions.MicListener import MicListener
 from functions.OllamaClient import OllamaClient
 from functions.TTSService import TTSService
-from functions.VTS_Connector import VTSConnector
 from cerebro.audio_ambiente import AudioAmbiente
 from cerebro.clickhouse_logger import ClickhouseLogger
 from cerebro.logger import log, set_clickhouse_logger
@@ -44,7 +43,6 @@ from cerebro.memoria import MemoriaLongaPrazo
 from cerebro.graph_memory import GraphMemory
 from cerebro.sonho import Sonho
 from cerebro.summarizer import Summarizer
-from cerebro.visao import VisaoComputacional
 from interface.janela import iniciar_janela
 
 # Garante que o terminal Windows lide com caracteres Unicode (ex: resultados de busca web)
@@ -116,8 +114,6 @@ LIMIAR_MICROFONE_MINIMO = int(_limiar_min) if _limiar_min.isdigit() else 500
 DISPOSITIVO_SAIDA_AUDIO = os.getenv("DISPOSITIVO_SAIDA_AUDIO")
 
 # ── Instanciação dos serviços globais ─────────────────────────────────────────
-vts_connector = VTSConnector()
-
 emotion_engine = EmotionEngine()
 log.info(
     f"🧠 EmotionEngine carregado | "
@@ -130,7 +126,6 @@ clickhouse_log = ClickhouseLogger()
 set_clickhouse_logger(clickhouse_log)
 memoria_longa = MemoriaLongaPrazo(clickhouse_log)
 
-visao = VisaoComputacional()
 summarizer = Summarizer()
 grafo = GraphMemory()
 
@@ -184,7 +179,7 @@ class AliceSession:
         self.ollama = OllamaClient(
             modelo=MODELO_IA,
             emotion_engine=emotion_engine,
-            visao=visao,
+            visao=None,
             audio_ambiente=audio_ambiente,
             cancelar_turno=self._cancelar,
             content_manager=content_manager,  # cache compartilhado
@@ -220,29 +215,6 @@ class AliceSession:
         if self._ultima_interacao == 0.0:
             return 0.0
         return time.time() - self._ultima_interacao
-
-    async def _heartbeat_visao_loop(self):
-        """
-        Task em background: captura a tela periodicamente e, se detectar
-        uma mudança relevante, injeta um token especial na fila de entrada
-        para que o loop principal gere um comentário espontâneo.
-
-        Cooldown: TEMPO_HEARTBEAT_VISAO segundos (padrão 120s).
-        Não dispara enquanto Alice estiver falando (_alice_falando).
-        """
-        await asyncio.sleep(TEMPO_HEARTBEAT_VISAO)  # aguarda estabilização inicial
-        while True:
-            await asyncio.sleep(TEMPO_HEARTBEAT_VISAO)
-            if not visao.ativa:
-                continue
-            if _alice_falando.is_set():
-                continue
-            await visao.descrever_tela(forcar=True)
-            if visao.houve_mudanca_relevante():
-                log.info(
-                    "👁️  [Heartbeat] Mudança na tela detectada — gerando comentário."
-                )
-                FILA_ENTRADA_GUI.put("__heartbeat_visao__")
 
     async def _responder_vazio(self) -> str:
         """Retorna uma frase aleatória de fallback quando o input foi vazio."""
@@ -339,21 +311,11 @@ class AliceSession:
         )
         log.info("🖥️  Janela de chat aberta!")
 
-        await vts_connector.conectar()
-
         if audio_ambiente.iniciar():
             log.info("🔊 Áudio ambiente ativo!")
         else:
             log.warning(
                 "⚠️  Áudio ambiente não disponível (sem loopback WASAPI).")
-
-        if visao.ativa:
-            log.info(
-                f"👁️  Visão ativa ({visao.modelo_visao}). Primeira captura...")
-            await visao.descrever_tela(forcar=True)
-        else:
-            log.warning(
-                "👁️  Visão: sem modelo. Instale com: ollama pull llava:7b")
 
         # Detecta modo de operação antes do loop (inicializa cache de disponibilidade)
         if self.tts.disponivel:
@@ -367,9 +329,6 @@ class AliceSession:
         await self.tts.pre_carregar()
 
         loop = asyncio.get_event_loop()
-
-        # Inicia o vision heartbeat em background (só faz algo se visão estiver ativa)
-        asyncio.create_task(self._heartbeat_visao_loop())
 
         # Inicia o loop de reflexão offline ("Sonho") em background
         sonho = Sonho(modelo=MODELO_IA, memoria=memoria_longa)
@@ -407,15 +366,6 @@ class AliceSession:
             }:
                 break
 
-            # Vision heartbeat — comentário espontâneo sobre mudança na tela
-            if pergunta == "__heartbeat_visao__":
-                resp = await self.ollama.gerar_comentario_visao()
-                if resp:
-                    log.info(f"👁️  [Heartbeat] {resp}")
-                    FILA_SAIDA_GUI.put(f"👁️ {resp}")
-                    await self.tts.falar(resp)
-                continue
-
             # Comportamento proativo (tom escalona a cada ciclo de silêncio)
             if fonte == "proativo":
                 resp = await self.ollama.gerar_fala_proativa(
@@ -433,6 +383,11 @@ class AliceSession:
 
             print(f"{'Você digitou' if fonte == 'gui' else 'Você disse'}: {pergunta}")
 
+            if fonte == "voz" and pergunta:
+                if janela_ref:
+                    janela_ref._adicionar_mensagem(pergunta, "Você")
+                    janela_ref.desabilitar_input()
+
             # Diálogo de Hora/Clima: pede a cidade antes de chamar as ferramentas
             if _INTENT_HORA_CLIMA.search(pergunta):
                 pergunta = await self._processar_hora_clima(pergunta)
@@ -441,17 +396,12 @@ class AliceSession:
             humor = await self.ollama.descobrir_humor(pergunta)
             log.debug(f"💡 Humor selecionado: {humor}")
 
-            # 3. Atualiza visão da tela periodicamente (sem bloquear)
-            if visao.ativa:
-                asyncio.create_task(visao.descrever_tela())
-
             # 4. Montar contexto e gerar resposta
             ctx_emocional = emotion_engine.construir_prompt_contexto()
             bloco_memoria = memoria_longa.construir_bloco_memoria(pergunta)
             bloco_grafo = grafo.construir_bloco_grafo(pergunta)
-            bloco_visao = await visao.construir_bloco_visao()
             bloco_audio = audio_ambiente.construir_bloco_audio()
-            bloco_ctx = bloco_memoria + bloco_grafo + bloco_visao + bloco_audio
+            bloco_ctx = bloco_memoria + bloco_grafo + bloco_audio
 
             resp_texto, tk_p, tk_r = await self.ollama.pensar(
                 pergunta, humor, self.historico, ctx_emocional, bloco_ctx
@@ -472,12 +422,11 @@ class AliceSession:
             # 5. Envia resposta para a GUI
             FILA_SAIDA_GUI.put(resp_texto)
 
-            # 6. EmotionEngine + VTube Studio
+            # 6. EmotionEngine
             emocao = emotion_engine.analisar_tag_emocao(resp_texto)
             emotion_engine.registrar_turno(
                 f"Usuário disse: '{pergunta[:60]}...' Alice respondeu como: {humor}"
             )
-            asyncio.create_task(vts_connector.ativar_expressao(emocao))
 
             # 7. Atualizar histórico da sessão
             self.historico.append({"role": "user", "content": pergunta})
@@ -517,9 +466,8 @@ class AliceSession:
                 )
             )
 
-            # 9. Falar e depois resetar expressão VTS
+            # 9. Falar
             await self.tts.falar(resp_texto)
-            asyncio.create_task(vts_connector.resetar_expressao())
 
 
 # ── Entry point ───────────────────────────────────────────────────────────────

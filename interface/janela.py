@@ -669,6 +669,15 @@ class JanelaAlice:
         self.entry.configure(state="disabled")
         self.btn_enviar.configure(state="disabled", text="⏳ Aguardando...")
 
+    def desabilitar_input(self):
+        """Desabilita o input (via root.after thread-safe)."""
+        if self.root:
+            self.root.after(0, self._bloquear_input)
+
+    def _bloquear_input(self):
+        self.entry.configure(state="disabled")
+        self.btn_enviar.configure(state="disabled", text="⏳ Aguardando...")
+
     def habilitar_input(self):
         """Chamado após a Alice responder (via root.after thread-safe)."""
         if self.root:
