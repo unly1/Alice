@@ -175,6 +175,7 @@ class AliceSession:
         self._ciclos_proativos: int = 0  # escalada de tom durante silêncio
         # timestamp da última interação real (para sonho)
         self._ultima_interacao: float = 0.0
+        self.contexto_comando: str | None = None
 
         self.ollama = OllamaClient(
             modelo=MODELO_IA,
@@ -388,6 +389,65 @@ class AliceSession:
                     janela_ref._adicionar_mensagem(pergunta, "Você")
                     janela_ref.desabilitar_input()
 
+            # ── INTERCEPTAÇÃO DE COMANDOS LOCAIS ──────────────────────────────────
+            resposta_cmd = None
+
+            # Se estávamos esperando dados para um comando em andamento
+            if self.contexto_comando:
+                contexto = self.contexto_comando
+                self.contexto_comando = None  # reseta o contexto
+
+                from functions.Tools import execute_youtube_search, execute_wikipedia_search, tools
+
+                if contexto == "youtube":
+                    resposta_cmd = await execute_youtube_search(pergunta, self.tts.falar)
+                elif contexto == "wikipedia":
+                    resposta_cmd = await execute_wikipedia_search(pergunta, self.tts.falar)
+                elif contexto == "tocar_musica":
+                    msg = tools.music.tocar_musica(pergunta)
+                    await self.tts.falar(msg)
+                    resposta_cmd = f"🎵 {msg}"
+                elif contexto == "volume":
+                    try:
+                        vol = int(re.findall(r"\d+", pergunta)[0])
+                        msg = tools.music.volume(vol)
+                    except Exception:
+                        msg = "Não entendi o volume informado. Deve ser um número de 0 a 100."
+                    await self.tts.falar(msg)
+                    resposta_cmd = f"🔊 {msg}"
+            else:
+                # Processa comando local a partir do texto
+                from functions.Tools import process_command
+
+                def definir_contexto(ctx):
+                    self.contexto_comando = ctx
+
+                resposta_cmd = await process_command(pergunta, self.tts.falar, on_waiting_input=definir_contexto)
+
+            if resposta_cmd:
+                if resposta_cmd == "EXIT":
+                    break
+
+                # Se for um marcador de espera (WAIT:context), preparamos a resposta visual para o chat
+                if resposta_cmd.startswith("WAIT:"):
+                    ctx = resposta_cmd.split(":")[1]
+                    if ctx == "youtube":
+                        msg_gui = "🎥 O que deseja buscar no YouTube?"
+                    elif ctx == "wikipedia":
+                        msg_gui = "📚 O que deseja pesquisar na Wikipedia?"
+                    elif ctx == "tocar_musica":
+                        msg_gui = "🎵 Qual música você quer ouvir?"
+                    elif ctx == "volume":
+                        msg_gui = "🔊 Qual o nível do volume?"
+                    else:
+                        msg_gui = "Aguardando entrada..."
+                else:
+                    msg_gui = resposta_cmd
+
+                FILA_SAIDA_GUI.put(msg_gui)
+                continue
+            # ──────────────────────────────────────────────────────────────────────
+
             # Diálogo de Hora/Clima: pede a cidade antes de chamar as ferramentas
             if _INTENT_HORA_CLIMA.search(pergunta):
                 pergunta = await self._processar_hora_clima(pergunta)
@@ -423,7 +483,7 @@ class AliceSession:
             FILA_SAIDA_GUI.put(resp_texto)
 
             # 6. EmotionEngine
-            emocao = emotion_engine.analisar_tag_emocao(resp_texto)
+            emotion_engine.analisar_tag_emocao(resp_texto)
             emotion_engine.registrar_turno(
                 f"Usuário disse: '{pergunta[:60]}...' Alice respondeu como: {humor}"
             )

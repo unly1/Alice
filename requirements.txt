@@ -6,7 +6,6 @@ faster-whisper     # Transcrição de áudio ultra-rápida via GPU/CPU
 pyaudiowpatch      # Captura de áudio do microfone + WASAPI Loopback (Windows)
 
 # --- Voz (Text-to-Speech) ---
-# edge-tts removido — substituído pelo OmniVoice (TTS local offline)
 omnivoice                          # TTS local multilíngue zero-shot (k2-fsa/OmniVoice)
 # Instalar PyTorch com CUDA 12.x separadamente (não incluído no pip install -r):
 #   pip install torch==2.8.0+cu128 torchaudio==2.8.0+cu128 --index-url https://download.pytorch.org/whl/cu128
