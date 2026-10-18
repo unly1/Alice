@@ -32,3 +32,6 @@ audio/prontas/
 # Estado pessoal da Alice (agora fica no banco; arquivo antigo migrado)
 functions/brain.json
 functions/brain.json.migrado
+
+# Cópias que o tools/restaurar_banco.py deixa dos SQLite substituídos
+*.antes-restauracao

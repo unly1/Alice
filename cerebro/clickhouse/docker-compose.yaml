@@ -10,9 +10,10 @@ services:
       - clickhouse_data:/var/lib/clickhouse
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
-      CLICKHOUSE_DB: analytics
-      CLICKHOUSE_USER: alice
-      CLICKHOUSE_PASSWORD: "alice123"
+      # Vêm do .env da Alice (tools/configurar_clickhouse.py cria na primeira vez)
+      CLICKHOUSE_DB: ${CLICKHOUSE_DB_APP:-analytics}
+      CLICKHOUSE_USER: ${CLICKHOUSE_USER_APP:-alice}
+      CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD_APP:-alice123}
     deploy:
       resources:
         limits:

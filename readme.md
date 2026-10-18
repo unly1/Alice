@@ -77,6 +77,12 @@ Alice/
 ├── respostas/                  # Frases fixas por categoria (.txt)
 │   └── respostas_vazias.txt
 │
+├── tools/
+│   ├── configurar_clickhouse.py # Primeira configuração do Docker + ClickHouse
+│   ├── backup_banco.py          # Backup do ClickHouse, SQLite e .env
+│   ├── restaurar_banco.py       # Restaura um backup
+│   └── listar_dispositivos_audio.py
+│
 └── audio/
     └── prontas/                # Áudios gerados das respostas prontas (não commitado)
 ```
@@ -151,6 +157,24 @@ Edite `respostas_prontas.json`. Cada resposta tem um `id`, uma lista de `gatilho
 ### Voz na GPU
 
 No `.env`, `TTS_DEVICE=cuda` roda o OmniVoice na placa de vídeo (`cpu` para voltar). Testado numa RTX 4070 de 12 GB junto com `llama3.1:8b`, Whisper e `nomic-embed-text`: o `ollama ps` continuou mostrando `100% GPU` para o llama. Se aparecer divisão CPU/GPU, a VRAM não deu e o LLM vai ficar mais lento.
+
+### ClickHouse: configuração e backup
+
+O ClickHouse roda no Docker Desktop e guarda os dados num volume do Docker, que se perde numa formatação. Os SQLite (`cerebro/*.db`) e o `.env` também ficam fora do git. Por isso existem três scripts (rode na pasta da Alice, com o `.venv` ativo):
+
+| Script | O que faz |
+|---|---|
+| `python tools/configurar_clickhouse.py` | Primeira vez ou máquina nova: cria o usuário e a senha do ClickHouse no `.env` se ainda não existirem (Enter aceita o usuário `alice` e uma senha gerada na hora), confere o Docker Desktop (abre se estiver fechado), sobe o container pelo `docker-compose.yaml`, cria as tabelas do `init.sql` e testa a conexão do Python. Pode rodar de novo sem problema. |
+| `python tools/backup_banco.py` | Exporta todas as tabelas do ClickHouse, copia `memoria.db`, `grafo.db` e o `.env` para `D:\Backups\Alice\alice_<data>_<hora>\`. Guarda os 30 mais recentes (`--manter N` para mudar). Outra pasta: passe como argumento ou use `ALICE_BACKUP_DIR` no `.env`. |
+| `python tools/restaurar_banco.py` | Restaura o backup mais recente (ou a pasta passada como argumento). As configurações do `.env` do backup que faltarem no `.env` atual são acrescentadas, sem trocar o usuário e a senha do ClickHouse desta máquina. Sem `--substituir`, não mexe em nada que já existe; com `--substituir`, troca os dados atuais pelos do backup e renomeia os SQLite antigos para `.antes-restauracao`. |
+
+Depois de formatar: instale o Docker Desktop, clone o repositório, crie o `.venv`, rode `tools/configurar_clickhouse.py` e depois `tools/restaurar_banco.py`.
+
+Para um backup automático diário (por exemplo às 23h), no PowerShell:
+
+```powershell
+schtasks /Create /SC DAILY /ST 23:00 /TN "Alice Backup" /TR "C:\Users\moliv\Documents\Alice\.venv\Scripts\python.exe C:\Users\moliv\Documents\Alice\tools\backup_banco.py"
+```
 
 ### Sistema de Ferramentas (ReAct Pattern)
 Em vez da API nativa de `tools` do Ollama (instável com modelos locais), a Alice usa um sistema próprio:
