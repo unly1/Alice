@@ -64,3 +64,22 @@ CREATE TABLE IF NOT EXISTS analytics.logs
 ENGINE = MergeTree()
 ORDER BY (nivel, criado_em)
 SETTINGS index_granularity = 8192;
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Tabela 4: Histórico do estado da Alice (antigo brain.json)
+-- ─────────────────────────────────────────────────────────────────────────────
+-- O estado atual fica no SQLite (cerebro/memoria.db, tabela estado).
+-- Aqui cada mudança vira uma linha, para ver a evolução do humor e da amizade.
+CREATE TABLE IF NOT EXISTS analytics.estado_alice
+(
+    humor               String    COMMENT 'Humor detectado na última resposta',
+    amizade_com_usuario UInt8     COMMENT 'Nível de amizade (0 a 100)',
+    total_conversas     UInt32    COMMENT 'Total de turnos já registrados',
+    nome_usuario        String    COMMENT 'Nome do usuário detectado',
+    ultima_interacao    String    COMMENT 'Resumo da última troca',
+    session_id          String    COMMENT 'ID da sessão Alice',
+    criado_em           DateTime  DEFAULT now()  COMMENT 'Quando o estado mudou'
+)
+ENGINE = MergeTree()
+ORDER BY criado_em
+SETTINGS index_granularity = 8192;

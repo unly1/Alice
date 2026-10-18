@@ -46,6 +46,7 @@ class ClickhouseLogger:
         self._turn_id = 0
         # Serializa acesso ao client entre threads (executor + sink Loguru)
         self._lock = threading.Lock()
+        self._tabela_estado_ok = False  # estado_alice criada sob demanda
 
         self._host = os.getenv("CLICKHOUSE_HOST", "localhost")
         self._port = int(os.getenv("CLICKHOUSE_HTTP_PORT", "8123"))
@@ -250,6 +251,52 @@ class ClickhouseLogger:
             self._conectado = False
 
     # ── Memória de longo prazo ────────────────────────────────────────────────
+
+    def registrar_estado_sync(self, estado: dict):
+        """
+        Guarda uma foto do estado da Alice (humor, amizade, conversas, nome)
+        em analytics.estado_alice. Cada mudança vira uma linha, formando o histórico.
+        """
+        if not self._garantir_conexao():
+            return
+        try:
+            with self._lock:
+                if not self._tabela_estado_ok:
+                    self._client.command(
+                        "CREATE TABLE IF NOT EXISTS estado_alice ("
+                        " humor String,"
+                        " amizade_com_usuario UInt8,"
+                        " total_conversas UInt32,"
+                        " nome_usuario String,"
+                        " ultima_interacao String,"
+                        " session_id String,"
+                        " criado_em DateTime DEFAULT now()"
+                        ") ENGINE = MergeTree() ORDER BY criado_em"
+                    )
+                    self._tabela_estado_ok = True
+                self._client.insert(
+                    "estado_alice",
+                    [[
+                        str(estado.get("humor", "")),
+                        int(estado.get("amizade_com_usuario", 0)),
+                        int(estado.get("total_conversas", 0)),
+                        str(estado.get("nome_usuario", "")),
+                        str(estado.get("ultima_interacao", ""))[:500],
+                        self._session_id,
+                        datetime.now(),
+                    ]],
+                    column_names=[
+                        "humor",
+                        "amizade_com_usuario",
+                        "total_conversas",
+                        "nome_usuario",
+                        "ultima_interacao",
+                        "session_id",
+                        "criado_em",
+                    ],
+                )
+        except Exception as e:
+            log.debug(f"📊 [ClickHouse] Falha ao salvar estado: {e}")
 
     def registrar_fato_sync(self, fato: str, id_fato: str):
         """INSERT de um fato na tabela analytics.memoria com embedding semântico."""

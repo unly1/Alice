@@ -35,6 +35,7 @@ from functions.ContentManager import ContentManager
 from functions.EmotionEngine import EmotionEngine
 from functions.MicListener import MicListener
 from functions.OllamaClient import OllamaClient
+from functions.RespostasProntas import RespostasProntas
 from functions.TTSService import TTSService
 from cerebro.audio_ambiente import AudioAmbiente
 from cerebro.clickhouse_logger import ClickhouseLogger
@@ -124,6 +125,7 @@ log.info(
 # ClickHouse como sink de log e memória primária; SQLite como backup
 clickhouse_log = ClickhouseLogger()
 set_clickhouse_logger(clickhouse_log)
+emotion_engine.conectar_clickhouse(clickhouse_log)  # histórico do estado
 memoria_longa = MemoriaLongaPrazo(clickhouse_log)
 
 summarizer = Summarizer()
@@ -138,6 +140,10 @@ audio_ambiente = AudioAmbiente(modelo_whisper, alice_falando=_alice_falando)
 # Carregado uma vez aqui e compartilhado com OllamaClient.
 # Chame content_manager.recarregar() a qualquer momento para hot-reload.
 content_manager = ContentManager()
+
+# ── Respostas prontas: perguntas frequentes com áudio já gerado ───────────────
+# Edite respostas_prontas.json; o áudio é refeito no startup quando o texto muda.
+respostas_prontas = RespostasProntas()
 
 # ── Filas de comunicação GUI ↔ asyncio ────────────────────────────────────────
 # GUI → asyncio (mensagens do usuário)
@@ -216,6 +222,31 @@ class AliceSession:
         if self._ultima_interacao == 0.0:
             return 0.0
         return time.time() - self._ultima_interacao
+
+    async def _extrair_memoria(self, historico: list) -> None:
+        """
+        Extrai fatos/triplas e detecta o nome do usuário numa thread separada.
+
+        As funções do OllamaClient chamam ollama.chat de forma síncrona, então
+        rodá-las direto no loop travaria a escuta. Cada uma roda com seu próprio
+        event loop dentro do executor. Falhas são só logadas.
+        """
+        loop = asyncio.get_running_loop()
+        try:
+            await loop.run_in_executor(
+                None,
+                lambda: asyncio.run(
+                    self.ollama.extrair_e_salvar_fatos(
+                        historico, memoria_longa, grafo)
+                ),
+            )
+            await loop.run_in_executor(
+                None,
+                lambda: asyncio.run(
+                    self.ollama.detectar_nome_usuario(historico)),
+            )
+        except Exception as e:
+            log.warning(f"🧠 Falha ao extrair memória em segundo plano: {e}")
 
     async def _responder_vazio(self) -> str:
         """Retorna uma frase aleatória de fallback quando o input foi vazio."""
@@ -329,6 +360,10 @@ class AliceSession:
         # Pré-carrega o modelo OmniVoice no startup para evitar atraso na primeira fala
         await self.tts.pre_carregar()
 
+        # Gera/carrega os áudios das respostas prontas (só refaz os que mudaram)
+        if self.tts.disponivel:
+            await respostas_prontas.preparar(self.tts)
+
         loop = asyncio.get_event_loop()
 
         # Inicia o loop de reflexão offline ("Sonho") em background
@@ -388,6 +423,16 @@ class AliceSession:
                 if janela_ref:
                     janela_ref._adicionar_mensagem(pergunta, "Você")
                     janela_ref.desabilitar_input()
+
+            # ── RESPOSTAS PRONTAS (áudio já gerado, sem passar pelo LLM) ──────────
+            pronta = None if self.contexto_comando else respostas_prontas.buscar(pergunta)
+            if pronta:
+                log.info(f"⚡ [Resposta pronta: {pronta['id']}] {pronta['texto'][:80]}")
+                FILA_SAIDA_GUI.put(pronta["texto"])
+                self.historico.append({"role": "user", "content": pergunta})
+                self.historico.append({"role": "assistant", "content": pronta["texto"]})
+                await respostas_prontas.falar(pronta, self.tts)
+                continue
 
             # ── INTERCEPTAÇÃO DE COMANDOS LOCAIS ──────────────────────────────────
             resposta_cmd = None
@@ -506,14 +551,6 @@ class AliceSession:
 
             log.debug(f"📝 Histórico: {len(self.historico) // 2} trocas")
 
-            # 8. Extrair fatos + detectar nome a cada 3 turnos
-            self.turno_count += 1
-            if self.turno_count % 3 == 0:
-                await self.ollama.extrair_e_salvar_fatos(
-                    self.historico, memoria_longa, grafo
-                )
-                await self.ollama.detectar_nome_usuario(self.historico)
-
             # 8b. Salvar interação completa no ClickHouse (assíncrono, fail-silently)
             asyncio.create_task(
                 clickhouse_log.registrar_turno(
@@ -528,6 +565,13 @@ class AliceSession:
 
             # 9. Falar
             await self.tts.falar(resp_texto)
+
+            # 10. Extrair fatos + detectar nome a cada 3 turnos, em segundo plano,
+            # depois da fala, para não atrasar a voz nem a próxima escuta
+            self.turno_count += 1
+            if self.turno_count % 3 == 0:
+                asyncio.create_task(
+                    self._extrair_memoria(list(self.historico)))
 
 
 # ── Entry point ───────────────────────────────────────────────────────────────

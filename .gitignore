@@ -23,7 +23,12 @@ logs/
 
 # Audio/Media
 audio/resposta.wav
+audio/prontas/
 
 # IDEs
 .vscode/
 .idea/
+
+# Estado pessoal da Alice (agora fica no banco; arquivo antigo migrado)
+functions/brain.json
+functions/brain.json.migrado

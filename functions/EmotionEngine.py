@@ -1,12 +1,18 @@
 import json
 import os
 import re
+import sqlite3
+import threading
 from cerebro.logger import log
 
-# Caminho do arquivo de estado persistente da Alice.
+# Estado persistente da Alice: tabela `estado` no mesmo SQLite da memória.
+CAMINHO_DB = os.path.join(
+    os.path.dirname(os.path.dirname(__file__)), "cerebro", "memoria.db"
+)
+# Arquivo antigo: lido uma única vez para migrar e depois renomeado para .migrado
 CAMINHO_BRAIN = os.path.join(os.path.dirname(__file__), "brain.json")
 
-# Estado padrão caso brain.json não exista ainda.
+# Estado padrão caso ainda não exista nada salvo.
 ESTADO_PADRAO = {
     "humor": "Neutro",
     "amizade_com_usuario": 50,
@@ -21,31 +27,89 @@ class EmotionEngine:
     Motor emocional da Alice.
 
     Responsável por:
-    - Ler e persistir o estado emocional no brain.json
+    - Ler e persistir o estado emocional no banco (SQLite, tabela `estado`)
+    - Registrar o histórico do estado no ClickHouse (analytics.estado_alice), se conectado
     - Analisar as respostas da IA e detectar emoções via palavras-chave (Tagger)
     - Construir contexto emocional para injetar no system prompt
     - Incrementar o nível de amizade com o usuário ao longo das interações
     """
 
     def __init__(self):
+        self._ch = None  # ClickhouseLogger, ligado depois via conectar_clickhouse()
+        self._criar_tabela()
+        self._migrar_brain_json()
         self.estado_atual = self.ler_estado()
 
-    def ler_estado(self) -> dict:
-        """Carrega o brain.json ou retorna o estado padrão se não existir."""
-        if os.path.exists(CAMINHO_BRAIN):
+    # ── Banco ─────────────────────────────────────────────────────────────────
+
+    def _criar_tabela(self):
+        """Cria a tabela chave/valor do estado se não existir."""
+        with sqlite3.connect(CAMINHO_DB) as conn:
+            conn.execute(
+                "CREATE TABLE IF NOT EXISTS estado ("
+                " chave TEXT PRIMARY KEY,"
+                " valor TEXT NOT NULL,"
+                " atualizado_em TEXT DEFAULT CURRENT_TIMESTAMP)"
+            )
+
+    def _migrar_brain_json(self):
+        """Na primeira execução, copia o brain.json para o banco e renomeia o arquivo."""
+        if not os.path.exists(CAMINHO_BRAIN):
+            return
+        with sqlite3.connect(CAMINHO_DB) as conn:
+            ja_tem = conn.execute("SELECT COUNT(*) FROM estado").fetchone()[0]
+        if ja_tem:
+            return
+        try:
             with open(CAMINHO_BRAIN, "r", encoding="utf-8") as f:
                 dados = json.load(f)
-            # Garante que novos campos adicionados futuramente sejam populados
-            for chave, valor in ESTADO_PADRAO.items():
-                if chave not in dados:
-                    dados[chave] = valor
-            return dados
-        return dict(ESTADO_PADRAO)
+            self._gravar(dados)
+            os.replace(CAMINHO_BRAIN, CAMINHO_BRAIN + ".migrado")
+            log.info(
+                "🧠 brain.json migrado para o banco (cerebro/memoria.db, tabela estado).")
+        except Exception as e:
+            log.warning(f"🧠 Falha ao migrar brain.json para o banco: {e}")
+
+    def _gravar(self, estado: dict):
+        """Grava todas as chaves do estado no SQLite."""
+        with sqlite3.connect(CAMINHO_DB) as conn:
+            conn.executemany(
+                "INSERT INTO estado (chave, valor, atualizado_em)"
+                " VALUES (?, ?, CURRENT_TIMESTAMP)"
+                " ON CONFLICT(chave) DO UPDATE SET"
+                " valor = excluded.valor, atualizado_em = excluded.atualizado_em",
+                [(k, json.dumps(v, ensure_ascii=False))
+                 for k, v in estado.items()],
+            )
+
+    def conectar_clickhouse(self, ch):
+        """Liga o ClickHouse para guardar o histórico de cada mudança de estado."""
+        self._ch = ch
+
+    def ler_estado(self) -> dict:
+        """Carrega o estado do banco ou retorna o estado padrão se não existir."""
+        dados = dict(ESTADO_PADRAO)
+        try:
+            with sqlite3.connect(CAMINHO_DB) as conn:
+                for chave, valor in conn.execute("SELECT chave, valor FROM estado"):
+                    dados[chave] = json.loads(valor)
+        except Exception as e:
+            log.warning(f"🧠 Falha ao ler estado do banco: {e}")
+        return dados
 
     def salvar(self):
-        """Persiste o estado atual no brain.json."""
-        with open(CAMINHO_BRAIN, "w", encoding="utf-8") as f:
-            json.dump(self.estado_atual, f, indent=4, ensure_ascii=False)
+        """Persiste o estado atual no SQLite e manda uma cópia para o ClickHouse."""
+        try:
+            self._gravar(self.estado_atual)
+        except Exception as e:
+            log.warning(f"🧠 Falha ao salvar estado no banco: {e}")
+        if self._ch is not None:
+            # Em thread para não atrasar o turno; falhas são silenciosas no logger
+            threading.Thread(
+                target=self._ch.registrar_estado_sync,
+                args=(dict(self.estado_atual),),
+                daemon=True,
+            ).start()
 
     def atualizar_estado(self, chave: str, valor):
         """Atualiza um campo do estado e salva imediatamente."""
@@ -83,7 +147,8 @@ class EmotionEngine:
             r"\b(sem jeito|bobinha|bochechas|vergonha|shy-mode|bobona|bobinha|ai para|elogio)\b",
             texto_lower,
         ):
-            emocao = "Riso"  # Timidez (na Alice Hiyori, MouthSmile inclui blush rosado)
+            # Timidez (na Alice Hiyori, MouthSmile inclui blush rosado)
+            emocao = "Riso"
         elif re.search(
             r"\b(foco|conseguir|mãos à obra|potencial|meta|organizar|realização|desafios)\b",
             texto_lower,
@@ -108,7 +173,8 @@ class EmotionEngine:
             r"\b(curiosidade|curiosa|fascinada|aprender|explica|conta|descobrir|olhos brilhando)\b",
             texto_lower,
         ):
-            emocao = "Surpresa"  # Curiosidade (expressão de interesse/surpresa)
+            # Curiosidade (expressão de interesse/surpresa)
+            emocao = "Surpresa"
         elif re.search(
             r"\b(hahaha|kkk|rsrs|engraçado|risos|que delícia|adoro|amo)\b", texto_lower
         ):
@@ -120,7 +186,7 @@ class EmotionEngine:
         else:
             emocao = "Neutro"
 
-        # Atualiza o humor do brain.json com a emoção detectada
+        # Atualiza o humor salvo no banco com a emoção detectada
         self.estado_atual["humor"] = emocao
         self.salvar()
 
