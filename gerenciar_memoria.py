@@ -12,8 +12,8 @@ Permite:
 Fonte: ClickHouse (principal) com fallback automático para SQLite.
 """
 
-import sys
 import os
+import sys
 
 # Garante que o diretório raiz do projeto esteja no path
 sys.path.insert(0, os.path.dirname(__file__))
@@ -92,25 +92,33 @@ def menu_principal(memoria: MemoriaLongaPrazo):
                 print(f"{DIM}Nenhum ID informado.{RESET}")
                 continue
 
-            # Mapeia prefixo → id completo
+            # Mapeia prefixo → todos os fatos cujos IDs começam com o prefixo
             prefixos = [x.strip() for x in entrada.split(",") if x.strip()]
-            fatos_por_prefixo = {}
+            matches_por_prefixo: dict[str, list[dict]] = {pfx: [] for pfx in prefixos}
             for f in fatos:
                 id_str = str(f["id"])
                 for pfx in prefixos:
                     if id_str.startswith(pfx):
-                        fatos_por_prefixo[pfx] = f
-                        break
+                        matches_por_prefixo[pfx].append(f)
 
             ids_confirmados = []
+            ids_vistos = set()
             print(f"\n{YELLOW}Fatos que serão apagados:{RESET}")
             for pfx in prefixos:
-                if pfx in fatos_por_prefixo:
-                    f = fatos_por_prefixo[pfx]
-                    print(f"  {RED}[{pfx}...]{RESET} {f['fato']}")
-                    ids_confirmados.append(f["id"])
-                else:
+                encontrados = matches_por_prefixo.get(pfx, [])
+                if not encontrados:
                     print(f"  {DIM}Prefixo '{pfx}' não encontrado — ignorado.{RESET}")
+                elif len(encontrados) > 1:
+                    ids_colisao = ", ".join(str(x["id"])[:12] for x in encontrados)
+                    print(
+                        f"  {YELLOW}⚠️ Prefixo '{pfx}' é ambíguo ({len(encontrados)} fatos: {ids_colisao}) — use mais caracteres.{RESET}"
+                    )
+                else:
+                    f = encontrados[0]
+                    if f["id"] not in ids_vistos:
+                        print(f"  {RED}[{str(f['id'])[:8]}...]{RESET} {f['fato']}")
+                        ids_confirmados.append(f["id"])
+                        ids_vistos.add(f["id"])
 
             if not ids_confirmados:
                 continue

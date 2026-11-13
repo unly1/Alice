@@ -15,10 +15,11 @@ Diferença em relação à memória vetorial:
   - Grafo: relações explícitas que podem ser percorridas
     → "O que Marcos usa no trabalho?" recupera vizinhos de "Marcos"
 
-Backend: SQLite (sem nova dependência).
-Design: fail-silently, thread-safe, complementa a memória existente.
+Backend: SQLite (sem nova dependência), configurado com WAL, busy_timeout=5000,
+lock em leituras/escritas e COLLATE NOCASE em sujeito/objeto.
 """
 
+from datetime import datetime
 import os
 import sqlite3
 import threading
@@ -28,6 +29,8 @@ CAMINHO_GRAFO = os.path.join(os.path.dirname(__file__), "grafo.db")
 
 # Máximo de triplas retornadas por consulta de contexto
 _LIMITE_TRIPLAS = 15
+
+_PONTUACAO_BUSCA = ".,!?;:\"'()"
 
 
 class GraphMemory:
@@ -48,32 +51,73 @@ class GraphMemory:
 
     # ── Infraestrutura ────────────────────────────────────────────────────────
 
+    def _conectar(self) -> sqlite3.Connection:
+        """Abre conexão SQLite com WAL, synchronous=NORMAL e busy_timeout=5000ms."""
+        conn = sqlite3.connect(CAMINHO_GRAFO, timeout=5.0)
+        conn.execute("PRAGMA journal_mode=WAL")
+        conn.execute("PRAGMA synchronous=NORMAL")
+        conn.execute("PRAGMA busy_timeout=5000")
+        return conn
+
     def _criar_tabela(self):
-        """Cria tabelas do grafo se não existirem."""
+        """Cria ou migra idempotentemente a tabela do grafo com COLLATE NOCASE."""
         try:
-            with sqlite3.connect(CAMINHO_GRAFO) as conn:
-                conn.execute("""
-                    CREATE TABLE IF NOT EXISTS triplas (
-                        id        INTEGER PRIMARY KEY AUTOINCREMENT,
-                        sujeito   TEXT NOT NULL,
-                        relacao   TEXT NOT NULL,
-                        objeto    TEXT NOT NULL,
-                        criado_em TEXT NOT NULL,
-                        UNIQUE(sujeito, relacao, objeto)
+            with self._lock:
+                with self._conectar() as conn:
+                    row = conn.execute(
+                        "SELECT sql FROM sqlite_master "
+                        "WHERE type='table' AND name='triplas'"
+                    ).fetchone()
+
+                    if row and "COLLATE NOCASE" not in (row[0] or "").upper():
+                        conn.execute("""
+                            CREATE TABLE IF NOT EXISTS triplas_novo (
+                                id        INTEGER PRIMARY KEY AUTOINCREMENT,
+                                sujeito   TEXT NOT NULL COLLATE NOCASE,
+                                relacao   TEXT NOT NULL COLLATE NOCASE,
+                                objeto    TEXT NOT NULL COLLATE NOCASE,
+                                criado_em TEXT NOT NULL,
+                                UNIQUE(sujeito, relacao, objeto)
+                            )
+                        """)
+                        conn.execute("""
+                            INSERT OR IGNORE INTO triplas_novo
+                                (id, sujeito, relacao, objeto, criado_em)
+                            SELECT id, sujeito, relacao, objeto, criado_em
+                            FROM triplas
+                            ORDER BY id ASC
+                        """)
+                        conn.execute("DROP TABLE triplas")
+                        conn.execute("ALTER TABLE triplas_novo RENAME TO triplas")
+                    else:
+                        conn.execute("""
+                            CREATE TABLE IF NOT EXISTS triplas (
+                                id        INTEGER PRIMARY KEY AUTOINCREMENT,
+                                sujeito   TEXT NOT NULL COLLATE NOCASE,
+                                relacao   TEXT NOT NULL COLLATE NOCASE,
+                                objeto    TEXT NOT NULL COLLATE NOCASE,
+                                criado_em TEXT NOT NULL,
+                                UNIQUE(sujeito, relacao, objeto)
+                            )
+                        """)
+
+                    conn.execute(
+                        "CREATE INDEX IF NOT EXISTS idx_sujeito "
+                        "ON triplas(sujeito COLLATE NOCASE)"
                     )
-                """)
-                conn.execute(
-                    "CREATE INDEX IF NOT EXISTS idx_sujeito ON triplas(sujeito)"
-                )
-                conn.execute("CREATE INDEX IF NOT EXISTS idx_objeto ON triplas(objeto)")
-                conn.commit()
+                    conn.execute(
+                        "CREATE INDEX IF NOT EXISTS idx_objeto "
+                        "ON triplas(objeto COLLATE NOCASE)"
+                    )
+                    conn.commit()
         except Exception as e:
-            log.warning(f"🕸️  [Grafo] Erro ao criar tabela: {e}")
+            log.warning(f"🕸️  [Grafo] Erro ao criar/migrar tabela: {e}")
 
     def _contar_triplas(self) -> int:
         try:
-            with sqlite3.connect(CAMINHO_GRAFO) as conn:
-                return conn.execute("SELECT COUNT(*) FROM triplas").fetchone()[0]
+            with self._lock:
+                with self._conectar() as conn:
+                    return conn.execute("SELECT COUNT(*) FROM triplas").fetchone()[0]
         except Exception:
             return 0
 
@@ -95,10 +139,20 @@ class GraphMemory:
             return False
 
         try:
-            from datetime import datetime
-
+            suj_low = sujeito.lower()
+            obj_low = objeto.lower()
             with self._lock:
-                with sqlite3.connect(CAMINHO_GRAFO) as conn:
+                with self._conectar() as conn:
+                    existentes = conn.execute(
+                        "SELECT sujeito, objeto FROM triplas "
+                        "WHERE relacao = ? COLLATE NOCASE",
+                        (relacao,),
+                    ).fetchall()
+                    if any(
+                        s.lower() == suj_low and o.lower() == obj_low
+                        for s, o in existentes
+                    ):
+                        return False
                     conn.execute(
                         "INSERT OR IGNORE INTO triplas (sujeito, relacao, objeto, criado_em) "
                         "VALUES (?, ?, ?, ?)",
@@ -147,13 +201,17 @@ class GraphMemory:
         if not entidade:
             return []
         try:
-            with sqlite3.connect(CAMINHO_GRAFO) as conn:
-                rows = conn.execute(
-                    "SELECT sujeito, relacao, objeto FROM triplas "
-                    "WHERE sujeito LIKE ? OR objeto LIKE ? "
-                    "ORDER BY id DESC LIMIT ?",
-                    (f"%{entidade}%", f"%{entidade}%", limite),
-                ).fetchall()
+            with self._lock:
+                with self._conectar() as conn:
+                    rows = conn.execute(
+                        "SELECT sujeito, relacao, objeto FROM triplas "
+                        "WHERE sujeito = ? COLLATE NOCASE "
+                        "OR objeto = ? COLLATE NOCASE "
+                        "OR sujeito LIKE ? COLLATE NOCASE "
+                        "OR objeto LIKE ? COLLATE NOCASE "
+                        "ORDER BY id DESC LIMIT ?",
+                        (entidade, entidade, f"%{entidade}%", f"%{entidade}%", limite),
+                    ).fetchall()
             return rows
         except Exception as e:
             log.warning(f"🕸️  [Grafo] Erro ao buscar vizinhos de '{entidade}': {e}")
@@ -172,24 +230,34 @@ class GraphMemory:
         if not contexto:
             return []
 
-        # Palavras com 4+ chars como candidatas a entidades/termos relevantes
-        palavras = [p.strip(".,!?;:\"'()") for p in contexto.split() if len(p) >= 4]
+        palavras = [
+            p.strip(_PONTUACAO_BUSCA)
+            for p in contexto.split()
+            if len(p.strip(_PONTUACAO_BUSCA)) >= 4
+        ]
         if not palavras:
             return []
 
         try:
-            conds = " OR ".join(["sujeito LIKE ? OR objeto LIKE ?"] * len(palavras))
+            conds = " OR ".join(
+                [
+                    "sujeito = ? COLLATE NOCASE OR objeto = ? COLLATE NOCASE "
+                    "OR sujeito LIKE ? COLLATE NOCASE OR objeto LIKE ? COLLATE NOCASE"
+                ]
+                * len(palavras)
+            )
             params = []
             for p in palavras:
-                params += [f"%{p}%", f"%{p}%"]
+                params += [p, p, f"%{p}%", f"%{p}%"]
             params.append(limite)
 
-            with sqlite3.connect(CAMINHO_GRAFO) as conn:
-                rows = conn.execute(
-                    f"SELECT DISTINCT sujeito, relacao, objeto FROM triplas "
-                    f"WHERE {conds} ORDER BY id DESC LIMIT ?",
-                    params,
-                ).fetchall()
+            with self._lock:
+                with self._conectar() as conn:
+                    rows = conn.execute(
+                        f"SELECT DISTINCT sujeito, relacao, objeto FROM triplas "
+                        f"WHERE {conds} ORDER BY id DESC LIMIT ?",
+                        params,
+                    ).fetchall()
             return rows
         except Exception as e:
             log.warning(f"🕸️  [Grafo] Erro na busca por contexto: {e}")
@@ -198,12 +266,13 @@ class GraphMemory:
     def listar_todas(self, limite: int = 200) -> list[dict]:
         """Retorna todas as triplas para gerenciamento/visualização."""
         try:
-            with sqlite3.connect(CAMINHO_GRAFO) as conn:
-                rows = conn.execute(
-                    "SELECT id, sujeito, relacao, objeto, criado_em FROM triplas "
-                    "ORDER BY id DESC LIMIT ?",
-                    (limite,),
-                ).fetchall()
+            with self._lock:
+                with self._conectar() as conn:
+                    rows = conn.execute(
+                        "SELECT id, sujeito, relacao, objeto, criado_em FROM triplas "
+                        "ORDER BY id DESC LIMIT ?",
+                        (limite,),
+                    ).fetchall()
             return [
                 {
                     "id": r[0],
@@ -221,7 +290,7 @@ class GraphMemory:
         """Remove uma tripla pelo ID."""
         try:
             with self._lock:
-                with sqlite3.connect(CAMINHO_GRAFO) as conn:
+                with self._conectar() as conn:
                     conn.execute("DELETE FROM triplas WHERE id = ?", (id_tripla,))
                     conn.commit()
             return True
@@ -233,7 +302,7 @@ class GraphMemory:
         try:
             total = self._contar_triplas()
             with self._lock:
-                with sqlite3.connect(CAMINHO_GRAFO) as conn:
+                with self._conectar() as conn:
                     conn.execute("DELETE FROM triplas")
                     conn.commit()
             log.warning(f"🕸️  [Grafo] {total} triplas apagadas.")
@@ -255,10 +324,12 @@ class GraphMemory:
         # Se não encontrou nada relevante, pega as mais recentes como fallback
         if not triplas:
             try:
-                with sqlite3.connect(CAMINHO_GRAFO) as conn:
-                    rows = conn.execute(
-                        "SELECT sujeito, relacao, objeto FROM triplas ORDER BY id DESC LIMIT 8"
-                    ).fetchall()
+                with self._lock:
+                    with self._conectar() as conn:
+                        rows = conn.execute(
+                            "SELECT sujeito, relacao, objeto FROM triplas "
+                            "ORDER BY id DESC LIMIT 8"
+                        ).fetchall()
                 triplas = rows
             except Exception:
                 pass

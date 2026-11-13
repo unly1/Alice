@@ -8,6 +8,8 @@ Transcreve com o mesmo modelo Whisper já carregado em main.py e injeta
 o texto detectado no contexto da Alice.
 """
 
+from __future__ import annotations
+
 import threading
 import time
 import numpy as np
@@ -22,6 +24,9 @@ CHUNK = 1024  # frames por leitura
 SILENCIO_LIMIAR = 0.004
 MAX_BUFFER = 5  # máximo de transcrições armazenadas
 
+# Lock global para serializar chamadas concorrentes ao mesmo modelo faster-whisper (CUDA/CTranslate2)
+WHISPER_LOCK = threading.Lock()
+
 
 class AudioAmbiente:
     """
@@ -32,9 +37,17 @@ class AudioAmbiente:
     ser injetado no contexto da Alice.
     """
 
-    def __init__(self, modelo_whisper, alice_falando: threading.Event | None = None):
+    def __init__(
+        self,
+        modelo_whisper,
+        alice_falando: threading.Event | None = None,
+        whisper_lock: threading.Lock | None = None,
+    ):
         self.modelo_whisper = modelo_whisper
         self._alice_falando = alice_falando
+        self._whisper_lock = whisper_lock or getattr(
+            modelo_whisper, "_alice_lock", WHISPER_LOCK
+        )
         # buffer das últimas N transcrições
         self.transcricoes: list[str] = []
         self._parar = threading.Event()
@@ -184,15 +197,15 @@ class AudioAmbiente:
                 indices = np.linspace(0, len(audio) - 1, novo_len)
                 audio = np.interp(indices, np.arange(len(audio)), audio)
 
-            segmentos, _ = self.modelo_whisper.transcribe(
-                audio,
-                language="pt",
-                beam_size=1,
-                vad_filter=True,  # filtra silêncio automaticamente
-                vad_parameters={"min_silence_duration_ms": 500},
-            )
-
-            texto = " ".join(s.text for s in segmentos).strip()
+            with self._whisper_lock:
+                segmentos, _ = self.modelo_whisper.transcribe(
+                    audio,
+                    language="pt",
+                    beam_size=1,
+                    vad_filter=True,  # filtra silêncio automaticamente
+                    vad_parameters={"min_silence_duration_ms": 500},
+                )
+                texto = " ".join(s.text for s in segmentos).strip()
             if texto and len(texto) > 8:
                 hora = time.strftime("%H:%M")
                 entrada = f"[{hora}] {texto}"

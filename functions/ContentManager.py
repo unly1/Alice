@@ -17,11 +17,12 @@ Uso:
     lista  = cm.listar_personalidades()
 """
 
-import os
 import random
 from pathlib import Path
 
 from cerebro.logger import log
+
+_PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 
 class ContentManager:
@@ -30,8 +31,7 @@ class ContentManager:
 
     Mantém um cache em memória de todos os arquivos .txt das pastas
     `personalidades/` e `respostas/`. O cache é populado na primeira
-    chamada (lazy loading) e pode ser recarregado a qualquer momento
-    via `recarregar()`.
+    chamada e pode ser recarregado a qualquer momento via `recarregar()`.
     """
 
     # Nomes das pastas relativas à raiz do projeto
@@ -44,13 +44,13 @@ class ContentManager:
     )
     _FALLBACK_RESPOSTA_VAZIA = "Acho que me perdi. O que você disse mesmo?"
 
-    def __init__(self, base_dir: str | None = None):
+    def __init__(self, base_dir: str | Path | None = None):
         """
         Args:
             base_dir: Caminho absoluto da raiz do projeto.
-                      Se None, usa o diretório de trabalho atual (os.getcwd()).
+                      Se None, usa a raiz do projeto derivada de __file__.
         """
-        self._base = Path(base_dir) if base_dir else Path(os.getcwd())
+        self._base = Path(base_dir).resolve() if base_dir else _PROJECT_ROOT
 
         # Cache: { nome_sem_extensao: conteudo_str }
         self._personalidades: dict[str, str] = {}
@@ -227,12 +227,6 @@ class ContentManager:
         """
         Retorna um dict com o status atual do ContentManager.
         Útil para debug e para exibir no painel de administração da GUI.
-
-        Exemplo de retorno:
-            {
-                'personalidades': {'alegre': 825, 'brava': 473, ...},
-                'respostas': {'respostas_vazias': 7},
-            }
         """
         return {
             "personalidades": {

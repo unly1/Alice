@@ -2,12 +2,13 @@
 cerebro/visao.py — Visão Computacional da Alice
 
 Captura screenshots da tela e descreve o que está acontecendo usando
-um modelo de visão (moondream, llava, qwen2-vl) via Ollama.
+um modelo de visão (gemma4:e4b, llava, qwen2-vl, moondream) via Ollama.
 
 Se nenhum modelo de visão estiver disponível, tenta OCR com pytesseract
 como fallback para extrair texto visível na tela.
 """
 
+import asyncio
 import time
 from io import BytesIO
 from cerebro.logger import log
@@ -59,7 +60,7 @@ class VisaoComputacional:
             log.info(f"👁️  Visão ativa | Modelo: {self.modelo_visao}")
         else:
             log.warning(
-                "👁️  Visão: nenhum modelo encontrado. Instale com: ollama pull gemma3:4b"
+                f"👁️  Visão: nenhum modelo encontrado. Instale com: ollama pull {MODELOS_VISAO[0]}"
             )
 
     # ─── Detecção de modelo ───────────────────────────────────────────────────
@@ -82,11 +83,19 @@ class VisaoComputacional:
                 ]
 
             for candidato in MODELOS_VISAO:
-                base = candidato.split(":")[0]
-                for nome in nomes:
-                    if nome.split(":")[0] == base:
-                        # retorna o nome completo (ex: "moondream:1.8b")
-                        return nome
+                if ":" in candidato:
+                    # Candidato especifica tag exata (ex: "gemma4:e4b", "llava:7b")
+                    for nome in nomes:
+                        if nome == candidato:
+                            return nome
+                else:
+                    # Candidato sem tag: prefere ":latest" ou match exato, senão qualquer tag do mesmo modelo base
+                    for nome in nomes:
+                        if nome == candidato or nome == f"{candidato}:latest":
+                            return nome
+                    for nome in nomes:
+                        if nome.split(":")[0] == candidato:
+                            return nome
         except Exception as e:
             log.warning(f"⚠️  [Visão] Erro ao listar modelos: {e}")
         return None
@@ -124,7 +133,7 @@ class VisaoComputacional:
             return self.ultima_descricao  # retorna cache
 
         try:
-            _, img_bytes = self._capturar_screenshot()
+            _, img_bytes = await asyncio.to_thread(self._capturar_screenshot)
         except Exception as e:
             return f"[Visão: erro ao capturar tela — {e}]"
 
@@ -143,7 +152,6 @@ class VisaoComputacional:
         Usa ollama.generate() com o modelo de visão para descrever a tela.
         Executado em thread para não bloquear o event loop asyncio.
         """
-        import asyncio
 
         def _chamar_ollama():
             return ollama.generate(
@@ -179,18 +187,24 @@ class VisaoComputacional:
             return ""
 
     async def _descrever_sem_llm(self, img_bytes: bytes) -> str:
-        """Fallback sem modelo de visão: tenta extrair texto com OCR."""
-        try:
+        """Fallback sem modelo de visão: tenta extrair texto com OCR em thread separada."""
+
+        def _executar_ocr() -> str:
             import pytesseract
 
             img = Image.open(BytesIO(img_bytes))
-            texto = pytesseract.image_to_string(img, lang="por+eng").strip()
+            return pytesseract.image_to_string(img, lang="por+eng").strip()
+
+        try:
+            texto = await asyncio.to_thread(_executar_ocr)
             if texto:
                 # Trunca para não sobrecarregar o contexto
                 return f"[Texto na tela]: {texto[:300]}"
         except ImportError:
             pass
-        return "[Visão: nenhum modelo de visão disponível. Instale com: ollama pull moondream]"
+        except Exception as e:
+            log.warning(f"⚠️  [Visão] Erro no fallback OCR: {e}")
+        return f"[Visão: nenhum modelo de visão disponível. Instale com: ollama pull {MODELOS_VISAO[0]}]"
 
     # ─── Bloco de contexto para injeção no prompt ────────────────────────────
 

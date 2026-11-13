@@ -82,14 +82,25 @@ class TTSService:
         """Carrega o modelo OmniVoice na primeira chamada (lazy init)."""
         if self._modelo is None:
             log.info(
-                "🔄 Carregando modelo OmniVoice... (primeira fala, pode demorar)")
+                "🔄 Carregando modelo OmniVoice... (primeira fala, pode demorar)"
+            )
             from omnivoice import OmniVoice
 
-            dispositivo_map = os.getenv("TTS_DEVICE", "cpu")
+            dispositivo_env = os.getenv("TTS_DEVICE", "").strip()
+            if dispositivo_env:
+                dispositivo_map = dispositivo_env
+            else:
+                try:
+                    import torch
+
+                    dispositivo_map = "cuda" if torch.cuda.is_available() else "cpu"
+                except Exception:
+                    dispositivo_map = "cpu"
+
             self._modelo = OmniVoice.from_pretrained(
                 "k2-fsa/OmniVoice", device_map=dispositivo_map
             )
-            log.info("✅ Modelo OmniVoice carregado.")
+            log.info(f"✅ Modelo OmniVoice carregado ({dispositivo_map}).")
         return self._modelo
 
     async def pre_carregar(self) -> None:

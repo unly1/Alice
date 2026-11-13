@@ -5,17 +5,19 @@ Tabelas gerenciadas:
   analytics.interactions — histórico completo de conversas (user + assistant)
   analytics.memoria      — fatos de longo prazo sobre o usuário
   analytics.logs         — eventos de WARNING+ para análise histórica
+  analytics.estado_alice — histórico de mudanças de estado emocional
 
 Design:
-  - Conexão lazy: só conecta na primeira operação.
+  - Conexão lazy com backoff em falhas: não trava o turno quando offline.
   - Fail-silently: sem ClickHouse ativo, Alice continua normalmente.
-  - Métodos síncronos para memória/logs (chamados de contexto síncrono).
-  - Métodos assíncronos para interações (chamados do loop principal).
+  - Queries 100% parametrizadas via `parameters={...}` (sem interpolação f-string).
+  - Re-embedding em lote sem `ALTER TABLE UPDATE` unitário em loop.
 """
 
 import asyncio
 import os
 import threading
+import time
 import uuid
 from datetime import datetime
 from cerebro.logger import log
@@ -28,6 +30,15 @@ try:
 except ImportError:
     _CLICKHOUSE_DISPONIVEL = False
 
+# Distância de cosseno máxima aceita na busca semântica (0.0 = idêntico)
+_MAX_COSINE_DISTANCE = 0.45
+
+# Tempo mínimo (segundos) entre tentativas de reconexão quando o banco está offline
+_BACKOFF_RECONEXAO_S = 30.0
+
+# Caracteres de pontuação removidos das palavras na busca lexical
+_PONTUACAO_BUSCA = ".,!?;:\"'()[]{}"
+
 
 class ClickhouseLogger:
     """
@@ -35,13 +46,15 @@ class ClickhouseLogger:
 
     Responsabilidades:
       - Registrar cada turno de conversa (interactions)
-      - Salvar / buscar / apagar fatos do usuário (memoria)
+      - Salvar / buscar / apagar / sincronizar fatos do usuário (memoria)
       - Persistir logs de WARNING+ (logs)
+      - Registrar snapshots de humor/amizade (estado_alice)
     """
 
     def __init__(self):
         self._client = None
         self._conectado = False
+        self._ultima_falha_ts = 0.0
         self._session_id = str(uuid.uuid4())[:8]
         self._turn_id = 0
         # Serializa acesso ao client entre threads (executor + sink Loguru)
@@ -64,6 +77,7 @@ class ClickhouseLogger:
     def _conectar(self) -> bool:
         """Tenta estabelecer conexão com o ClickHouse. Retorna True se sucesso."""
         if not _CLICKHOUSE_DISPONIVEL:
+            self._ultima_falha_ts = time.monotonic()
             log.warning(
                 "📊 [ClickHouse] Biblioteca 'clickhouse-connect' não instalada. "
                 "Execute: pip install clickhouse-connect"
@@ -71,23 +85,31 @@ class ClickhouseLogger:
             return False
 
         try:
-            self._client = clickhouse_connect.get_client(
-                host=self._host,
-                port=self._port,
-                username=self._user,
-                password=self._password,
-                database=self._database,
-            )
-            self._client.ping()
-            self._conectado = True
+            with self._lock:
+                self._client = clickhouse_connect.get_client(
+                    host=self._host,
+                    port=self._port,
+                    username=self._user,
+                    password=self._password,
+                    database=self._database,
+                )
+                self._client.ping()
+                self._conectado = True
+                self._ultima_falha_ts = 0.0
             log.info("📊 [ClickHouse] ✅ Conexão estabelecida com sucesso!")
             self._migrar_tabela_memoria()
             self.reembeddar_fatos_legado()
             return True
         except Exception as e:
-            log.warning(f"📊 [ClickHouse] ⚠️ Falha na conexão: {e}")
             self._conectado = False
+            self._ultima_falha_ts = time.monotonic()
+            log.warning(f"📊 [ClickHouse] ⚠️ Falha na conexão: {e}")
             return False
+
+    def _marcar_desconectado(self):
+        """Marca conexão como inativa e inicia janela de backoff."""
+        self._conectado = False
+        self._ultima_falha_ts = time.monotonic()
 
     def _migrar_tabela_memoria(self):
         """Adiciona coluna embedding à tabela memoria se ainda não existir."""
@@ -107,11 +129,16 @@ class ClickhouseLogger:
         t.start()
 
     def _reembeddar_sync(self):
-        """Re-embeda fatos sem embedding. Roda em background na primeira conexão."""
+        """
+        Re-embeda fatos sem embedding em lote único (INSERT + 1 DELETE parametrizado),
+        eliminando mutações `ALTER TABLE UPDATE` em loop.
+        """
         try:
             with self._lock:
                 rows = self._client.query(
-                    "SELECT id, fato FROM memoria WHERE length(embedding) = 0 LIMIT 500"
+                    "SELECT id, fato, criado_em FROM memoria "
+                    "WHERE length(embedding) = 0 LIMIT {limite:UInt32}",
+                    parameters={"limite": 500},
                 ).result_rows
         except Exception:
             return
@@ -119,31 +146,47 @@ class ClickhouseLogger:
         if not rows:
             return
 
-        log.info(f"🔄 [Embed] Re-embeddando {len(rows)} fato(s) legado...")
-        atualizados = 0
-        for id_fato, fato in rows:
+        log.info(f"🔄 [Embed] Re-embeddando {len(rows)} fato(s) legado em lote...")
+        lote_insert = []
+        ids_atualizados = []
+        for id_fato, fato, criado_em in rows:
             emb = gerar_embedding(fato)
             if not emb:
                 continue
-            vetor_str = "[" + ",".join(str(x) for x in emb) + "]"
-            try:
-                with self._lock:
-                    self._client.command(
-                        f"ALTER TABLE memoria UPDATE embedding = {vetor_str} "
-                        f"WHERE id = '{id_fato}'"
-                    )
-                atualizados += 1
-            except Exception as e:
-                log.warning(f"📊 [Embed] Erro ao atualizar fato {id_fato}: {e}")
+            lote_insert.append([str(id_fato), str(fato), emb, criado_em])
+            ids_atualizados.append(str(id_fato))
 
-        log.info(
-            f"✅ [Embed] Re-embedding concluído: {atualizados}/{len(rows)} fatos atualizados."
-        )
+        if not lote_insert:
+            return
+
+        try:
+            with self._lock:
+                self._client.insert(
+                    "memoria",
+                    lote_insert,
+                    column_names=["id", "fato", "embedding", "criado_em"],
+                )
+                self._client.command(
+                    "ALTER TABLE memoria DELETE "
+                    "WHERE id IN {ids:Array(String)} AND length(embedding) = 0",
+                    parameters={"ids": ids_atualizados},
+                )
+            log.info(
+                f"✅ [Embed] Re-embedding em lote concluído: "
+                f"{len(ids_atualizados)}/{len(rows)} fatos atualizados."
+            )
+        except Exception as e:
+            log.warning(f"📊 [Embed] Erro ao atualizar lote de embeddings: {e}")
 
     def _garantir_conexao(self) -> bool:
-        """Conecta de forma lazy na primeira chamada."""
-        if self._conectado and self._client:
+        """Conecta de forma lazy na primeira chamada, respeitando backoff em falhas."""
+        if self._conectado and self._client is not None:
             return True
+        if (
+            self._ultima_falha_ts > 0.0
+            and (time.monotonic() - self._ultima_falha_ts) < _BACKOFF_RECONEXAO_S
+        ):
+            return False
         return self._conectar()
 
     # ── Interações (conversas) ────────────────────────────────────────────────
@@ -160,10 +203,6 @@ class ClickhouseLogger:
         """
         Salva um par pergunta/resposta no ClickHouse de forma assíncrona.
         Registra duas linhas: uma para 'user' e uma para 'assistant'.
-
-        Args:
-            tokens_prompt:   Tokens do contexto enviado ao modelo (prompt_eval_count).
-            tokens_resposta: Tokens gerados na resposta (eval_count).
         """
         loop = asyncio.get_event_loop()
         await loop.run_in_executor(
@@ -196,7 +235,6 @@ class ClickhouseLogger:
 
         try:
             dados = [
-                # Mensagem do usuário
                 [
                     self._session_id,
                     self._turn_id,
@@ -209,7 +247,6 @@ class ClickhouseLogger:
                     0,
                     agora,
                 ],
-                # Resposta da Alice
                 [
                     self._session_id,
                     self._turn_id,
@@ -248,7 +285,7 @@ class ClickhouseLogger:
             )
         except Exception as e:
             log.warning(f"📊 [ClickHouse] ⚠️ Falha ao salvar turno: {e}")
-            self._conectado = False
+            self._marcar_desconectado()
 
     # ── Memória de longo prazo ────────────────────────────────────────────────
 
@@ -276,15 +313,17 @@ class ClickhouseLogger:
                     self._tabela_estado_ok = True
                 self._client.insert(
                     "estado_alice",
-                    [[
-                        str(estado.get("humor", "")),
-                        int(estado.get("amizade_com_usuario", 0)),
-                        int(estado.get("total_conversas", 0)),
-                        str(estado.get("nome_usuario", "")),
-                        str(estado.get("ultima_interacao", ""))[:500],
-                        self._session_id,
-                        datetime.now(),
-                    ]],
+                    [
+                        [
+                            str(estado.get("humor", "")),
+                            int(estado.get("amizade_com_usuario", 0)),
+                            int(estado.get("total_conversas", 0)),
+                            str(estado.get("nome_usuario", "")),
+                            str(estado.get("ultima_interacao", ""))[:500],
+                            self._session_id,
+                            datetime.now(),
+                        ]
+                    ],
                     column_names=[
                         "humor",
                         "amizade_com_usuario",
@@ -317,89 +356,158 @@ class ClickhouseLogger:
             )
         except Exception as e:
             log.warning(f"📊 [ClickHouse] ⚠️ Erro ao salvar fato: {e}")
-            self._conectado = False
+            self._marcar_desconectado()
 
-    def buscar_fatos_relevantes(self, contexto: str = "", limite: int = 10) -> list:
+    def sincronizar_fatos_sqlite(self, fatos_sqlite: list[dict]) -> int:
         """
-        Retorna fatos relevantes ao contexto usando busca semântica (cosineDistance).
+        Sincroniza fatos ativos do SQLite que ainda não constam em analytics.memoria.
+        Retorna a quantidade de fatos inseridos no ClickHouse.
+        """
+        if not fatos_sqlite or not self._garantir_conexao():
+            return 0
 
-        Estratégia:
-          1) Gera embedding da query via nomic-embed-text.
-          2) Fatos com embedding → ordenados por cosineDistance (busca semântica).
-          3) Fatos legado sem embedding → complementados via ILIKE se necessário.
-          4) Se nomic indisponível → ILIKE puro (comportamento anterior).
+        try:
+            with self._lock:
+                rows = self._client.query(
+                    "SELECT id, lowerUTF8(trimBoth(fato)) FROM memoria"
+                ).result_rows
+            ids_ch = {str(r[0]) for r in rows}
+            textos_ch = {str(r[1]).rstrip(".!?;:") for r in rows}
+
+            novos = []
+            for item in fatos_sqlite:
+                id_f = str(item["id"])
+                fato_txt = str(item["fato"]).strip()
+                norm_txt = " ".join(fato_txt.lower().split()).rstrip(".!?;:")
+                if id_f in ids_ch or norm_txt in textos_ch:
+                    continue
+                emb = gerar_embedding(fato_txt)
+                criado_str = str(item.get("criado_em", ""))
+                try:
+                    dt_val = datetime.fromisoformat(criado_str.replace(" ", "T"))
+                except Exception:
+                    dt_val = datetime.now()
+                novos.append([id_f, fato_txt, emb, dt_val])
+                ids_ch.add(id_f)
+                textos_ch.add(norm_txt)
+
+            if novos:
+                with self._lock:
+                    self._client.insert(
+                        "memoria",
+                        novos,
+                        column_names=["id", "fato", "embedding", "criado_em"],
+                    )
+            return len(novos)
+        except Exception as e:
+            log.warning(f"📊 [ClickHouse] ⚠️ Erro ao sincronizar fatos do SQLite: {e}")
+            return 0
+
+    @staticmethod
+    def _extrair_padroes_ilike(contexto: str) -> list[str]:
+        """Extrai até 5 padrões `%palavra%` seguros para busca ILIKE parametrizada."""
+        if not contexto:
+            return []
+        palavras = [
+            p.strip(_PONTUACAO_BUSCA).replace("%", "").replace("_", "")
+            for p in contexto.split()
+        ]
+        termos = [p for p in palavras if len(p) >= 4][:5]
+        return [f"%{t}%" for t in termos]
+
+    def buscar_fatos_relevantes(
+        self,
+        contexto: str = "",
+        limite: int = 10,
+        max_distancia: float = _MAX_COSINE_DISTANCE,
+    ) -> list:
+        """
+        Retorna fatos relevantes ao contexto usando busca semântica parametrizada
+        (`cosineDistance <= max_distancia`) com fallback `ilike` parametrizado.
         """
         if not self._garantir_conexao():
             return []
+
+        limite_int = max(1, int(limite))
+        padroes = self._extrair_padroes_ilike(contexto)
 
         try:
             embedding_query = gerar_embedding(contexto) if contexto else []
 
             if embedding_query:
-                # ── Busca semântica ───────────────────────────────────────────
-                vetor_str = "[" + ",".join(str(x) for x in embedding_query) + "]"
+                # ── Busca semântica parametrizada com corte de distância ──────
                 query_sem = (
-                    f"SELECT fato FROM memoria "
-                    f"WHERE length(embedding) > 0 "
-                    f"ORDER BY cosineDistance(embedding, {vetor_str}) ASC "
-                    f"LIMIT {limite}"
+                    "SELECT fato, cosineDistance(embedding, {vec:Array(Float32)}) AS dist "
+                    "FROM memoria "
+                    "WHERE length(embedding) > 0 "
+                    "AND cosineDistance(embedding, {vec:Array(Float32)}) <= {max_dist:Float64} "
+                    "ORDER BY dist ASC "
+                    "LIMIT {limite:UInt32}"
                 )
                 with self._lock:
-                    fatos = [r[0] for r in self._client.query(query_sem).result_rows]
+                    rows_sem = self._client.query(
+                        query_sem,
+                        parameters={
+                            "vec": embedding_query,
+                            "max_dist": float(max_distancia),
+                            "limite": limite_int,
+                        },
+                    ).result_rows
+                fatos = [r[0] for r in rows_sem]
 
-                # Complementa com fatos legado (sem embedding) via ILIKE se necessário
-                if len(fatos) < limite:
-                    restante = limite - len(fatos)
+                # Complementa via ILIKE parametrizado (fatos sem vetor ou match lexical exato)
+                if len(fatos) < limite_int and padroes:
+                    restante = limite_int - len(fatos)
                     fatos_set = set(fatos)
-                    palavras = [
-                        p.strip(".,!?;:\"'").replace("'", "").replace("%", "")
-                        for p in contexto.split()
-                        if len(p) >= 4
-                    ][:5]
-                    if palavras:
-                        conds = " OR ".join(f"fato ILIKE '%{p}%'" for p in palavras)
-                        query_leg = (
-                            f"SELECT fato FROM memoria "
-                            f"WHERE length(embedding) = 0 AND ({conds}) "
-                            f"ORDER BY criado_em DESC LIMIT {restante}"
-                        )
-                        with self._lock:
-                            for row in self._client.query(query_leg).result_rows:
-                                if row[0] not in fatos_set:
-                                    fatos.append(row[0])
+                    query_lex = (
+                        "SELECT fato FROM memoria "
+                        "WHERE arrayExists(p -> ilike(fato, p), {padroes:Array(String)}) "
+                        "ORDER BY criado_em DESC "
+                        "LIMIT {limite:UInt32}"
+                    )
+                    with self._lock:
+                        rows_lex = self._client.query(
+                            query_lex,
+                            parameters={"padroes": padroes, "limite": restante},
+                        ).result_rows
+                    for row in rows_lex:
+                        if row[0] not in fatos_set:
+                            fatos.append(row[0])
+                            fatos_set.add(row[0])
 
                 log.debug(
                     f"📊 [Embed] Busca semântica: {len(fatos)} fato(s) recuperado(s)"
                 )
                 return fatos
 
-            else:
-                # ── Fallback: ILIKE (nomic indisponível ou contexto vazio) ────
-                palavras = [
-                    p.strip(".,!?;:\"'").replace("'", "").replace("%", "")
-                    for p in contexto.split()
-                    if len(p) >= 4
-                ][:5]
-
-                if palavras and contexto:
-                    conds = " OR ".join(f"fato ILIKE '%{p}%'" for p in palavras)
-                    query = (
-                        f"SELECT fato FROM memoria WHERE ({conds}) "
-                        f"ORDER BY criado_em DESC LIMIT {limite}"
-                    )
-                else:
-                    query = (
-                        f"SELECT fato FROM memoria "
-                        f"ORDER BY criado_em DESC LIMIT {limite}"
-                    )
-
+            # ── Fallback: ILIKE parametrizado ou mais recentes ───────────────
+            if padroes and contexto:
+                query_ilike = (
+                    "SELECT fato FROM memoria "
+                    "WHERE arrayExists(p -> ilike(fato, p), {padroes:Array(String)}) "
+                    "ORDER BY criado_em DESC "
+                    "LIMIT {limite:UInt32}"
+                )
                 with self._lock:
-                    rows = self._client.query(query).result_rows
-                return [row[0] for row in rows]
+                    rows = self._client.query(
+                        query_ilike,
+                        parameters={"padroes": padroes, "limite": limite_int},
+                    ).result_rows
+                if rows:
+                    return [row[0] for row in rows]
+
+            query_rec = (
+                "SELECT fato FROM memoria ORDER BY criado_em DESC LIMIT {limite:UInt32}"
+            )
+            with self._lock:
+                rows = self._client.query(
+                    query_rec, parameters={"limite": limite_int}
+                ).result_rows
+            return [row[0] for row in rows]
 
         except Exception as e:
             log.warning(f"📊 [ClickHouse] ⚠️ Erro ao buscar fatos: {e}")
-            self._conectado = False
+            self._marcar_desconectado()
             return []
 
     def buscar_todos_fatos_mem(self) -> list:
@@ -418,24 +526,25 @@ class ClickhouseLogger:
             ]
         except Exception as e:
             log.warning(f"📊 [ClickHouse] ⚠️ Erro ao listar fatos: {e}")
-            self._conectado = False
+            self._marcar_desconectado()
             return []
 
     def remover_fato_mem(self, id_fato: str) -> bool:
-        """Remove fisicamente um fato pelo UUID (mutação assíncrona no ClickHouse)."""
+        """Remove fisicamente um fato pelo UUID usando parâmetro tipado."""
         if not self._garantir_conexao():
             return False
 
         try:
             with self._lock:
                 self._client.command(
-                    f"ALTER TABLE memoria DELETE WHERE id = '{id_fato}'"
+                    "ALTER TABLE memoria DELETE WHERE id = {id_fato:String}",
+                    parameters={"id_fato": str(id_fato)},
                 )
             log.info(f"🗑️  [ClickHouse] Fato removido: {id_fato}")
             return True
         except Exception as e:
             log.warning(f"📊 [ClickHouse] ⚠️ Erro ao remover fato: {e}")
-            self._conectado = False
+            self._marcar_desconectado()
             return False
 
     def limpar_memorias(self) -> int:
@@ -452,7 +561,7 @@ class ClickhouseLogger:
             return int(total)
         except Exception as e:
             log.warning(f"📊 [ClickHouse] ⚠️ Erro ao limpar memória: {e}")
-            self._conectado = False
+            self._marcar_desconectado()
             return 0
 
     # ── Logs de eventos ───────────────────────────────────────────────────────
@@ -480,4 +589,4 @@ class ClickhouseLogger:
                 )
         except Exception:
             # Silencioso — não queremos log de log causando loop
-            self._conectado = False
+            self._marcar_desconectado()

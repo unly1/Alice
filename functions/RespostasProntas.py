@@ -8,19 +8,22 @@ Responsabilidades:
   (só regenera quando o texto ou a voz mudam)
 """
 
+import asyncio
 import hashlib
 import json
 import os
 import re
 import unicodedata
+from pathlib import Path
 
 import numpy as np
 import soundfile as sf
 
 from cerebro.logger import log
 
-CAMINHO_JSON = "respostas_prontas.json"
-PASTA_AUDIO = os.path.join("audio", "prontas")
+_PROJECT_ROOT = Path(__file__).resolve().parent.parent
+CAMINHO_JSON = str(_PROJECT_ROOT / "respostas_prontas.json")
+PASTA_AUDIO = str(_PROJECT_ROOT / "audio" / "prontas")
 _SAMPLE_RATE = 24000
 
 # Palavras ignoradas no começo da frase ("Oi Alice, se apresente")
@@ -39,11 +42,27 @@ def _normalizar(texto: str) -> str:
     return " ".join(palavras)
 
 
+def _ler_wav(wav: str) -> np.ndarray:
+    """Lê arquivo WAV do disco em float32."""
+    audio, _ = sf.read(wav, dtype="float32")
+    return audio
+
+
+def _salvar_wav_e_marca(wav: str, audio: np.ndarray, marca: str, assinatura: str) -> None:
+    """Grava arquivo WAV e sua assinatura SHA-1 no disco."""
+    sf.write(wav, audio, _SAMPLE_RATE)
+    with open(marca, "w", encoding="utf-8") as f:
+        f.write(assinatura)
+
+
 class RespostasProntas:
     """Carrega, reconhece e toca as respostas prontas da Alice."""
 
-    def __init__(self, caminho: str = CAMINHO_JSON):
-        self._caminho = caminho
+    def __init__(self, caminho: str | Path = CAMINHO_JSON):
+        caminho_path = Path(caminho)
+        if not caminho_path.is_absolute():
+            caminho_path = _PROJECT_ROOT / caminho_path
+        self._caminho = str(caminho_path)
         self._respostas: list[dict] = []
         self._audios: dict[str, np.ndarray] = {}
         self.recarregar()
@@ -90,6 +109,7 @@ class RespostasProntas:
         """
         Gera (ou carrega do disco) o áudio de cada resposta pronta.
         Só chama o TTS para respostas novas ou com texto/voz alterados.
+        Usa asyncio.to_thread para I/O de áudio sem bloquear o event loop.
         """
         if not self._respostas:
             return
@@ -107,15 +127,15 @@ class RespostasProntas:
 
             try:
                 if em_dia and os.path.exists(wav):
-                    audio, _ = sf.read(wav, dtype="float32")
+                    audio = await asyncio.to_thread(_ler_wav, wav)
                 else:
                     log.info(f"⚡ Gerando áudio da resposta pronta '{rid}'...")
                     audio = await tts.gerar_audio_completo(resposta["texto"])
                     if audio is None:
                         continue
-                    sf.write(wav, audio, _SAMPLE_RATE)
-                    with open(marca, "w", encoding="utf-8") as f:
-                        f.write(assinatura)
+                    await asyncio.to_thread(
+                        _salvar_wav_e_marca, wav, audio, marca, assinatura
+                    )
                 self._audios[rid] = audio
             except Exception as e:
                 log.warning(f"⚡ Falha no áudio da resposta pronta '{rid}': {e}")

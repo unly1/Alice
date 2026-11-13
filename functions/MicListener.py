@@ -9,16 +9,28 @@ Responsabilidades:
 - Encerrar graciosamente quando sinalizado pelo threading.Event interno
 """
 
+from __future__ import annotations
+
 import asyncio
 import queue
 import time
 import threading
 
-import audioop
 import numpy as np
 import pyaudiowpatch as pyaudio
 
+from cerebro.audio_ambiente import WHISPER_LOCK
 from cerebro.logger import log
+
+
+def _calcular_rms_int16(data: bytes) -> int:
+    """Calcula o RMS de um buffer PCM 16-bit signed (substitui audioop.rms(data, 2))."""
+    if not data:
+        return 0
+    amostras = np.frombuffer(data, dtype=np.int16).astype(np.float64)
+    if amostras.size == 0:
+        return 0
+    return int(np.sqrt(np.mean(amostras * amostras)))
 
 
 class MicListener:
@@ -32,6 +44,7 @@ class MicListener:
         fila_gui: queue.Queue,
         tempo_proativo: int,
         alice_falando: threading.Event | None = None,
+        whisper_lock: threading.Lock | None = None,
     ):
         self._whisper = modelo_whisper
         self._indice_mic = indice_mic
@@ -39,6 +52,9 @@ class MicListener:
         self._fila_gui = fila_gui
         self._tempo_proativo = tempo_proativo
         self._alice_falando = alice_falando
+        self._whisper_lock = whisper_lock or getattr(
+            modelo_whisper, "_alice_lock", WHISPER_LOCK
+        )
         # Sinaliza à thread do microfone que deve parar graciosamente
         self._parar = threading.Event()
 
@@ -146,7 +162,7 @@ class MicListener:
                 p.terminate()
                 return ""
             d = stream.read(CHUNK, exception_on_overflow=False)
-            somas_rms += audioop.rms(d, 2)
+            somas_rms += _calcular_rms_int16(d)
 
         ruido_fundo_medio = somas_rms / para_calibrar
         # Usa o maior valor entre: (ruído base + 200) e o mínimo configurado no .env
@@ -179,7 +195,7 @@ class MicListener:
                     frames.clear()
                     continue
 
-                rms = audioop.rms(data, 2)
+                rms = _calcular_rms_int16(data)
 
                 if not comecou_falar:
                     contador_espera += 1
@@ -228,18 +244,26 @@ class MicListener:
         # ── Transcrição ───────────────────────────────────────────────────────
         log.debug("⏳ Transcrevendo voz...")
         raw = b"".join(frames)
+        audio_data = np.frombuffer(raw, dtype=np.int16).astype(np.float32) / 32768.0
 
         # Downmix multi-canal → mono
         if CHANNELS > 1:
-            raw = audioop.tomono(raw, 2, 1.0 / CHANNELS, 1.0 / CHANNELS)
+            total_frames = (audio_data.size // CHANNELS) * CHANNELS
+            audio_data = audio_data[:total_frames].reshape(-1, CHANNELS).mean(axis=1)
 
         # Resample para 16000 Hz se o dispositivo usou taxa diferente
-        if RATE != RATE_WHISPER:
-            raw, _ = audioop.ratecv(raw, 2, 1, RATE, RATE_WHISPER, None)
+        if RATE != RATE_WHISPER and audio_data.size > 0:
+            novo_len = max(1, int(round(audio_data.size * RATE_WHISPER / RATE)))
+            indices = np.linspace(0, audio_data.size - 1, novo_len)
+            audio_data = np.interp(
+                indices, np.arange(audio_data.size), audio_data
+            ).astype(np.float32)
 
-        audio_data = np.frombuffer(raw, dtype=np.int16).astype(np.float32) / 32768.0
-        segmentos, _ = self._whisper.transcribe(audio_data, language="pt", beam_size=5)
-        return "".join(s.text for s in segmentos).strip()
+        with self._whisper_lock:
+            segmentos, _ = self._whisper.transcribe(
+                audio_data, language="pt", beam_size=5
+            )
+            return "".join(s.text for s in segmentos).strip()
 
     # ── Roteamento de Input ───────────────────────────────────────────────────
 

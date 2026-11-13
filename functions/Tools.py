@@ -11,9 +11,10 @@ Uso:
     from functions.Tools import tools, process_command
 
     # Processamento de comandos locais
-    resposta = await process_command("que horas são?", speak_func)
+    resposta = await process_command("tocar música lofi", speak_func)
 """
 
+import asyncio
 import datetime
 import json
 import os
@@ -56,8 +57,51 @@ JOKES_PT = [
     "Qual é o lugar favorito do programador para passar as férias? A memória ROM.",
     "O que é um loop infinito? É quando você compra fiado e diz que vai pagar amanhã.",
     "Por que a linguagem C é tão educada? Porque ela tem classe... Ah não, desculpe, C não tem classe, quem tem classe é C++!",
-    "Como o programador se despede no chat? Até logo, ou melhor, CTRL+C CTRL+V!"
+    "Como o programador se despede no chat? Até logo, ou melhor, CTRL+C CTRL+V!",
 ]
+
+
+# ── Expressões Regulares de Comandos Locais (evita falsos positivos) ─────────
+_RE_YOUTUBE = re.compile(
+    r"^(?:(?:pesquisar?|buscar?|procurar?)\s+no\s+youtube(?:\s+por)?|"
+    r"abrir\s+(?:o\s+)?youtube(?:\s+e\s+pesquisar(?:\s+por)?)?|youtube(?:\s+por)?)\b",
+    re.IGNORECASE,
+)
+_RE_WIKIPEDIA = re.compile(
+    r"^(?:(?:pesquisar?|buscar?|procurar?)\s+na\s+wikipedia(?:\s+(?:sobre|por))?|"
+    r"wikipedia(?:\s+sobre)?)\b",
+    re.IGNORECASE,
+)
+_RE_TOCAR_MUSICA = re.compile(
+    r"^(?:tocar|toque|reproduzir)\s+(?:a\s+)?m[uú]sica(?:\s+de)?\b|"
+    r"^(?:tocar|toque|reproduzir)\s+.+",
+    re.IGNORECASE,
+)
+_RE_PARAR_MUSICA = re.compile(
+    r"^(?:parar?|pare|desligar?|pausar?)\s+(?:a\s+)?m[uú]sica\b",
+    re.IGNORECASE,
+)
+_RE_VOLUME = re.compile(
+    r"^(?:(?:mudar|ajustar|colocar|definir|alterar|abaixar|aumentar)\s+(?:o\s+)?)?"
+    r"volume(?:\s+(?:da\s+m[uú]sica|para|em))?(?:\s+\d{1,3}%?)?\s*$",
+    re.IGNORECASE,
+)
+_RE_DATA_HOJE = re.compile(
+    r"^(?:que\s+dia\s+[eé]\s+hoje|qual\s+(?:[eé]\s+)?a\s+data(?:\s+de\s+hoje)?|data\s+de\s+hoje)\b",
+    re.IGNORECASE,
+)
+_RE_PIADA = re.compile(
+    r"^(?:(?:me\s+)?conte\s+uma\s+piada|conta\s+uma\s+piada|piada|me\s+divirta)\s*[.!?]*$",
+    re.IGNORECASE,
+)
+_RE_LIXEIRA = re.compile(
+    r"^(?:esvaziar|limpar)\s+(?:a\s+)?lixeira\s*[.!]*$",
+    re.IGNORECASE,
+)
+_RE_AJUDA = re.compile(
+    r"^(?:ajuda|help|quais\s+s[aã]o\s+os\s+comandos|listar?\s+comandos|comandos)\s*[.!?]*$",
+    re.IGNORECASE,
+)
 
 
 # ── Classe: MusicTools ────────────────────────────────────────────────────────
@@ -101,7 +145,8 @@ class MusicTools:
         except ImportError:
             from cerebro.logger import log
             log.warning(
-                "🎵 [Música] yt-dlp não instalado. Execute: pip install yt-dlp")
+                "🎵 [Música] yt-dlp não instalado. Execute: pip install yt-dlp"
+            )
             return "", ""
         except Exception as e:
             from cerebro.logger import log
@@ -155,7 +200,8 @@ class MusicTools:
 
         except FileNotFoundError:
             log.warning(
-                "🎵 [Música] mpv não encontrado no PATH. Instale em mpv.io.")
+                "🎵 [Música] mpv não encontrado no PATH. Instale em mpv.io."
+            )
             return "mpv não está instalado. Preciso do mpv para tocar música."
         except Exception as e:
             log.warning(f"🎵 [Música] Erro ao iniciar mpv: {e}")
@@ -197,7 +243,8 @@ class MusicTools:
                 return "Nenhuma música está tocando."
 
         enviado = self._enviar_ipc(
-            {"command": ["set_property", "volume", vol]})
+            {"command": ["set_property", "volume", vol]}
+        )
         if enviado:
             log.info(f"🎵 [Música] Volume → {vol}%")
             return f"Volume ajustado para {vol}%."
@@ -424,7 +471,8 @@ class WebTools:
 
             with DDGS() as ddgs:
                 resultados = list(
-                    ddgs.text(query, region="br-pt", max_results=3))
+                    ddgs.text(query, region="br-pt", max_results=3)
+                )
 
             if resultados:
                 linhas = [f"[Busca] Resultados para '{query}':"]
@@ -451,7 +499,8 @@ class WebTools:
             import wikipediaapi
 
             wiki = wikipediaapi.Wikipedia(
-                language="pt", user_agent="Alice-VTuber/1.0")
+                language="pt", user_agent="Alice-VTuber/1.0"
+            )
             pagina = wiki.page(query)
             if pagina.exists():
                 resumo = pagina.summary
@@ -471,7 +520,7 @@ class WebTools:
 
 # ── Utilitários de Limpeza de Comando ────────────────────────────────────────
 
-def _clean_command(text: str, prefixes: list, suffixes: list = None) -> str:
+def _clean_command(text: str, prefixes: list, suffixes: list | None = None) -> str:
     """Remove prefixos e sufixos comuns do comando para isolar o argumento real."""
     text_clean = text.strip()
 
@@ -494,35 +543,43 @@ def _clean_command(text: str, prefixes: list, suffixes: list = None) -> str:
 # ── Executores e Processador de Comandos Locais (Async) ───────────────────────
 
 async def execute_youtube_search(keyword: str, speak_func) -> str:
-    """Abre o YouTube com a pesquisa fornecida."""
-    import urllib.parse
+    """Abre o YouTube com a pesquisa fornecida (sem bloquear o event loop)."""
     url = f"https://www.youtube.com/results?search_query={urllib.parse.quote(keyword)}"
-    webbrowser.open(url)
+    await asyncio.to_thread(webbrowser.open, url)
     msg = f"Buscando '{keyword}' no YouTube."
     await speak_func(msg)
     return f"🎥 {msg}"
 
 
+def _buscar_resumo_wikipedia_sync(query: str) -> tuple[bool, str]:
+    """Consulta a Wikipedia de forma síncrona (para rodar via asyncio.to_thread)."""
+    import wikipediaapi
+
+    wiki = wikipediaapi.Wikipedia(language="pt", user_agent="Alice-VTuber/1.0")
+    pagina = wiki.page(query)
+    if pagina.exists():
+        resumo = pagina.summary
+        sentences = resumo.split(".")
+        resumo_curto = ". ".join(sentences[:3]).strip()
+        if not resumo_curto.endswith("."):
+            resumo_curto += "."
+        return True, resumo_curto
+    return False, ""
+
+
 async def execute_wikipedia_search(query: str, speak_func) -> str:
-    """Busca um resumo na Wikipedia usando wikipedia-api."""
+    """Busca um resumo na Wikipedia usando wikipedia-api em thread separada."""
     try:
-        import wikipediaapi
-        wiki = wikipediaapi.Wikipedia(
-            language="pt", user_agent="Alice-VTuber/1.0")
-        pagina = wiki.page(query)
-        if pagina.exists():
-            resumo = pagina.summary
-            sentences = resumo.split(".")
-            resumo_curto = ". ".join(sentences[:3]).strip()
-            if not resumo_curto.endswith("."):
-                resumo_curto += "."
+        encontrou, resumo_curto = await asyncio.to_thread(
+            _buscar_resumo_wikipedia_sync, query
+        )
+        if encontrou:
             intro = f"Segundo a Wikipedia sobre '{query}': "
             await speak_func(intro + resumo_curto)
             return f"📚 {resumo_curto}"
-        else:
-            msg = f"Não encontrei nada sobre '{query}' na Wikipedia."
-            await speak_func(msg)
-            return f"📚 {msg}"
+        msg = f"Não encontrei nada sobre '{query}' na Wikipedia."
+        await speak_func(msg)
+        return f"📚 {msg}"
     except Exception as e:
         msg = "Não consegui buscar na Wikipedia agora."
         await speak_func(msg)
@@ -531,7 +588,9 @@ async def execute_wikipedia_search(query: str, speak_func) -> str:
 
 async def process_command(text: str, speak_func, on_waiting_input=None) -> str | None:
     """
-    Analisa 'text' e executa a ação correspondente localmente se corresponder a um comando.
+    Analisa 'text' e executa a ação correspondente localmente se corresponder a um comando explícito.
+    Consultas de hora e clima não são interceptadas aqui para permitir que
+    AliceSession._processar_hora_clima enriqueça o contexto e responda com a personalidade da Alice.
 
     Retorna:
         str  – mensagem para exibir no chat se o comando foi executado.
@@ -552,7 +611,8 @@ async def process_command(text: str, speak_func, on_waiting_input=None) -> str |
         "procurar no youtube por", "procurar no youtube",
         "abrir o youtube e pesquisar por", "abrir o youtube e pesquisar",
         "abrir youtube e pesquisar por", "abrir youtube e pesquisar",
-        "youtube por", "youtube"
+        "abrir o youtube", "abrir youtube",
+        "youtube por", "youtube",
     ]
     youtube_suffixes = [" no youtube", " no youtu", " pelo youtube"]
 
@@ -561,95 +621,76 @@ async def process_command(text: str, speak_func, on_waiting_input=None) -> str |
         "pesquisa na wikipedia sobre", "pesquisa na wikipedia",
         "buscar na wikipedia sobre", "buscar na wikipedia",
         "busca na wikipedia sobre", "busca na wikipedia",
-        "o que é", "o que e", "quem foi", "quem é",
-        "definir", "definição de", "definicao de",
-        "wikipedia sobre", "wikipedia"
+        "procurar na wikipedia sobre", "procurar na wikipedia",
+        "wikipedia sobre", "wikipedia",
     ]
     wikipedia_suffixes = [" na wikipedia", " pela wikipedia"]
 
     music_prefixes = [
-        "tocar a música", "tocar a musica", "tocar música", "tocar musica",
         "tocar a música de", "tocar a musica de", "tocar música de", "tocar musica de",
+        "tocar a música", "tocar a musica", "tocar música", "tocar musica",
         "reproduzir a música", "reproduzir a musica", "reproduzir música", "reproduzir musica",
         "toque a música de", "toque a musica de", "toque música de", "toque musica de",
         "toque a música", "toque a musica", "toque música", "toque musica",
-        "tocar", "toque", "reproduzir"
+        "tocar", "toque", "reproduzir",
     ]
     music_suffixes = [" no youtube", " no youtu"]
 
-    # ── 1. YouTube ──────────────────────────────────────────────────────────
-    if any(k in text for k in ("youtube", "youtu")):
+    # ── 1. YouTube (comando explícito) ──────────────────────────────────────
+    if _RE_YOUTUBE.search(text) or text.endswith((" no youtube", " pelo youtube")):
         query = _clean_command(text, youtube_prefixes, youtube_suffixes)
         query_check = query.replace("youtube", "").replace("youtu", "").strip()
         if query_check:
             return await execute_youtube_search(query_check, speak_func)
-        else:
-            await speak_func("O que você quer pesquisar no YouTube?")
-            if on_waiting_input:
-                on_waiting_input("youtube")
-            return "WAIT:youtube"
+        await speak_func("O que você quer pesquisar no YouTube?")
+        if on_waiting_input:
+            on_waiting_input("youtube")
+        return "WAIT:youtube"
 
-    # ── 2. Wikipedia ────────────────────────────────────────────────────────
-    if any(k in text for k in ("wikipedia", "o que é", "o que e", "quem foi", "quem é", "definir")):
+    # ── 2. Wikipedia (comando explícito mencionando Wikipedia) ──────────────
+    if _RE_WIKIPEDIA.search(text) or text.endswith((" na wikipedia", " pela wikipedia")):
         query = _clean_command(text, wikipedia_prefixes, wikipedia_suffixes)
         query_check = query.replace("wikipedia", "").strip()
         if query_check:
             return await execute_wikipedia_search(query_check, speak_func)
-        else:
-            await speak_func("O que você quer pesquisar na Wikipedia?")
-            if on_waiting_input:
-                on_waiting_input("wikipedia")
-            return "WAIT:wikipedia"
+        await speak_func("O que você quer pesquisar na Wikipedia?")
+        if on_waiting_input:
+            on_waiting_input("wikipedia")
+        return "WAIT:wikipedia"
 
-    # ── 3. Música (Tocar) ───────────────────────────────────────────────────
-    if any(text.startswith(p) for p in music_prefixes):
-        query = _clean_command(text, music_prefixes, music_suffixes)
-        if query:
-            msg = tools.music.tocar_musica(query)
-            await speak_func(msg)
-            return f"🎵 {msg}"
-        else:
-            await speak_func("Qual música você quer ouvir? Me diz o nome ou o artista.")
-            if on_waiting_input:
-                on_waiting_input("tocar_musica")
-            return "WAIT:tocar_musica"
-
-    # ── 4. Parar Música ─────────────────────────────────────────────────────
-    if any(k in text for k in ("parar música", "parar musica", "para a música", "para a musica", "desligar música", "para música", "para musica")):
-        msg = tools.music.parar_musica()
+    # ── 3. Parar Música (verificado antes de tocar para evitar conflito) ────
+    if _RE_PARAR_MUSICA.search(text):
+        msg = await asyncio.to_thread(tools.music.parar_musica)
         await speak_func(msg)
         return f"🎵 {msg}"
 
-    # ── 5. Volume da Música ─────────────────────────────────────────────────
-    if "volume" in text:
+    # ── 4. Música (Tocar) ───────────────────────────────────────────────────
+    if _RE_TOCAR_MUSICA.search(text):
+        query = _clean_command(text, music_prefixes, music_suffixes)
+        if query:
+            msg = await asyncio.to_thread(tools.music.tocar_musica, query)
+            await speak_func(msg)
+            return f"🎵 {msg}"
+        await speak_func("Qual música você quer ouvir? Me diz o nome ou o artista.")
+        if on_waiting_input:
+            on_waiting_input("tocar_musica")
+        return "WAIT:tocar_musica"
+
+    # ── 5. Volume da Música (comando explícito de volume) ───────────────────
+    if _RE_VOLUME.search(text):
         numeros = re.findall(r"\d+", text)
         if numeros:
             vol = int(numeros[0])
-            msg = tools.music.volume(vol)
+            msg = await asyncio.to_thread(tools.music.volume, vol)
             await speak_func(msg)
             return f"🔊 {msg}"
-        else:
-            await speak_func("Qual o nível do volume de zero a cem?")
-            if on_waiting_input:
-                on_waiting_input("volume")
-            return "WAIT:volume"
+        await speak_func("Qual o nível do volume de zero a cem?")
+        if on_waiting_input:
+            on_waiting_input("volume")
+        return "WAIT:volume"
 
-    # ── 6. Clima / Tempo ────────────────────────────────────────────────────
-    if any(k in text for k in ("tempo", "clima", "temperatura", "previsão", "previsao", "chover", "chovendo")):
-        cidade = tools.location.detectar_cidade_no_texto(text)
-        resposta = tools.location.get_weather(cidade)
-        await speak_func(resposta)
-        return f"🌤️ {resposta}"
-
-    # ── 7. Horas / Data ─────────────────────────────────────────────────────
-    if any(k in text for k in ("que horas", "horas são", "hora é", "que hora", "horário", "horario")):
-        cidade = tools.location.detectar_cidade_no_texto(text)
-        resposta = tools.location.get_current_time(cidade)
-        msg = f"Agora são {resposta}." if cidade else f"São {resposta}."
-        await speak_func(msg)
-        return f"🕐 {msg}"
-
-    if any(k in text for k in ("que dia", "data de hoje", "dia é hoje", "qual a data")):
+    # ── 6. Data de hoje ─────────────────────────────────────────────────────
+    if _RE_DATA_HOJE.search(text):
         _DIAS = {
             "Monday": "segunda-feira", "Tuesday": "terça-feira",
             "Wednesday": "quarta-feira", "Thursday": "quinta-feira",
@@ -662,40 +703,60 @@ async def process_command(text: str, speak_func, on_waiting_input=None) -> str |
         await speak_func(msg)
         return f"📅 {msg}"
 
-    # ── 8. Piada ────────────────────────────────────────────────────────────
-    if any(k in text for k in ("piada", "me divirta", "engraçado")):
+    # ── 7. Piada (comando explícito) ────────────────────────────────────────
+    if _RE_PIADA.search(text):
         joke = random.choice(JOKES_PT)
         await speak_func(joke)
         return f"🤣 {joke}"
 
-    # ── 9. Esvaziar Lixeira ─────────────────────────────────────────────────
-    if any(k in text for k in ("esvaziar lixeira", "limpar lixeira", "lixeira")):
-        if WINSHELL_AVAILABLE:
-            try:
-                winshell.recycle_bin().empty(confirm=False, show_progress=False, sound=True)
-                msg = "Lixeira esvaziada com sucesso!"
-                await speak_func(msg)
-                return f"🗑️ {msg}"
-            except Exception as e:
-                err_msg = f"Erro ao esvaziar lixeira: {e}"
-                await speak_func("Não consegui esvaziar a lixeira no momento.")
-                return f"❌ {err_msg}"
-        else:
+    # ── 8. Esvaziar Lixeira (exige comando explícito + confirmação) ─────────
+    if _RE_LIXEIRA.search(text):
+        if not WINSHELL_AVAILABLE:
             return "❌ winshell não disponível. Execute: pip install winshell pywin32"
+        await speak_func("Tem certeza que deseja esvaziar a lixeira? Diga confirmar para prosseguir.")
+        if on_waiting_input:
+            on_waiting_input("confirmar_lixeira")
+        return "WAIT:confirmar_lixeira"
 
-    # ── 10. Ajuda / Comandos ────────────────────────────────────────────────
-    if any(k in text for k in ("ajuda", "help", "o que você faz", "comandos")):
+    # ── 9. Ajuda / Comandos ─────────────────────────────────────────────────
+    if _RE_AJUDA.search(text):
         msg = (
             "Comandos locais que entendo: "
             "tocar música [nome], volume [0-100], parar música, "
             "pesquisar no YouTube [busca], pesquisar na Wikipedia [busca], "
-            "clima [cidade], que horas são, piada, e esvaziar lixeira."
+            "que dia é hoje, conte uma piada, e esvaziar lixeira."
         )
         await speak_func(msg)
         return f"ℹ️ {msg}"
 
     # Se não corresponder a nenhum comando, retorna None para seguir para a LLM
     return None
+
+
+async def execute_empty_recycle_bin(resposta_confirmacao: str, speak_func) -> str:
+    """Executa o esvaziamento da lixeira somente após confirmação explícita do usuário."""
+    resp = resposta_confirmacao.lower().strip().rstrip(".!")
+    if resp not in {"sim", "s", "confirmar", "confirmo", "pode", "pode esvaziar"}:
+        msg = "Operação cancelada. A lixeira não foi esvaziada."
+        await speak_func(msg)
+        return f"🗑️ {msg}"
+
+    if not WINSHELL_AVAILABLE:
+        return "❌ winshell não disponível. Execute: pip install winshell pywin32"
+
+    try:
+        await asyncio.to_thread(
+            lambda: winshell.recycle_bin().empty(
+                confirm=False, show_progress=False, sound=True
+            )
+        )
+        msg = "Lixeira esvaziada com sucesso!"
+        await speak_func(msg)
+        return f"🗑️ {msg}"
+    except Exception as e:
+        err_msg = f"Erro ao esvaziar lixeira: {e}"
+        await speak_func("Não consegui esvaziar a lixeira no momento.")
+        return f"❌ {err_msg}"
 
 
 # ── Classe: ToolManager ───────────────────────────────────────────────────────

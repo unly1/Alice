@@ -17,6 +17,7 @@ ENV = os.path.join(RAIZ, ".env")
 COMPOSE = os.path.join(RAIZ, "cerebro", "clickhouse", "docker-compose.yaml")
 INIT_SQL = os.path.join(RAIZ, "cerebro", "clickhouse", "init.sql")
 CONTAINER = "clickhouse"
+DOCKER_TIMEOUT_S = 120
 
 # Bancos SQLite da Alice (fora do git por causa do *.db no .gitignore)
 SQLITE_DBS = [
@@ -37,7 +38,6 @@ BACKUP_PADRAO = os.getenv("ALICE_BACKUP_DIR", r"D:\Backups\Alice")
 USUARIO = os.getenv("CLICKHOUSE_USER_APP", "alice")
 SENHA = os.getenv("CLICKHOUSE_PASSWORD_APP", "alice123")
 BANCO = os.getenv("CLICKHOUSE_DB_APP", "analytics")
-
 
 
 def definir_credenciais(usuario: str, senha: str, banco: str) -> None:
@@ -71,14 +71,27 @@ def falhar(msg: str) -> None:
     sys.exit(1)
 
 
-def docker(*args, entrada: bytes | None = None, checar: bool = True) -> bytes:
+def docker(
+    *args,
+    entrada: bytes | None = None,
+    checar: bool = True,
+    timeout: int = DOCKER_TIMEOUT_S,
+) -> bytes:
     """Roda `docker <args>` e devolve a saída em bytes (seguro para dados binários)."""
-    r = subprocess.run(
-        ["docker", *args],
-        input=entrada,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-    )
+    try:
+        r = subprocess.run(
+            ["docker", *args],
+            input=entrada,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            timeout=timeout,
+        )
+    except subprocess.TimeoutExpired as exc:
+        if checar:
+            raise RuntimeError(
+                f"docker {' '.join(args[:3])}...: tempo limite esgotado ({timeout}s)"
+            ) from exc
+        return b""
     if checar and r.returncode != 0:
         erro = r.stderr.decode("utf-8", "replace").strip()
         raise RuntimeError(f"docker {' '.join(args[:3])}...: {erro}")
@@ -86,17 +99,21 @@ def docker(*args, entrada: bytes | None = None, checar: bool = True) -> bytes:
 
 
 def sql(consulta: str, entrada: bytes | None = None) -> bytes:
-    """Roda uma consulta no clickhouse-client dentro do container."""
+    """Roda uma consulta no clickhouse-client dentro do container (senha via env var)."""
     args = ["exec"]
     if entrada is not None:
         args.append("-i")
     args += [
+        "-e",
+        f"CLICKHOUSE_PASSWORD={SENHA}",
         CONTAINER,
         "clickhouse-client",
-        "--user", USUARIO,
-        "--password", SENHA,
-        "--database", BANCO,
-        "--query", consulta,
+        "--user",
+        USUARIO,
+        "--database",
+        BANCO,
+        "--query",
+        consulta,
     ]
     return docker(*args, entrada=entrada)
 
@@ -134,10 +151,16 @@ def garantir_docker() -> None:
 
 
 def _docker_respondendo() -> bool:
-    r = subprocess.run(
-        ["docker", "info"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
-    )
-    return r.returncode == 0
+    try:
+        r = subprocess.run(
+            ["docker", "info"],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            timeout=15,
+        )
+        return r.returncode == 0
+    except subprocess.TimeoutExpired:
+        return False
 
 
 def subir_clickhouse() -> None:
@@ -168,10 +191,14 @@ def criar_tabelas() -> None:
     passo("Criando as tabelas (init.sql)...")
     with open(INIT_SQL, "rb") as f:
         docker(
-            "exec", "-i", CONTAINER,
+            "exec",
+            "-i",
+            "-e",
+            f"CLICKHOUSE_PASSWORD={SENHA}",
+            CONTAINER,
             "clickhouse-client",
-            "--user", USUARIO,
-            "--password", SENHA,
+            "--user",
+            USUARIO,
             "--multiquery",
             entrada=f.read(),
         )

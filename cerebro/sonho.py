@@ -2,7 +2,7 @@
 cerebro/sonho.py — Reflexão offline da Alice ("Sonho").
 
 Durante períodos de inatividade prolongada, a Alice "sonha":
-  1. Lê todos os fatos da memória de longo prazo.
+  1. Lê todos os fatos da memória de longo prazo (ignorando reflexões anteriores).
   2. Pede ao LLM um insight novo sobre o usuário — algo que ainda não foi dito.
   3. Salva esse insight como um novo fato na memória.
   4. Exibe o sonho na GUI (sem falar em voz alta).
@@ -26,6 +26,9 @@ _MAX_FATOS = 30
 
 # Máximo de tokens para o sonho gerado
 _MAX_TOKENS_SONHO = 120
+
+# Prefixo usado ao salvar reflexões (filtrado para evitar poluição recursiva)
+_PREFIXO_REFLEXAO = "[Reflexão]"
 
 
 class Sonho:
@@ -77,18 +80,24 @@ class Sonho:
 
     async def _sonhar(self, fila_saida_gui):
         """Gera e persiste um insight sobre o usuário a partir da memória."""
-        fatos = self.memoria.buscar_todos_fatos()
+        fatos_brutos = await asyncio.to_thread(self.memoria.buscar_todos_fatos)
+
+        # Filtra reflexões anteriores para evitar poluição recursiva da memória
+        fatos = []
+        for item in fatos_brutos:
+            texto_fato = item.get("fato", "") if isinstance(item, dict) else str(item)
+            if not texto_fato.strip().startswith(_PREFIXO_REFLEXAO):
+                fatos.append(texto_fato.strip())
 
         if len(fatos) < _MIN_FATOS:
-            log.debug(f"🌙 [Sonho] Poucos fatos ({len(fatos)}) — sonho adiado.")
+            log.debug(
+                f"🌙 [Sonho] Poucos fatos concretos ({len(fatos)}) — sonho adiado."
+            )
             return
 
         # Seleciona os fatos mais recentes para não ultrapassar o limite
         fatos_recentes = fatos[-_MAX_FATOS:]
-        lista_fatos = "\n".join(
-            f"- {f['fato']}" if isinstance(f, dict) else f"- {f}"
-            for f in fatos_recentes
-        )
+        lista_fatos = "\n".join(f"- {f}" for f in fatos_recentes)
 
         insight = await self._gerar_insight(lista_fatos)
         if not insight:
@@ -96,8 +105,10 @@ class Sonho:
 
         log.info(f"🌙 [Sonho] Insight gerado: {insight}")
 
-        # Salva o insight como novo fato na memória
-        self.memoria.salvar_fato(f"[Reflexão] {insight}")
+        # Salva o insight como novo fato na memória em thread separada
+        await asyncio.to_thread(
+            self.memoria.salvar_fato, f"{_PREFIXO_REFLEXAO} {insight}"
+        )
 
         # Exibe na GUI sem falar em voz alta
         fila_saida_gui.put(f"🌙 *{insight}*")

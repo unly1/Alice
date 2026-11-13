@@ -109,15 +109,21 @@ class Summarizer:
     async def _resumir(self, mensagens: list, modelo: str) -> str:
         """
         Envia o trecho antigo do histórico ao LLM e pede um resumo situacional.
+        Preserva blocos de [RESUMO DA CONVERSA ANTERIOR] sem truncar em _MAX_CHARS_MSG.
 
         Retorna o texto do resumo, ou "" se falhar.
         """
-        contexto = "\n".join(
-            f"{m['role'].upper()}: {m['content'][:_MAX_CHARS_MSG]}" for m in mensagens
-        )
+        linhas = []
+        for m in mensagens:
+            conteudo = m.get("content", "")
+            if conteudo.startswith("[RESUMO DA CONVERSA ANTERIOR]"):
+                linhas.append(f"{m['role'].upper()}: {conteudo}")
+            else:
+                linhas.append(f"{m['role'].upper()}: {conteudo[:_MAX_CHARS_MSG]}")
+        contexto = "\n".join(linhas)
 
         try:
-            loop = asyncio.get_event_loop()
+            loop = asyncio.get_running_loop()
             response = await loop.run_in_executor(
                 None,
                 lambda: ollama.chat(

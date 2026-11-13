@@ -144,7 +144,7 @@ class EmotionEngine:
         ):
             emocao = "Surpresa"  # Euforia / Surpresa
         elif re.search(
-            r"\b(sem jeito|bobinha|bochechas|vergonha|shy-mode|bobona|bobinha|ai para|elogio)\b",
+            r"\b(sem jeito|bobinha|bochechas|vergonha|shy-mode|bobona|ai para|elogio)\b",
             texto_lower,
         ):
             # Timidez (na Alice Hiyori, MouthSmile inclui blush rosado)
@@ -160,7 +160,7 @@ class EmotionEngine:
         ):
             emocao = "Riso"  # Gratidão / Afeto
         elif re.search(
-            r"\b(ei\.\.\.|respirar|passando por|silêncio|desabafar|estou aqui|triste|poxa|lamento|sozinho|descansar)\b",
+            r"(?:\bei\.\.\.|\b(?:respirar|passando por|silêncio|desabafar|estou aqui|triste|poxa|lamento|sozinho|descansar)\b)",
             texto_lower,
         ):
             emocao = "Tristeza"  # Empatia / Solidariedade

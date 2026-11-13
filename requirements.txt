@@ -1,47 +1,50 @@
 # --- Cérebro (LLM Local) ---
-ollama             # Integração oficial com o Ollama (Llama 3, Qwen)
+ollama==0.6.1                      # Integração oficial com o Ollama (Llama 3, Qwen)
 
 # --- Ouvido (Speech-to-Text) ---
-faster-whisper     # Transcrição de áudio ultra-rápida via GPU/CPU
-pyaudiowpatch      # Captura de áudio do microfone + WASAPI Loopback (Windows)
+faster-whisper==1.2.1              # Transcrição de áudio ultra-rápida via GPU/CPU
+pyaudiowpatch==0.2.12.8            # Captura de áudio do microfone + WASAPI Loopback (Windows)
 
 # --- Voz (Text-to-Speech) ---
-omnivoice                          # TTS local multilíngue zero-shot (k2-fsa/OmniVoice)
-# Instalar PyTorch com CUDA 12.x separadamente (não incluído no pip install -r):
+omnivoice==0.1.4                   # TTS local multilíngue zero-shot (k2-fsa/OmniVoice)
+# Instalar PyTorch com CUDA 12.x separadamente (não incluído no pip install -r padrão):
 #   pip install torch==2.8.0+cu128 torchaudio==2.8.0+cu128 --index-url https://download.pytorch.org/whl/cu128
-torch>=2.0.0                       # PyTorch (CUDA 12.x — instalar pelo comando acima)
-torchaudio>=2.0.0                  # Processamento de áudio para PyTorch
-soundfile                          # Salvar áudio WAV gerado pelo OmniVoice
-pygame                             # Reprodução do áudio gerado
+torch>=2.8.0                       # PyTorch (CUDA 12.x — instalar pelo comando acima)
+torchaudio>=2.8.0                  # Processamento de áudio para PyTorch
+soundfile==0.13.1                  # Salvar áudio WAV gerado pelo OmniVoice
+pygame==2.6.1                     # Reprodução do áudio gerado
+
+# --- Interface Gráfica (GUI) ---
+customtkinter==5.2.2               # Interface gráfica moderna baseada em Tkinter
 
 # --- Corpo e Animação ---
-pyvts              # API para controlar o VTube Studio (Live2D)
-python-osc         # Protocolo VMC para modelos 3D (VSeeFace/VNyan)
+pyvts==0.3.3                       # API para controlar o VTube Studio (Live2D)
+python-osc==1.9.3                  # Protocolo VMC para modelos 3D (VSeeFace/VNyan)
 
-# --- Utilidades e Performance ---
-asyncio            # Gestão de tarefas assíncronas (essencial para não travar a IA)
-python-dotenv      # Para guardar chaves ou configurações em ficheiro .env
-numpy<2.0.0        # Garantir compatibilidade com bibliotecas de áudio/IA
+# --- Utilidades e Configuração ---
+python-dotenv==1.2.2               # Para guardar chaves ou configurações em ficheiro .env
+numpy==1.26.4                      # Garantir compatibilidade (<2.0.0) com bibliotecas de áudio/IA
+tzdata==2026.1                     # Base de fusos horários IANA no Windows
 audioop-lts; python_version >= '3.13' # Suporte contínuo ao módulo audioop para versões futuras
 
 # --- Bibliotecas Nativas de Aceleração (Windows AI) ---
-nvidia-cublas-cu12 # Injeta suporte à Álgebra Linear em Placas de Vídeo no Windows
-nvidia-cudnn-cu12  # Redes Neurais Profundas (Para o Whisper não ter que depender do processador)
+nvidia-cublas-cu12==12.9.2.10      # Injeta suporte à Álgebra Linear em Placas de Vídeo no Windows
+nvidia-cudnn-cu12==9.20.0.48       # Redes Neurais Profundas (Para o Whisper não ter que depender do processador)
 
 # --- Ferramentas de Desenvolvimento ---
-ruff               # Linter e formatador de código Python ultra-rápido
+ruff==0.15.8                       # Linter e formatador de código Python ultra-rápido
 
 # --- Logs e Monitoramento ---
-loguru             # Logging estruturado com rotação de arquivo e cores no terminal
-clickhouse-connect # Cliente oficial HTTP para ClickHouse (memória de interações)
+loguru==0.7.3                     # Logging estruturado com rotação de arquivo e cores no terminal
+clickhouse-connect==0.15.1         # Cliente oficial HTTP para ClickHouse (memória de interações)
 
 # --- Visão Computacional ---
-mss                # Captura de screenshots multi-monitor
-Pillow             # Processamento e redimensionamento de imagens (screenshots)
+mss==10.1.0                        # Captura de screenshots multi-monitor
+Pillow==12.1.1                     # Processamento e redimensionamento de imagens (screenshots)
 
 # --- Busca na Internet ---
-ddgs               # Pesquisa real via DuckDuckGo (sem chave de API)
-wikipedia-api      # Acesso a Wikipedia em portugues (fallback de busca)
+ddgs==9.13.0                       # Pesquisa real via DuckDuckGo (sem chave de API)
+wikipedia-api==0.14.0              # Acesso a Wikipedia em portugues (fallback de busca)
 
 # --- Música e Multimídia ---
-yt-dlp             # Baixa metadados e streams de áudio do YouTube para exibição no mpv
+yt-dlp                             # Baixa metadados e streams de áudio do YouTube para exibição no mpv

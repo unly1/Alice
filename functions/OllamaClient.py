@@ -12,14 +12,15 @@ Responsabilidades:
 """
 
 import asyncio
-import re
+import inspect
 import random
+import re
 
 import ollama
 
 import functions.Tools as funcoes_tools
-from functions.ContentManager import ContentManager
 from cerebro.logger import log
+from functions.ContentManager import ContentManager
 
 
 # ── Prompt de Ferramentas (ReAct Pattern) ────────────────────────────────────
@@ -55,21 +56,33 @@ class OllamaClient:
         modelo: str,
         emotion_engine,
         visao,
-        audio_ambiente,
-        cancelar_turno: asyncio.Event,
+        cancelar_turno: asyncio.Event | None = None,
         content_manager: ContentManager | None = None,
+        audio_ambiente=None,
     ):
+        # Compatibilidade: se o 4º argumento posicional não for Event, usa cancelar_turno nomeado
+        if not isinstance(cancelar_turno, asyncio.Event) and isinstance(
+            content_manager, asyncio.Event
+        ):
+            cancelar_turno = content_manager
+            content_manager = None
         self.modelo = modelo
         self.emotion_engine = emotion_engine
         self.visao = visao
-        self.audio_ambiente = audio_ambiente
-        self._cancelar = cancelar_turno
+        self._cancelar = (
+            cancelar_turno
+            if isinstance(cancelar_turno, asyncio.Event)
+            else asyncio.Event()
+        )
         # Usa o ContentManager injetado ou cria um padrão
         self._cm = content_manager or ContentManager()
+        _ = audio_ambiente  # argumento legado ignorado sem criar atributo morto
 
     # ── Helpers internos ──────────────────────────────────────────────────────
 
-    async def _ollama_em_thread(self, mensagens: list) -> dict:
+    async def _ollama_em_thread(
+        self, mensagens: list, options: dict | None = None
+    ) -> dict:
         """
         Executa ollama.chat em thread separada (não bloqueia o event loop).
 
@@ -77,10 +90,16 @@ class OllamaClient:
         async faz o await do Future, tornando-o uma coroutine válida para
         asyncio.create_task().
         """
-        loop = asyncio.get_event_loop()
-        return await loop.run_in_executor(
-            None, lambda: ollama.chat(model=self.modelo, messages=mensagens)
-        )
+        loop = asyncio.get_running_loop()
+
+        def _call():
+            if options is not None:
+                return ollama.chat(
+                    model=self.modelo, messages=mensagens, options=options
+                )
+            return ollama.chat(model=self.modelo, messages=mensagens)
+
+        return await loop.run_in_executor(None, _call)
 
     async def _chamar_ollama_cancelavel(self, mensagens: list) -> dict | None:
         """
@@ -129,31 +148,33 @@ class OllamaClient:
         )
 
         log.debug("🧐 Analisando intenção...")
-        resposta = ollama.chat(
-            model=self.modelo,
-            messages=[
-                {
-                    "role": "system",
-                    "content": (
-                        "Você é um classificador de personalidade para uma IA chamada Alice. "
-                        "Analise a mensagem do usuário e siga EXATAMENTE as regras de seleção fornecidas. "
-                        "Retorne somente UMA PALAVRA da lista, sem explicações."
-                    ),
-                },
-                {"role": "user", "content": prompt},
-            ],
-            options={"temperature": 0.0},
-        )
-        humor = (
-            resposta["message"]["content"]
-            .strip()
-            .lower()
-            .replace(".", "")
-            .replace(",", "")
-        )
-        for nome in disponiveis:
-            if nome in humor:
-                return nome
+        try:
+            resposta = await self._ollama_em_thread(
+                mensagens=[
+                    {
+                        "role": "system",
+                        "content": (
+                            "Você é um classificador de personalidade para uma IA chamada Alice. "
+                            "Analise a mensagem do usuário e siga EXATAMENTE as regras de seleção fornecidas. "
+                            "Retorne somente UMA PALAVRA da lista, sem explicações."
+                        ),
+                    },
+                    {"role": "user", "content": prompt},
+                ],
+                options={"temperature": 0.0},
+            )
+            humor = (
+                resposta["message"]["content"]
+                .strip()
+                .lower()
+                .replace(".", "")
+                .replace(",", "")
+            )
+            for nome in disponiveis:
+                if nome in humor:
+                    return nome
+        except Exception as e:
+            log.warning(f"⚠️  [Humor] Erro ao classificar personalidade: {e}")
         return "alegre"  # fallback seguro
 
     async def pensar(
@@ -226,9 +247,17 @@ class OllamaClient:
             if nome_funcao in funcoes_tools.DISPONIVEIS:
                 funcao = funcoes_tools.DISPONIVEIS[nome_funcao]
                 try:
-                    resultado = str(
-                        funcao(argumento_raw) if argumento_raw else funcao()
-                    )
+                    if inspect.iscoroutinefunction(funcao):
+                        res = await (
+                            funcao(argumento_raw) if argumento_raw else funcao()
+                        )
+                    else:
+                        res = await (
+                            asyncio.to_thread(funcao, argumento_raw)
+                            if argumento_raw
+                            else asyncio.to_thread(funcao)
+                        )
+                    resultado = str(res)
                     log.debug(f"    Resultado: {resultado}")
                 except Exception as e:
                     resultado = f"Erro ao executar: {e}"
@@ -266,7 +295,8 @@ class OllamaClient:
             log.debug(
                 f"Tokens acumulados (com tool): prompt={tokens_p} resposta={tokens_r}"
             )
-            return response2["message"]["content"], tokens_p, tokens_r
+            texto_final = _REGEX_TOOL.sub("", response2["message"]["content"]).strip()
+            return texto_final, tokens_p, tokens_r
 
         log.debug(f"Tokens: prompt={tokens_p} resposta={tokens_r}")
         return conteudo, tokens_p, tokens_r
@@ -289,30 +319,6 @@ class OllamaClient:
         )
 
         log.debug("🔍 [Memória] Extraindo fatos da conversa...")
-        response = ollama.chat(
-            model=self.modelo,
-            messages=[
-                {
-                    "role": "system",
-                    "content": (
-                        "Você é um extrator de fatos objetivo. Analise a conversa e extraia APENAS "
-                        "fatos concretos sobre o USUÁRIO (nome, profissão, gostos, projetos, hábitos). "
-                        "Regras estritas: "
-                        '1) Um fato por linha, começando com "-". '
-                        "2) Fatos curtos (máx 120 caracteres). "
-                        "3) Se não houver fatos concretos, responda SOMENTE a palavra: NENHUM. "
-                        "4) NUNCA escreva explicações, desculpas ou comentários."
-                    ),
-                },
-                {
-                    "role": "user",
-                    "content": f"Extraia fatos sobre o usuário:\n{contexto}",
-                },
-            ],
-            options={"temperature": 0.0, "num_predict": 200},
-        )
-
-        texto = response["message"]["content"].strip()
         _PALAVRAS_VAZIAS = (
             "NENHUM",
             "DESCULPE",
@@ -321,20 +327,50 @@ class OllamaClient:
             "SEM FATOS",
             "NENHUMA",
         )
-        if not texto or any(p in texto.upper() for p in _PALAVRAS_VAZIAS):
-            log.debug("    Nenhum fato novo encontrado.")
-        else:
-            for linha in texto.split("\n"):
-                fato = linha.strip().lstrip("-").strip()
-                if not fato or len(fato) < 8 or len(fato) > 150:
-                    continue
-                if any(
-                    p in fato.upper()
-                    for p in ("DESCULPE", "NÃO HÁ", "PARECE", "CONVERSA")
-                ):
-                    continue
-                memoria.salvar_fato(fato)
-                log.info(f"    └─ 💾 Fato salvo: {fato}")
+        try:
+            response = await self._ollama_em_thread(
+                mensagens=[
+                    {
+                        "role": "system",
+                        "content": (
+                            "Você é um extrator de fatos objetivo. Analise a conversa e extraia APENAS "
+                            "fatos concretos sobre o USUÁRIO (nome, profissão, gostos, projetos, hábitos). "
+                            "Regras estritas: "
+                            '1) Um fato por linha, começando com "-". '
+                            "2) Fatos curtos (máx 120 caracteres). "
+                            "3) Se não houver fatos concretos, responda SOMENTE a palavra: NENHUM. "
+                            "4) NUNCA escreva explicações, desculpas ou comentários."
+                        ),
+                    },
+                    {
+                        "role": "user",
+                        "content": f"Extraia fatos sobre o usuário:\n{contexto}",
+                    },
+                ],
+                options={"temperature": 0.0, "num_predict": 200},
+            )
+
+            texto = response["message"]["content"].strip()
+            fatos_salvos = 0
+            if texto and texto.upper() not in _PALAVRAS_VAZIAS:
+                for linha in texto.split("\n"):
+                    fato = linha.strip().lstrip("-").strip()
+                    if not fato or len(fato) < 8 or len(fato) > 150:
+                        continue
+                    fato_upper = fato.upper()
+                    if any(
+                        p in fato_upper
+                        for p in (*_PALAVRAS_VAZIAS, "PARECE", "CONVERSA")
+                    ):
+                        continue
+                    await asyncio.to_thread(memoria.salvar_fato, fato)
+                    fatos_salvos += 1
+                    log.info(f"    └─ 💾 Fato salvo: {fato}")
+
+            if fatos_salvos == 0:
+                log.debug("    Nenhum fato novo encontrado.")
+        except Exception as e:
+            log.warning(f"🔍 [Memória] Erro ao extrair fatos: {e}")
 
         # ── Extração de triplas para o grafo (GraphRAG) ───────────────────────
         if grafo is None:
@@ -342,9 +378,8 @@ class OllamaClient:
 
         log.debug("🕸️  [Grafo] Extraindo triplas da conversa...")
         try:
-            resp_grafo = ollama.chat(
-                model=self.modelo,
-                messages=[
+            resp_grafo = await self._ollama_em_thread(
+                mensagens=[
                     {
                         "role": "system",
                         "content": (
@@ -380,7 +415,10 @@ class OllamaClient:
                     continue
                 sujeito, relacao, objeto = partes
                 if sujeito and relacao and objeto:
-                    if grafo.salvar_tripla(sujeito, relacao, objeto):
+                    salvou = await asyncio.to_thread(
+                        grafo.salvar_tripla, sujeito, relacao, objeto
+                    )
+                    if salvou:
                         triplas_novas += 1
                         log.info(
                             f"    └─ 🕸️  Tripla: ({sujeito}) --[{relacao}]--> ({objeto})"
@@ -394,7 +432,7 @@ class OllamaClient:
     async def detectar_nome_usuario(self, historico: list) -> None:
         """
         Analisa o histórico recente e tenta detectar o nome do usuário.
-        Se encontrado, salva automaticamente no brain.json (nome_usuario).
+        Se encontrado, salva automaticamente no estado (nome_usuario).
         Só roda se nome_usuario ainda estiver vazio.
         """
         if self.emotion_engine.estado_atual.get("nome_usuario"):
@@ -408,9 +446,8 @@ class OllamaClient:
         )
 
         try:
-            response = ollama.chat(
-                model=self.modelo,
-                messages=[
+            response = await self._ollama_em_thread(
+                mensagens=[
                     {
                         "role": "system",
                         "content": (
@@ -426,7 +463,10 @@ class OllamaClient:
                 ],
                 options={"temperature": 0.0, "num_predict": 10},
             )
-            nome = response["message"]["content"].strip().split()[0]
+            partes = response["message"]["content"].strip().split()
+            if not partes:
+                return
+            nome = partes[0].strip(".,!?:;\"'()")
             if (
                 nome
                 and nome.upper() != "DESCONHECIDO"
@@ -435,8 +475,8 @@ class OllamaClient:
             ):
                 self.emotion_engine.atualizar_estado("nome_usuario", nome)
                 log.info(f"👤 Nome detectado e salvo: {nome}")
-        except Exception:
-            pass  # silencioso
+        except Exception as e:
+            log.debug(f"👤 [Nome] Falha silenciosa ao detectar nome: {e}")
 
     async def gerar_comentario_visao(self) -> str:
         """
@@ -453,9 +493,8 @@ class OllamaClient:
             return ""
 
         try:
-            resp = ollama.chat(
-                model=self.modelo,
-                messages=[
+            resp = await self._ollama_em_thread(
+                mensagens=[
                     {
                         "role": "system",
                         "content": (
@@ -476,7 +515,8 @@ class OllamaClient:
                 options={"temperature": 0.85, "num_predict": 60},
             )
             return resp["message"]["content"].strip()
-        except Exception:
+        except Exception as e:
+            log.warning(f"👁️  [Visão] Erro ao gerar comentário de visão: {e}")
             return ""
 
     async def gerar_fala_proativa(self, ciclo: int = 0) -> str:
@@ -491,7 +531,9 @@ class OllamaClient:
         humor = self.emotion_engine.estado_atual.get("humor", "Neutro")
         nome = self.emotion_engine.estado_atual.get("nome_usuario", "")
         nome_str = f", {nome}" if nome else ""
-        contexto_visual = await self.visao.construir_bloco_visao() if self.visao else ""
+        contexto_visual = (
+            await self.visao.construir_bloco_visao() if self.visao else ""
+        )
 
         if ciclo <= 1:
             estagio = "casual"
@@ -532,9 +574,8 @@ class OllamaClient:
         log.debug(f"💜 [Proativo] Estágio: {estagio} (ciclo {ciclo})")
 
         try:
-            resp = ollama.chat(
-                model=self.modelo,
-                messages=[
+            resp = await self._ollama_em_thread(
+                mensagens=[
                     {
                         "role": "system",
                         "content": (
@@ -547,7 +588,8 @@ class OllamaClient:
                 options={"temperature": 0.9, "num_predict": 60},
             )
             return resp["message"]["content"].strip()
-        except Exception:
+        except Exception as e:
+            log.warning(f"💜 [Proativo] Erro ao gerar fala proativa ({estagio}): {e}")
             fallbacks = {
                 "casual": [
                     "Ei, tudo bem por aí?",

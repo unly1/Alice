@@ -1,11 +1,12 @@
 services:
   # ClickHouse
   clickhouse:
-    image: clickhouse/clickhouse-server:latest
+    image: clickhouse/clickhouse-server:24.8-lts
     container_name: clickhouse
+    restart: unless-stopped
     ports:
-      - "8123:8123"  # HTTP interface
-      - "9000:9000"  # Native protocol
+      - "127.0.0.1:8123:8123"  # HTTP interface (restrito a localhost)
+      - "127.0.0.1:9000:9000"  # Native protocol (restrito a localhost)
     volumes:
       - clickhouse_data:/var/lib/clickhouse
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql

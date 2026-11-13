@@ -22,8 +22,15 @@ def gerar_embedding(texto: str) -> list[float]:
     if not texto or not texto.strip():
         return []
     try:
-        resp = ollama.embeddings(model=MODELO_EMBED, prompt=texto.strip())
-        return resp["embedding"]
+        resp = ollama.embed(model=MODELO_EMBED, input=texto.strip())
+        embeddings = (
+            resp.get("embeddings")
+            if isinstance(resp, dict)
+            else getattr(resp, "embeddings", None)
+        )
+        if embeddings and len(embeddings) > 0:
+            return list(embeddings[0])
+        return []
     except Exception as e:
         log.warning(f"⚠️  [Embed] Falha ao gerar embedding ({MODELO_EMBED}): {e}")
         return []

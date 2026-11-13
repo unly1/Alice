@@ -21,8 +21,12 @@ import os
 import secrets
 import sys
 
-import _clickhouse_docker as ch
-from _clickhouse_docker import (
+_TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
+if _TOOLS_DIR not in sys.path:
+    sys.path.insert(0, _TOOLS_DIR)
+
+import _clickhouse_docker as ch  # noqa: E402
+from _clickhouse_docker import (  # noqa: E402
     ENV,
     criar_tabelas,
     falhar,

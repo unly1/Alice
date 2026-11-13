@@ -22,12 +22,11 @@ CREATE TABLE IF NOT EXISTS analytics.interactions
     model           String    COMMENT 'Modelo de IA usado (ex: llama3.1:8b)',
 
     -- Contagem de tokens (0 para linhas do usuário)
+    tokens_used     UInt32    DEFAULT 0  COMMENT 'Tokens usados na resposta (se disponível)',
+    created_at      DateTime  DEFAULT now()  COMMENT 'Data e hora da mensagem',
     tokens_prompt   UInt32    DEFAULT 0  COMMENT 'Tokens do contexto enviado ao modelo',
     tokens_resposta UInt32    DEFAULT 0  COMMENT 'Tokens gerados pelo modelo',
-    tokens_total    UInt32    DEFAULT 0  COMMENT 'tokens_prompt + tokens_resposta',
-
-    -- Timestamp
-    created_at      DateTime  DEFAULT now()  COMMENT 'Data e hora da mensagem'
+    tokens_total    UInt32    DEFAULT 0  COMMENT 'tokens_prompt + tokens_resposta'
 )
 ENGINE = MergeTree()
 ORDER BY (session_id, turn_id, created_at)
@@ -40,9 +39,10 @@ SETTINGS index_granularity = 8192;
 -- SQLite (cerebro/memoria.db) continua como backup automático.
 CREATE TABLE IF NOT EXISTS analytics.memoria
 (
-    id         String    COMMENT 'UUID do fato (gerado em Python)',
-    fato       String    COMMENT 'Texto do fato sobre o usuário',
-    criado_em  DateTime  DEFAULT now()  COMMENT 'Quando o fato foi salvo'
+    id         String          COMMENT 'UUID do fato (gerado em Python)',
+    fato       String          COMMENT 'Texto do fato sobre o usuário',
+    criado_em  DateTime        DEFAULT now()  COMMENT 'Quando o fato foi salvo',
+    embedding  Array(Float32)  DEFAULT []     COMMENT 'Vetor semântico (nomic-embed-text)'
 )
 ENGINE = MergeTree()
 ORDER BY criado_em

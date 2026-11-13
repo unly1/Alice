@@ -7,8 +7,8 @@ O que entra no backup:
 - O .env (não vai para o git)
 
 Uso (na pasta da Alice, com o .venv ativo):
-    python tools/backup_banco.py                  # salva em D:\\Backups\\Alice
-    python tools/backup_banco.py E:\\MeusBackups   # outra pasta
+    python tools/backup_banco.py                  # salva em D:\Backups\Alice
+    python tools/backup_banco.py E:\MeusBackups   # outra pasta
     python tools/backup_banco.py --manter 10      # guarda só os 10 mais recentes
 
 A pasta padrão também pode ser trocada com ALICE_BACKUP_DIR no .env.
@@ -20,40 +20,57 @@ import json
 import os
 import shutil
 import sqlite3
+import sys
 
-from _clickhouse_docker import (
+_TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
+if _TOOLS_DIR not in sys.path:
+    sys.path.insert(0, _TOOLS_DIR)
+
+from _clickhouse_docker import (  # noqa: E402
     BACKUP_PADRAO,
     CONTAINER,
     RAIZ,
     SQLITE_DBS,
+    docker,
     falhar,
     garantir_docker,
     listar_tabelas,
     passo,
     sql,
     sql_texto,
-    docker,
+    subir_clickhouse,
 )
 
 PREFIXO = "alice_"
 
 
-def backup_clickhouse(destino: str, manifesto: dict) -> None:
+def backup_clickhouse(
+    destino: str, manifesto: dict, permitir_parcial: bool = False
+) -> bool:
+    """Exporta as tabelas do ClickHouse; sobe o container se estiver parado."""
     estado = docker(
         "inspect", "-f", "{{.State.Running}}", CONTAINER, checar=False
     ).decode().strip()
     if estado != "true":
-        print(
-            "  ⚠ O container do ClickHouse não está rodando; pulando o ClickHouse.\n"
-            "    Rode tools/configurar_clickhouse.py para subir ele."
+        if permitir_parcial:
+            print(
+                "  ⚠ O container do ClickHouse não está rodando; pulando o ClickHouse "
+                "(--permitir-parcial ativo)."
+            )
+            return False
+        print("  ℹ Container do ClickHouse parado; subindo automaticamente para o backup...")
+        subir_clickhouse()
+
+    tabelas = [t for t in listar_tabelas() if not t.startswith(".inner")]
+    if not tabelas and not permitir_parcial:
+        falhar(
+            "Nenhuma tabela encontrada no ClickHouse. "
+            "Use --permitir-parcial se quiser fazer backup apenas dos SQLite."
         )
-        return
 
     pasta = os.path.join(destino, "clickhouse")
     os.makedirs(pasta, exist_ok=True)
-    for tabela in listar_tabelas():
-        if tabela.startswith(".inner"):
-            continue
+    for tabela in tabelas:
         criar = sql_texto(f"SHOW CREATE TABLE {tabela} FORMAT TSVRaw")
         with open(os.path.join(pasta, f"{tabela}.sql"), "w", encoding="utf-8") as f:
             f.write(criar)
@@ -63,6 +80,7 @@ def backup_clickhouse(destino: str, manifesto: dict) -> None:
         linhas = int(sql_texto(f"SELECT count() FROM {tabela}"))
         manifesto["clickhouse"][tabela] = linhas
         print(f"  ✓ {tabela}: {linhas} linhas")
+    return bool(tabelas)
 
 
 def backup_sqlite(destino: str, manifesto: dict) -> None:
@@ -97,6 +115,10 @@ def main() -> None:
         "--manter", type=int, default=30,
         help="quantos backups guardar (os mais antigos são apagados; 0 = todos)",
     )
+    parser.add_argument(
+        "--permitir-parcial", action="store_true",
+        help="permite gerar backup sem o ClickHouse caso o container esteja desligado",
+    )
     args = parser.parse_args()
 
     try:
@@ -107,12 +129,17 @@ def main() -> None:
     agora = datetime.datetime.now()
     destino = os.path.join(args.pasta, PREFIXO + agora.strftime("%Y-%m-%d_%H%M%S"))
     os.makedirs(destino)
-    manifesto = {"criado_em": agora.isoformat(timespec="seconds"),
-                 "clickhouse": {}, "sqlite": []}
+    manifesto = {
+        "criado_em": agora.isoformat(timespec="seconds"),
+        "clickhouse": {},
+        "sqlite": [],
+    }
 
     garantir_docker()
     passo("Exportando o ClickHouse...")
-    backup_clickhouse(destino, manifesto)
+    ch_completo = backup_clickhouse(
+        destino, manifesto, permitir_parcial=args.permitir_parcial
+    )
 
     passo("Copiando os SQLite...")
     backup_sqlite(destino, manifesto)
@@ -126,7 +153,13 @@ def main() -> None:
         json.dump(manifesto, f, indent=4, ensure_ascii=False)
 
     if args.manter > 0:
-        limpar_antigos(args.pasta, args.manter)
+        if ch_completo:
+            limpar_antigos(args.pasta, args.manter)
+        else:
+            print(
+                "  ⚠ Rotação de backups antigos ignorada porque o backup do "
+                "ClickHouse foi parcial."
+            )
 
     print(f"\n✅ Backup salvo em: {destino}")
 
