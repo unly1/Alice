@@ -2,10 +2,10 @@
 OllamaClient — encapsula todas as chamadas ao modelo Ollama.
 
 Responsabilidades:
-- Chamar ollama.chat em thread separada (não bloqueia o event loop)
+- Chamar ollama.chat em thread separada (não bloqueia o event loop) com keep_alive na VRAM
 - Gerenciar cancelamento de turno via asyncio.Event (padrão DRY)
-- Descobrir humor/personalidade ideal para cada resposta
-- Gerar resposta principal com suporte a ferramentas (ReAct Pattern)
+- Descobrir humor/personalidade ideal via heurística local rápida (latência zero) ou LLM opcional
+- Gerar resposta principal com suporte a ferramentas (ReAct Pattern até 2 iterações seguras)
 - Extrair fatos da conversa e salvar na memória de longo prazo
 - Detectar o nome do usuário no histórico
 - Gerar falas proativas espontâneas
@@ -13,6 +13,7 @@ Responsabilidades:
 
 import asyncio
 import inspect
+import os
 import random
 import re
 
@@ -22,6 +23,11 @@ import functions.Tools as funcoes_tools
 from cerebro.logger import log
 from functions.ContentManager import ContentManager
 
+# Tempo padrão para manter o modelo carregado na VRAM do Ollama entre chamadas
+KEEP_ALIVE_PADRAO = os.getenv("OLLAMA_KEEP_ALIVE", "10m")
+
+# Limite seguro de iterações de ferramentas por turno no loop ReAct
+_MAX_ITERACOES_TOOL = 2
 
 # ── Prompt de Ferramentas (ReAct Pattern) ────────────────────────────────────
 # Mais estável do que a API nativa de tools para modelos locais menores.
@@ -47,6 +53,77 @@ Espere o resultado antes de responder ao usuário.
 # Regex para detectar marcadores de ferramenta escritos pela IA no texto
 _REGEX_TOOL = re.compile(r"\[TOOL:(\w+)(?::([^\]]*))?]", re.IGNORECASE)
 
+# Regras léxicas de prioridade para classificação instantânea de personalidade (latência zero)
+_REGRAS_HUMOR_LOCAL: list[tuple[str, re.Pattern]] = [
+    (
+        "timida",
+        re.compile(
+            r"\b(linda|fofa|maravilhosa|perfeita|te amo|amo voc[êe]|te adoro|gosto de voc[êe]|"
+            r"voc[êe] [ée] incr[íi]vel|muito fofa|meu amor|querida|princesa|melhor ia|elogio)\b",
+            re.IGNORECASE,
+        ),
+    ),
+    (
+        "euforica",
+        re.compile(
+            r"\b(consegui|deu certo|funcionou|passei|ganhei|venci|terminei|finalizei|"
+            r"aprovad[oa]|sucesso|uhuuu|yay|eba|conquista|vit[óo]ria)\b",
+            re.IGNORECASE,
+        ),
+    ),
+    (
+        "empatica",
+        re.compile(
+            r"\b(triste|cansad[oa]|exaust[oa]|frustrad[oa]|desanimad[oa]|sozinh[oa]|"
+            r"chorando|ansios[oa]|estressad[oa]|deprimid[oa]|chatead[oa]|desabafar|desabafo|"
+            r"n[ãa]o aguento mais|t[áa] dif[íi]cil)\b",
+            re.IGNORECASE,
+        ),
+    ),
+    (
+        "determinada",
+        re.compile(
+            r"\b(erro|bug|exception|traceback|falha|falhou|quebrou|n[ãa]o funciona|"
+            r"travando|travou|corrigir|debug|consertar|syntaxerror|typeerror|keyerror|"
+            r"import|stacktrace|problema t[ée]cnico)\b",
+            re.IGNORECASE,
+        ),
+    ),
+    (
+        "grata",
+        re.compile(
+            r"\b(obrigad[oa]|valeu|agrade[çc]o|muito obrigad[oa]|ajudou muito|"
+            r"me salvou|gratid[ãa]o|thanks|vlw)\b",
+            re.IGNORECASE,
+        ),
+    ),
+    (
+        "nostalgica",
+        re.compile(
+            r"\b(lembro|lembra|antigamente|saudade|saudades|passado|inf[âa]ncia|"
+            r"[ée]poca|nostalgia|anos atr[áa]s|quando eu era)\b",
+            re.IGNORECASE,
+        ),
+    ),
+    (
+        "brava",
+        re.compile(
+            r"\b(idiota|burra|in[úu]til|cala a boca|chata|lenta|demora|"
+            r"porcaria|lixo|irritante|anda logo|que saco|odeio voc[êe])\b",
+            re.IGNORECASE,
+        ),
+    ),
+    (
+        "curiosa",
+        re.compile(
+            r"\b(como funciona|o que [ée]|por que|porque|qual a diferen[çc]a|explica|"
+            r"explique|me conta|curiosidade|python|sql|api|llm|algoritmo|tecnologia|"
+            r"ci[êe]ncia|universo|arquitetura)\b",
+            re.IGNORECASE,
+        ),
+    ),
+]
+
 
 class OllamaClient:
     """Gerencia todas as interações com o modelo de linguagem Ollama."""
@@ -59,6 +136,7 @@ class OllamaClient:
         cancelar_turno: asyncio.Event | None = None,
         content_manager: ContentManager | None = None,
         audio_ambiente=None,
+        keep_alive: str = KEEP_ALIVE_PADRAO,
     ):
         # Compatibilidade: se o 4º argumento posicional não for Event, usa cancelar_turno nomeado
         if not isinstance(cancelar_turno, asyncio.Event) and isinstance(
@@ -69,6 +147,7 @@ class OllamaClient:
         self.modelo = modelo
         self.emotion_engine = emotion_engine
         self.visao = visao
+        self.keep_alive = keep_alive
         self._cancelar = (
             cancelar_turno
             if isinstance(cancelar_turno, asyncio.Event)
@@ -84,20 +163,25 @@ class OllamaClient:
         self, mensagens: list, options: dict | None = None
     ) -> dict:
         """
-        Executa ollama.chat em thread separada (não bloqueia o event loop).
-
-        run_in_executor() retorna um Future, não uma coroutine — este método
-        async faz o await do Future, tornando-o uma coroutine válida para
-        asyncio.create_task().
+        Executa ollama.chat em thread separada (não bloqueia o event loop),
+        mantendo o modelo aquecido na VRAM via keep_alive.
         """
         loop = asyncio.get_running_loop()
 
         def _call():
+            kwargs: dict = {
+                "model": self.modelo,
+                "messages": mensagens,
+                "keep_alive": self.keep_alive,
+            }
             if options is not None:
-                return ollama.chat(
-                    model=self.modelo, messages=mensagens, options=options
-                )
-            return ollama.chat(model=self.modelo, messages=mensagens)
+                kwargs["options"] = options
+            try:
+                return ollama.chat(**kwargs)
+            except TypeError:
+                # Compatibilidade com mocks de teste que aceitam apenas (model, messages, options)
+                kwargs.pop("keep_alive", None)
+                return ollama.chat(**kwargs)
 
         return await loop.run_in_executor(None, _call)
 
@@ -123,13 +207,48 @@ class OllamaClient:
         tarefa_cancel.cancel()
         return tarefa.result()
 
+    def _classificar_humor_local(
+        self, texto_usuario: str, disponiveis: list[str]
+    ) -> str:
+        """
+        Classifica a personalidade ideal por heurística léxica local (latência zero),
+        seguindo a mesma ordem de prioridade das regras de domínio da Alice.
+        """
+        texto = (texto_usuario or "").strip()
+        if not texto:
+            return "alegre" if "alegre" in disponiveis else disponiveis[0]
+
+        disponiveis_set = {d.lower(): d for d in disponiveis}
+
+        for candidato, padrao in _REGRAS_HUMOR_LOCAL:
+            if candidato in disponiveis_set and padrao.search(texto):
+                return disponiveis_set[candidato]
+
+        if "?" in texto and "curiosa" in disponiveis_set:
+            return disponiveis_set["curiosa"]
+
+        return disponiveis_set.get("alegre", disponiveis[0])
+
     # ── Métodos Públicos ──────────────────────────────────────────────────────
 
-    async def descobrir_humor(self, texto_usuario: str) -> str:
-        """Consulta o ContentManager para listar personalidades e pede ao LLM qual usar."""
+    async def descobrir_humor(
+        self, texto_usuario: str, usar_llm: bool = False
+    ) -> str:
+        """
+        Seleciona a personalidade ideal para responder ao usuário.
+
+        Por padrão (`usar_llm=False`), usa classificação heurística local de latência
+        zero para eliminar a 2ª chamada serial ao Ollama em cada turno.
+        Se `usar_llm=True`, consulta o LLM com fallback seguro para a heurística local.
+        """
         disponiveis = self._cm.listar_personalidades()
         if not disponiveis:
             return "alegre"  # fallback
+
+        humor_local = self._classificar_humor_local(texto_usuario, disponiveis)
+        if not usar_llm:
+            log.debug(f"🧐 [Humor Local] Personalidade selecionada: {humor_local}")
+            return humor_local
 
         prompt = (
             f'Mensagem do usuário: "{texto_usuario}"\n\n'
@@ -147,7 +266,7 @@ class OllamaClient:
             "Responda APENAS com UMA PALAVRA da lista de personalidades disponíveis, sem pontuação."
         )
 
-        log.debug("🧐 Analisando intenção...")
+        log.debug("🧐 Analisando intenção via LLM...")
         try:
             resposta = await self._ollama_em_thread(
                 mensagens=[
@@ -174,8 +293,8 @@ class OllamaClient:
                 if nome in humor:
                     return nome
         except Exception as e:
-            log.warning(f"⚠️  [Humor] Erro ao classificar personalidade: {e}")
-        return "alegre"  # fallback seguro
+            log.warning(f"⚠️  [Humor] Erro ao classificar personalidade via LLM: {e}")
+        return humor_local
 
     async def pensar(
         self,
@@ -186,7 +305,7 @@ class OllamaClient:
         bloco_memoria: str = "",
     ) -> tuple[str | None, int, int]:
         """
-        Gera a resposta principal da Alice com suporte a ferramentas.
+        Gera a resposta principal da Alice com suporte a ferramentas (até 2 iterações seguras).
 
         Monitora _cancelar entre cada chamada ao Ollama: se acionado,
         abandona o processamento retornando (None, 0, 0).
@@ -237,12 +356,19 @@ class OllamaClient:
         tokens_p = response.get("prompt_eval_count", 0) or 0
         tokens_r = response.get("eval_count", 0) or 0
 
-        # Detecta se a IA escreveu um marcador de ferramenta
-        match = _REGEX_TOOL.search(conteudo)
-        if match:
+        # Loop ReAct limitado a _MAX_ITERACOES_TOOL (proteção contra loop infinito)
+        usou_tool = False
+        for iteracao in range(_MAX_ITERACOES_TOOL):
+            match = _REGEX_TOOL.search(conteudo)
+            if not match:
+                break
+
+            usou_tool = True
             nome_funcao = match.group(1)
             argumento_raw = (match.group(2) or "").strip()
-            log.info(f"[Tool] '{nome_funcao}' | arg: '{argumento_raw}'")
+            log.info(
+                f"[Tool {iteracao + 1}/{_MAX_ITERACOES_TOOL}] '{nome_funcao}' | arg: '{argumento_raw}'"
+            )
 
             if nome_funcao in funcoes_tools.DISPONIVEIS:
                 funcao = funcoes_tools.DISPONIVEIS[nome_funcao]
@@ -265,41 +391,41 @@ class OllamaClient:
             else:
                 resultado = f"Ferramenta '{nome_funcao}' não encontrada."
 
-            # Verifica cancelamento antes da 2ª chamada
+            # Verifica cancelamento antes da próxima chamada ao Ollama
             if self._cancelar.is_set():
                 log.info(
-                    "🔄 [Reiniciar] Turno cancelado antes da 2ª chamada ao Ollama."
+                    "🔄 [Reiniciar] Turno cancelado antes da chamada pós-tool ao Ollama."
                 )
                 return None, 0, 0
 
             mensagens.append({"role": "assistant", "content": conteudo})
-            mensagens.append(
-                {
-                    "role": "user",
-                    "content": (
-                        f"[RESULTADO]: {resultado}\n"
-                        "Agora use essa informação e responda minha pergunta original "
-                        "de forma natural, sem citar o marcador [TOOL]."
-                    ),
-                }
+            instrucao_pos_tool = (
+                f"[RESULTADO]: {resultado}\n"
+                "Agora use essa informação e responda minha pergunta original "
+                "de forma natural, sem citar o marcador [TOOL]."
             )
+            mensagens.append({"role": "user", "content": instrucao_pos_tool})
 
-            # ── 2ª chamada: resposta final com o resultado da ferramenta ──────
-            response2 = await self._chamar_ollama_cancelavel(mensagens)
-            if response2 is None:
-                log.info("🔄 [Reiniciar] Turno cancelado durante 2ª chamada ao Ollama.")
+            response_pos = await self._chamar_ollama_cancelavel(mensagens)
+            if response_pos is None:
+                log.info(
+                    "🔄 [Reiniciar] Turno cancelado durante chamada pós-tool ao Ollama."
+                )
                 return None, 0, 0
 
-            tokens_p += response2.get("prompt_eval_count", 0) or 0
-            tokens_r += response2.get("eval_count", 0) or 0
+            tokens_p += response_pos.get("prompt_eval_count", 0) or 0
+            tokens_r += response_pos.get("eval_count", 0) or 0
+            conteudo = response_pos["message"]["content"].strip()
+
+        if usou_tool:
             log.debug(
                 f"Tokens acumulados (com tool): prompt={tokens_p} resposta={tokens_r}"
             )
-            texto_final = _REGEX_TOOL.sub("", response2["message"]["content"]).strip()
-            return texto_final, tokens_p, tokens_r
+        else:
+            log.debug(f"Tokens: prompt={tokens_p} resposta={tokens_r}")
 
-        log.debug(f"Tokens: prompt={tokens_p} resposta={tokens_r}")
-        return conteudo, tokens_p, tokens_r
+        texto_final = _REGEX_TOOL.sub("", conteudo).strip()
+        return texto_final, tokens_p, tokens_r
 
     async def extrair_e_salvar_fatos(
         self, historico: list, memoria, grafo=None

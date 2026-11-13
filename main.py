@@ -39,12 +39,14 @@ from cerebro.logger import log, set_clickhouse_logger
 from cerebro.memoria import MemoriaLongaPrazo
 from cerebro.sonho import Sonho
 from cerebro.summarizer import Summarizer
+from cerebro.visao import VisaoComputacional
 from functions.ContentManager import ContentManager
 from functions.EmotionEngine import EmotionEngine
 from functions.MicListener import MicListener
 from functions.OllamaClient import OllamaClient
 from functions.RespostasProntas import RespostasProntas
 from functions.TTSService import TTSService
+from functions.VTS_Connector import VTSConnector
 from interface.janela import iniciar_janela
 
 # Garante que o terminal Windows lide com caracteres Unicode (ex: resultados de busca web)
@@ -107,6 +109,18 @@ _limiar_min = os.getenv("LIMIAR_MICROFONE_MINIMO", "500")
 LIMIAR_MICROFONE_MINIMO = int(_limiar_min) if _limiar_min.isdigit() else 500
 
 DISPOSITIVO_SAIDA_AUDIO = os.getenv("DISPOSITIVO_SAIDA_AUDIO")
+VISAO_ATIVA = os.getenv("VISAO_ATIVA", "true").strip().lower() not in {
+    "0",
+    "false",
+    "no",
+    "off",
+}
+VTS_ATIVO = os.getenv("VTS_ATIVO", "true").strip().lower() not in {
+    "0",
+    "false",
+    "no",
+    "off",
+}
 
 # ── Eventos e Filas de comunicação GUI ↔ asyncio ──────────────────────────────
 _alice_falando = threading.Event()
@@ -124,17 +138,71 @@ grafo: GraphMemory | None = None
 audio_ambiente: AudioAmbiente | None = None
 content_manager: ContentManager | None = None
 respostas_prontas: RespostasProntas | None = None
+visao: VisaoComputacional | None = None
+vts_connector: VTSConnector | None = None
 janela_ref = None
 _servicos_inicializados = False
 
 
+class _FilaSaidaSonhoProxy:
+    """
+    Proxy sobre FILA_SAIDA_GUI passado ao módulo `Sonho` para garantir que
+    qualquer mensagem emitida pelo sonho seja enviada como dict estruturado
+    com `categoria="sonho"`, sem precisar alterar `cerebro/sonho.py`.
+    """
+
+    def __init__(self, fila_real: queue.Queue):
+        self._fila = fila_real
+
+    def put(self, item, block: bool = True, timeout: float | None = None) -> None:
+        if isinstance(item, dict):
+            item.setdefault("categoria", "sonho")
+            self._fila.put(item, block=block, timeout=timeout)
+        else:
+            self._fila.put(
+                {
+                    "tipo": "mensagem",
+                    "autor": "Alice",
+                    "texto": str(item),
+                    "categoria": "sonho",
+                },
+                block=block,
+                timeout=timeout,
+            )
+
+    def __getattr__(self, name: str):
+        return getattr(self._fila, name)
+
+
+def _instanciar_com_kwargs_compativeis(cls, **kwargs):
+    """
+    Instancia `cls` passando apenas os kwargs suportados pela sua assinatura atual
+    (ou todos se aceitar **kwargs), garantindo compatibilidade entre agentes.
+    """
+    try:
+        sig = inspect.signature(cls.__init__)
+        aceita_var_kw = any(
+            p.kind == inspect.Parameter.VAR_KEYWORD
+            for p in sig.parameters.values()
+        )
+        if aceita_var_kw:
+            return cls(**kwargs)
+        filtrados = {
+            k: v for k, v in kwargs.items() if k in sig.parameters
+        }
+        return cls(**filtrados)
+    except Exception:
+        return cls(**kwargs)
+
+
 def inicializar_servicos() -> None:
     """
-    Inicializa modelo Whisper (CUDA), ClickHouse e singletons de serviço sob demanda.
+    Inicializa modelo Whisper (CUDA), ClickHouse, Visão, VTS e singletons sob demanda.
     Evita efeitos colaterais pesados de GPU/rede durante um simples `import main`.
     """
     global _servicos_inicializados, modelo_whisper, emotion_engine, clickhouse_log
-    global memoria_longa, summarizer, grafo, audio_ambiente, content_manager, respostas_prontas
+    global memoria_longa, summarizer, grafo, audio_ambiente, content_manager
+    global respostas_prontas, visao, vts_connector
 
     if _servicos_inicializados:
         return
@@ -161,19 +229,33 @@ def inicializar_servicos() -> None:
     audio_ambiente = AudioAmbiente(modelo_whisper, alice_falando=_alice_falando)
     content_manager = ContentManager()
     respostas_prontas = RespostasProntas()
+
+    if VISAO_ATIVA:
+        try:
+            visao = VisaoComputacional()
+        except Exception as e:
+            log.warning(f"⚠️  [Visão] Falha ao inicializar VisaoComputacional: {e}")
+            visao = None
+    else:
+        visao = None
+
+    if VTS_ATIVO:
+        try:
+            vts_connector = VTSConnector()
+        except Exception as e:
+            log.warning(f"⚠️  [VTS] Falha ao instanciar VTSConnector: {e}")
+            vts_connector = None
+    else:
+        vts_connector = None
+
     _servicos_inicializados = True
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 class AliceSession:
     """
-    Encapsula o estado mutável da sessão e o loop principal de conversa.
-
-    Estado interno:
-        historico    — últimas N mensagens trocadas (injetadas no prompt do LLM)
-        turno_count  — controla quando extrair fatos e detectar nome (a cada 3 turnos)
-        _cancelar    — asyncio.Event compartilhado com OllamaClient e TTSService
-                       para cancelar o turno em andamento quando o usuário clica Reiniciar
+    Encapsula o estado mutável da sessão, integrações multimodais (Visão + VTS)
+    e o protocolo de eventos em tempo real com a GUI.
     """
 
     def __init__(self):
@@ -182,37 +264,205 @@ class AliceSession:
         self.historico: list = []
         self.turno_count: int = 0
         self._cancelar = asyncio.Event()
+        self._encerrar = asyncio.Event()
         self._ciclos_proativos: int = 0
         self._ultima_interacao: float = 0.0
         self.contexto_comando: str | None = None
         self._bg_tasks: set[asyncio.Task] = set()
         self._memoria_lock = asyncio.Lock()
+        self._loop: asyncio.AbstractEventLoop | None = None
+        self._em_processamento_turno: bool = False
+
+        self.visao = visao
+        self.vts = vts_connector
 
         self.ollama = OllamaClient(
             modelo=MODELO_IA,
             emotion_engine=emotion_engine,
-            visao=None,
+            visao=self.visao,
             audio_ambiente=audio_ambiente,
             cancelar_turno=self._cancelar,
             content_manager=content_manager,
         )
-        self.tts = TTSService(
+        self.tts = _instanciar_com_kwargs_compativeis(
+            TTSService,
             instruct=VOZ_INSTRUCT,
             arquivo_audio=ARQUIVO_AUDIO,
             cancelar_turno=self._cancelar,
             dispositivo_saida=DISPOSITIVO_SAIDA_AUDIO,
             alice_falando=_alice_falando,
+            on_audio_rms=self._on_lip_sync,
+            on_lip_sync=self._on_lip_sync,
+            lip_sync_callback=self._on_lip_sync,
         )
-        self.mic = MicListener(
+        self.mic = _instanciar_com_kwargs_compativeis(
+            MicListener,
             modelo_whisper=modelo_whisper,
             indice_mic=INDICE_MICROFONE,
             limiar_min=LIMIAR_MICROFONE_MINIMO,
             fila_gui=FILA_ENTRADA_GUI,
             tempo_proativo=TEMPO_PROATIVO,
             alice_falando=_alice_falando,
+            on_estado_change=self._emitir_estado,
+            on_estado=self._emitir_estado,
+            estado_callback=self._emitir_estado,
         )
 
-    # ── Helpers ───────────────────────────────────────────────────────────────
+        # Garante vínculo de callbacks caso os serviços exponham atributos ou setters
+        for attr in ("on_audio_rms", "_on_audio_rms", "on_lip_sync", "lip_sync_callback", "_on_lip_sync"):
+            if hasattr(self.tts, attr) and getattr(self.tts, attr) is None:
+                setattr(self.tts, attr, self._on_lip_sync)
+        if hasattr(self.tts, "set_lip_sync_callback"):
+            try:
+                self.tts.set_lip_sync_callback(self._on_lip_sync)
+            except Exception:
+                pass
+
+        if hasattr(self.mic, "registrar_callback_estado"):
+            try:
+                self.mic.registrar_callback_estado(self._emitir_estado)
+            except Exception:
+                pass
+        for attr in ("on_estado_change", "_on_estado_change", "on_estado", "estado_callback", "_on_estado"):
+            if hasattr(self.mic, attr) and getattr(self.mic, attr) is None:
+                setattr(self.mic, attr, self._emitir_estado)
+
+    # ── Emissão de Eventos para a GUI (FILA_SAIDA_GUI) ────────────────────────
+
+    def _emitir_estado(self, estado: str) -> None:
+        """Envia evento de transição de estado em tempo real para a GUI."""
+        FILA_SAIDA_GUI.put({"tipo": "estado", "estado": estado})
+
+    def _emitir_input(self, habilitado: bool) -> None:
+        """Habilita ou desabilita o campo de input na GUI."""
+        FILA_SAIDA_GUI.put({"tipo": "input", "habilitado": bool(habilitado)})
+
+    def _emitir_mensagem(
+        self,
+        texto: str,
+        autor: str = "Alice",
+        categoria: str = "normal",
+    ) -> None:
+        """Envia mensagem estruturada para a GUI."""
+        FILA_SAIDA_GUI.put(
+            {
+                "tipo": "mensagem",
+                "autor": autor,
+                "texto": texto,
+                "categoria": categoria,
+            }
+        )
+
+    def _estado_repouso(self) -> str:
+        """Retorna o estado padrão de escuta/repouso conforme disponibilidade de áudio."""
+        if not self.tts.disponivel:
+            return "chat_only"
+        esta_mutado = getattr(self.mic, "esta_mutado", None)
+        if esta_mutado is not None:
+            if bool(esta_mutado):
+                return "ocioso"
+        else:
+            mutado_attr = getattr(self.mic, "mutado", False)
+            if hasattr(mutado_attr, "is_set"):
+                if mutado_attr.is_set():
+                    return "ocioso"
+            elif bool(mutado_attr):
+                return "ocioso"
+        return "ouvindo"
+
+    # ── Integração VTube Studio (Expressões + Lip Sync) ───────────────────────
+
+    def _on_lip_sync(self, abertura: float) -> None:
+        """
+        Callback de Lip Sync invocado pelo TTSService durante a fala (0.0 a 1.0).
+        Pode ser chamado de thread de áudio ou do event loop.
+        """
+        if not self.vts or not getattr(self.vts, "conectado", False):
+            return
+
+        valor = max(0.0, min(1.0, float(abertura)))
+
+        async def _aplicar_boca():
+            try:
+                for nome_metodo in (
+                    "atualizar_lip_sync",
+                    "set_mouth_open",
+                    "definir_abertura_boca",
+                    "lip_sync",
+                ):
+                    metodo = getattr(self.vts, nome_metodo, None)
+                    if callable(metodo):
+                        res = metodo(valor)
+                        if inspect.isawaitable(res):
+                            await res
+                        return
+                if hasattr(self.vts, "_injetar_parametros"):
+                    await self.vts._injetar_parametros(
+                        [{"id": "MouthOpen", "value": valor}]
+                    )
+            except Exception as e:
+                log.debug(f"🎭 [VTS LipSync] Falha ao atualizar MouthOpen: {e}")
+
+        if self._loop and self._loop.is_running():
+            try:
+                asyncio.run_coroutine_threadsafe(_aplicar_boca(), self._loop)
+            except Exception:
+                pass
+
+    async def _vts_ativar_expressao(self, emocao: str) -> None:
+        """Ativa expressão no VTube Studio se conectado."""
+        if not self.vts or not getattr(self.vts, "conectado", False):
+            return
+        try:
+            await self.vts.ativar_expressao(emocao)
+        except Exception as e:
+            log.debug(f"🎭 [VTS] Erro ao ativar expressão '{emocao}': {e}")
+
+    async def _vts_resetar_expressao(self) -> None:
+        """Reseta expressão do VTube Studio para Neutro após a fala."""
+        if not self.vts or not getattr(self.vts, "conectado", False):
+            return
+        try:
+            await self.vts.resetar_expressao()
+        except Exception as e:
+            log.debug(f"🎭 [VTS] Erro ao resetar expressão: {e}")
+
+    # ── Fala Sincronizada (Estado + TTS + Lip Sync + Desbloqueio de Input) ────
+
+    async def _falar_sincronizado(
+        self,
+        texto_ou_pronta,
+        *,
+        is_pronta: bool = False,
+        emocao: str | None = None,
+        desbloquear_input: bool = True,
+    ) -> None:
+        """
+        Coordena o ciclo completo de fala:
+        1) Emite estado 'falando' e ativa expressão no VTS (se houver).
+        2) Executa TTS (`tts.falar` ou `respostas_prontas.falar`).
+        3) Ao terminar (ou ser interrompido por `parar_fala`/`reiniciar`),
+           fecha a boca no VTS, reseta expressão, restaura estado e
+           só então envia `{"tipo": "input", "habilitado": True}`.
+        """
+        self._emitir_estado("falando")
+        if emocao:
+            self._spawn_task(self._vts_ativar_expressao(emocao))
+
+        try:
+            if is_pronta:
+                await respostas_prontas.falar(texto_ou_pronta, self.tts)
+            else:
+                await self.tts.falar(str(texto_ou_pronta))
+        finally:
+            self._on_lip_sync(0.0)
+            if emocao:
+                self._spawn_task(self._vts_resetar_expressao())
+            self._emitir_estado(self._estado_repouso())
+            if desbloquear_input:
+                self._emitir_input(True)
+
+    # ── Helpers de Tarefas e Memória ──────────────────────────────────────────
 
     def _spawn_task(self, coro) -> asyncio.Task:
         """Cria uma task em background mantendo referência viva até concluir."""
@@ -242,9 +492,7 @@ class AliceSession:
             await asyncio.to_thread(metodo, *args)
 
     async def _extrair_memoria(self, historico: list) -> None:
-        """
-        Extrai fatos/triplas e detecta o nome do usuário de forma serializada.
-        """
+        """Extrai fatos/triplas e detecta o nome do usuário de forma serializada."""
         async with self._memoria_lock:
             try:
                 await self._executar_metodo_ollama_bg(
@@ -264,12 +512,50 @@ class AliceSession:
         """Retorna uma frase aleatória de fallback quando o input foi vazio."""
         return content_manager.get_resposta_vazia()
 
+    # ── Controle de Ações da GUI (parar_fala, toggle_mute, reiniciar, encerrar)
+
+    def _parar_fala_atual(self) -> None:
+        """Interrompe imediatamente apenas a fala atual sem reiniciar a conversa."""
+        parar_fn = getattr(self.tts, "parar_fala", None)
+        if callable(parar_fn):
+            try:
+                parar_fn()
+                log.info("⏹️  [Ação] Fala interrompida pelo usuário.")
+                return
+            except Exception as e:
+                log.warning(f"⚠️  Erro ao chamar tts.parar_fala(): {e}")
+
+        # Fallback seguro caso TTSService ainda não exponha parar_fala()
+        try:
+            import pygame
+
+            if pygame.mixer.get_init():
+                pygame.mixer.stop()
+        except Exception:
+            pass
+
+    def _alternar_mute_mic(self) -> None:
+        """Alterna o estado de mute do MicListener."""
+        toggle_fn = getattr(self.mic, "toggle_mute", None) or getattr(
+            self.mic, "alternar_mute", None
+        )
+        if callable(toggle_fn):
+            novo_estado = toggle_fn()
+        else:
+            atual = bool(getattr(self.mic, "mutado", False))
+            novo_estado = not atual
+            setattr(self.mic, "mutado", novo_estado)
+            if novo_estado and hasattr(self.mic, "_parar"):
+                self.mic._parar.set()
+
+        status_txt = "🔇 Microfone mutado." if novo_estado else "🎙️ Microfone ativado."
+        log.info(f"[Ação] {status_txt}")
+        self._emitir_estado(self._estado_repouso())
+
     def _acionar_reiniciar(self) -> None:
         """
-        Consome todos os sinais pendentes em FILA_REINICIAR, aciona _cancelar.set()
-        para interromper imediatamente `ollama.pensar()` ou `tts.falar()` em curso,
-        limpa o histórico, reseta `contexto_comando` e esvazia filas pendentes.
-        Nota: `_cancelar` permanece setado até o início do próximo turno.
+        Consome sinais pendentes em FILA_REINICIAR, interrompe fala/LLM em curso,
+        limpa histórico, reseta `contexto_comando` e restaura o estado e input da GUI.
         """
         while not FILA_REINICIAR.empty():
             try:
@@ -278,6 +564,7 @@ class AliceSession:
                 break
 
         self._cancelar.set()
+        self._parar_fala_atual()
         self.historico.clear()
         self.contexto_comando = None
 
@@ -288,40 +575,142 @@ class AliceSession:
                 except queue.Empty:
                     break
 
-        FILA_SAIDA_GUI.put("🔄 Conversa reiniciada! Pode falar.")
+        self._emitir_mensagem(
+            "🔄 Conversa reiniciada! Pode falar.",
+            autor="Alice",
+            categoria="sistema",
+        )
+        self._emitir_estado(self._estado_repouso())
+        self._emitir_input(True)
         log.info("🔄 Conversa reiniciada pelo usuário (turno atual cancelado).")
+
+    def _acionar_encerrar(self) -> None:
+        """Sinaliza encerramento limpo da sessão sem os._exit(0)."""
+        log.info("🛑 [Ação] Encerramento solicitado pela GUI.")
+        self._encerrar.set()
+        self._cancelar.set()
+        self._parar_fala_atual()
+        if hasattr(self.mic, "_parar"):
+            self.mic._parar.set()
+
+    def _processar_acao_gui(self, acao: str) -> str | None:
+        """
+        Executa uma ação de controle vinda de `FILA_ENTRADA_GUI`.
+        Retorna `"REINICIAR"` ou `"ENCERRAR"` quando o loop principal deve interromper o turno.
+        """
+        acao = (acao or "").strip().lower()
+        if acao == "parar_fala":
+            self._parar_fala_atual()
+            return "PARAR_FALA"
+        if acao == "toggle_mute":
+            self._alternar_mute_mic()
+            return "TOGGLE_MUTE"
+        if acao == "reiniciar":
+            self._acionar_reiniciar()
+            return "REINICIAR"
+        if acao == "encerrar":
+            self._acionar_encerrar()
+            return "ENCERRAR"
+        log.warning(f"⚠️  [GUI] Ação desconhecida ignorada: '{acao}'")
+        return None
+
+    def _inspecionar_acoes_entrada_em_andamento(self) -> None:
+        """
+        Inspeciona `FILA_ENTRADA_GUI` enquanto um turno está em andamento (ex: pensando/falando)
+        para processar ações imediatas (`parar_fala`, `toggle_mute`, `reiniciar`, `encerrar`)
+        preservando mensagens normais de texto na fila para o próximo turno.
+        """
+        if FILA_ENTRADA_GUI.empty():
+            return
+
+        mensagens_texto: list = []
+        while not FILA_ENTRADA_GUI.empty():
+            try:
+                item = FILA_ENTRADA_GUI.get_nowait()
+            except queue.Empty:
+                break
+
+            if isinstance(item, dict) and item.get("tipo") == "acao":
+                resultado = self._processar_acao_gui(str(item.get("acao", "")))
+                if resultado in {"REINICIAR", "ENCERRAR"}:
+                    mensagens_texto.clear()
+                    break
+            else:
+                mensagens_texto.append(item)
+
+        for msg in mensagens_texto:
+            FILA_ENTRADA_GUI.put(msg)
 
     def _verificar_reiniciar(self) -> bool:
         """
         Verifica no início do turno se houve pedido de Reiniciar.
-        Se _cancelar já foi acionado pelo monitor em background durante o turno anterior,
-        apenas limpa o evento para permitir o novo turno.
+        Se `_cancelar` já foi acionado durante o turno anterior, limpa o evento para o novo turno.
         """
         reiniciou = False
         if not FILA_REINICIAR.empty():
             self._acionar_reiniciar()
             reiniciou = True
 
-        if self._cancelar.is_set():
+        if self._cancelar.is_set() and not self._encerrar.is_set():
             self._cancelar.clear()
             return True
 
         return reiniciou
 
-    async def _monitorar_reiniciar(self) -> None:
+    async def _monitorar_eventos_controle(self) -> None:
         """
-        Monitora FILA_REINICIAR em background a cada 50ms para acionar
-        `self._cancelar.set()` imediatamente enquanto um turno está em andamento.
+        Monitora `FILA_REINICIAR` e ações de controle em `FILA_ENTRADA_GUI` a cada 50ms
+        para reagir imediatamente durante chamadas longas (`ollama.pensar`, `tts.falar`).
         """
-        while True:
+        while not self._encerrar.is_set():
             await asyncio.sleep(0.05)
             if not FILA_REINICIAR.empty():
                 self._acionar_reiniciar()
+            if self._em_processamento_turno:
+                self._inspecionar_acoes_entrada_em_andamento()
+
+    # ── Heartbeat de Visão Computacional ──────────────────────────────────────
+
+    async def _loop_heartbeat_visao(self) -> None:
+        """
+        Captura periodicamente a tela em background quando `visao` está ativa.
+        Se detectar mudança relevante durante silêncio, comenta proativamente.
+        """
+        if not self.visao or TEMPO_HEARTBEAT_VISAO <= 0:
+            return
+
+        await asyncio.sleep(TEMPO_HEARTBEAT_VISAO)
+        while not self._encerrar.is_set():
+            try:
+                if (
+                    not self._em_processamento_turno
+                    and not _alice_falando.is_set()
+                    and self._inatividade_segundos() >= 15
+                ):
+                    await self.visao.descrever_tela()
+                    if self.visao.houve_mudanca_relevante():
+                        comentario = await self.ollama.gerar_comentario_visao()
+                        if comentario and not self._em_processamento_turno:
+                            log.info(f"👁️  [Visão Proativa] {comentario}")
+                            self._emitir_mensagem(
+                                f"👁️ {comentario}",
+                                autor="Alice",
+                                categoria="proativa",
+                            )
+                            await self._falar_sincronizado(
+                                comentario, desbloquear_input=False
+                            )
+            except asyncio.CancelledError:
+                break
+            except Exception as e:
+                log.debug(f"⚠️  [Visão Heartbeat] Erro: {e}")
+
+            await asyncio.sleep(TEMPO_HEARTBEAT_VISAO)
+
+    # ── Hora e Clima ──────────────────────────────────────────────────────────
 
     async def _processar_hora_clima(self, pergunta: str) -> str:
-        """
-        Resolve hora e clima sem bloquear o event loop (executa get_weather em thread).
-        """
+        """Resolve hora e clima sem bloquear o event loop (executa get_weather em thread)."""
         cidade = funcoes_tools.tools.location.detectar_cidade_no_texto(pergunta)
 
         if cidade:
@@ -361,8 +750,29 @@ class AliceSession:
             "Não cite nomes de marcadores [TOOL] ou [RESULTADO] na resposta."
         )
 
+    # ── Encerramento Limpo de Recursos ────────────────────────────────────────
+
+    async def _fechar_componente(self, obj, nome: str) -> None:
+        """Chama `fechar()` (síncrono ou assíncrono) num serviço se disponível."""
+        if obj is None:
+            return
+        fechar_fn = getattr(obj, "fechar", None) or getattr(
+            obj, "desconectar", None
+        )
+        if not callable(fechar_fn):
+            return
+        try:
+            res = fechar_fn()
+            if inspect.isawaitable(res):
+                await res
+        except Exception as e:
+            log.debug(f"Erro ao fechar {nome}: {e}")
+
     async def _encerrar_recursos(self) -> None:
-        """Para reprodução de música e cancela tasks de background no shutdown."""
+        """Para reprodução de música, fecha serviços (Mic, TTS, VTS) e cancela tasks."""
+        self._encerrar.set()
+        self._cancelar.set()
+
         try:
             await asyncio.to_thread(funcoes_tools.tools.music.parar_musica)
         except Exception as e:
@@ -374,11 +784,19 @@ class AliceSession:
         if tasks_ativas:
             await asyncio.gather(*tasks_ativas, return_exceptions=True)
 
+        await self._fechar_componente(self.mic, "MicListener")
+        await self._fechar_componente(self.tts, "TTSService")
+        await self._fechar_componente(self.vts, "VTSConnector")
+        await self._fechar_componente(audio_ambiente, "AudioAmbiente")
+
     # ── Loop Principal ─────────────────────────────────────────────────────────
 
     async def run(self):
         """Inicializa todos os serviços e executa o loop de conversa."""
         global janela_ref
+
+        self._loop = asyncio.get_running_loop()
+        self._em_processamento_turno = False
 
         log.info("--- 🌸 ALICE INICIADA ---")
         log.info(f"Modelo ativo: {MODELO_IA}")
@@ -389,6 +807,7 @@ class AliceSession:
             emotion_engine,
             memoria_longa,
             fila_reiniciar=FILA_REINICIAR,
+            grafo_ref=grafo,
         )
         log.info("🖥️  Janela de chat aberta!")
 
@@ -398,6 +817,13 @@ class AliceSession:
             log.warning(
                 "⚠️  Áudio ambiente não disponível (sem loopback WASAPI)."
             )
+
+        # Conecta ao VTube Studio de forma graciosa (não bloqueia nem falha se fechado)
+        if self.vts is not None:
+            try:
+                await self.vts.conectar()
+            except Exception as e:
+                log.warning(f"⚠️  [VTS] VTube Studio indisponível: {e}")
 
         if self.tts.disponivel:
             log.info("🔊 Modo COMPLETO: voz + chat ativados.")
@@ -411,68 +837,108 @@ class AliceSession:
         if self.tts.disponivel:
             await respostas_prontas.preparar(self.tts)
 
-        loop = asyncio.get_running_loop()
+        # Emite estado inicial para a GUI
+        self._emitir_estado(self._estado_repouso())
+        self._emitir_input(True)
 
-        # Monitor assíncrono do botão Reiniciar (cancela turnos em andamento)
-        self._spawn_task(self._monitorar_reiniciar())
+        # Monitor assíncrono de controle (Reiniciar, Parar Fala, Mute, Encerrar)
+        self._spawn_task(self._monitorar_eventos_controle())
 
-        # Loop de reflexão offline ("Sonho") em background
+        # Loop de reflexão offline ("Sonho") em background usando proxy que marca categoria="sonho"
+        fila_sonho = _FilaSaidaSonhoProxy(FILA_SAIDA_GUI)
         sonho = Sonho(modelo=MODELO_IA, memoria=memoria_longa)
         self._spawn_task(
             sonho.loop(
                 inatividade_fn=self._inatividade_segundos,
-                fila_saida_gui=FILA_SAIDA_GUI,
+                fila_saida_gui=fila_sonho,
                 tempo_sonho=TEMPO_SONHO,
             )
         )
+
+        # Loop de heartbeat de Visão Computacional (se ativa)
+        if self.visao and getattr(self.visao, "ativa", False):
+            self._spawn_task(self._loop_heartbeat_visao())
+
         self._registrar_interacao()
 
         try:
             # ── Loop de conversa ──────────────────────────────────────────────
-            while True:
+            while not self._encerrar.is_set():
+                self._em_processamento_turno = False
+
                 if self._verificar_reiniciar():
                     continue
 
-                # 1. Aguarda qualquer tipo de input (voz, GUI ou timer proativo)
-                pergunta, fonte = await self.mic.obter_pergunta(
-                    loop, self.tts.disponivel
+                self._emitir_estado(self._estado_repouso())
+
+                # 1. Aguarda qualquer tipo de input (voz, GUI, ação de controle ou timer proativo)
+                entrada_raw, fonte = await self.mic.obter_pergunta(
+                    self._loop, self.tts.disponivel
                 )
 
+                if self._encerrar.is_set():
+                    break
+
                 if self._verificar_reiniciar():
                     continue
+
+                # Trata dicts estruturados vindos de FILA_ENTRADA_GUI
+                if isinstance(entrada_raw, dict):
+                    tipo_evento = entrada_raw.get("tipo")
+                    if tipo_evento == "acao":
+                        acao_res = self._processar_acao_gui(
+                            str(entrada_raw.get("acao", ""))
+                        )
+                        if acao_res == "ENCERRAR":
+                            break
+                        continue
+                    pergunta = str(entrada_raw.get("texto", "")).strip()
+                else:
+                    pergunta = str(entrada_raw or "").strip()
+
+                self._em_processamento_turno = True
 
                 # Input vazio do mic → fallback curto e continua
                 if not pergunta and fonte == "voz":
                     resp = await self._responder_vazio()
                     print(f"IA (Confusa): {resp}")
-                    await self.tts.falar(resp)
+                    await self._falar_sincronizado(
+                        resp, desbloquear_input=False
+                    )
                     continue
 
-                # Comando de saída
+                # Comando textual de saída
                 if pergunta.lower().replace(".", "").strip() in {
                     "sair",
                     "parar",
                     "tchau",
                     "encerrar",
                 }:
+                    self._acionar_encerrar()
                     break
 
                 # Comportamento proativo (tom escalona a cada ciclo de silêncio)
                 if fonte == "proativo":
+                    self._emitir_estado("pensando")
                     resp = await self.ollama.gerar_fala_proativa(
                         ciclo=self._ciclos_proativos
                     )
-                    if self._cancelar.is_set():
+                    if self._cancelar.is_set() or self._encerrar.is_set():
                         continue
                     self._ciclos_proativos += 1
                     log.info(
                         f"💜 [PROATIVO ciclo={self._ciclos_proativos}] {resp}"
                     )
-                    FILA_SAIDA_GUI.put(f"💜 {resp}")
-                    await self.tts.falar(resp)
+                    self._emitir_mensagem(
+                        f"💜 {resp}", autor="Alice", categoria="proativa"
+                    )
+                    await self._falar_sincronizado(
+                        resp, desbloquear_input=False
+                    )
                     continue
 
-                # Usuário respondeu — reseta escalada proativa e atualiza inatividade
+                # Usuário interagiu — bloqueia input até terminar a fala/resposta
+                self._emitir_input(False)
                 self._ciclos_proativos = 0
                 self._registrar_interacao()
 
@@ -481,7 +947,9 @@ class AliceSession:
                 )
 
                 if fonte == "voz" and pergunta:
-                    FILA_SAIDA_GUI.put(f"🎤 Você disse: {pergunta}")
+                    self._emitir_mensagem(
+                        pergunta, autor="Você", categoria="normal"
+                    )
 
                 # ── RESPOSTAS PRONTAS (áudio já gerado, sem passar pelo LLM) ──
                 pronta = (
@@ -493,18 +961,27 @@ class AliceSession:
                     log.info(
                         f"⚡ [Resposta pronta: {pronta['id']}] {pronta['texto'][:80]}"
                     )
-                    FILA_SAIDA_GUI.put(pronta["texto"])
+                    self._emitir_mensagem(
+                        pronta["texto"], autor="Alice", categoria="normal"
+                    )
                     self.historico.append({"role": "user", "content": pergunta})
                     self.historico.append(
                         {"role": "assistant", "content": pronta["texto"]}
                     )
                     if len(self.historico) > MAX_HISTORICO:
                         self.historico = self.historico[-MAX_HISTORICO:]
-                    await respostas_prontas.falar(pronta, self.tts)
+                    await self._falar_sincronizado(
+                        pronta, is_pronta=True, desbloquear_input=True
+                    )
                     continue
 
                 # ── INTERCEPTAÇÃO DE COMANDOS LOCAIS ──────────────────────────
                 resposta_cmd = None
+                falar_cmd = None
+
+                async def _coletar_fala_cmd(msg_fala: str) -> None:
+                    nonlocal falar_cmd
+                    falar_cmd = msg_fala
 
                 if self.contexto_comando:
                     contexto = self.contexto_comando
@@ -517,19 +994,20 @@ class AliceSession:
                         tools,
                     )
 
+                    self._emitir_estado("pensando")
                     if contexto == "youtube":
                         resposta_cmd = await execute_youtube_search(
-                            pergunta, self.tts.falar
+                            pergunta, _coletar_fala_cmd
                         )
                     elif contexto == "wikipedia":
                         resposta_cmd = await execute_wikipedia_search(
-                            pergunta, self.tts.falar
+                            pergunta, _coletar_fala_cmd
                         )
                     elif contexto == "tocar_musica":
                         msg = await asyncio.to_thread(
                             tools.music.tocar_musica, pergunta
                         )
-                        await self.tts.falar(msg)
+                        falar_cmd = msg
                         resposta_cmd = f"🎵 {msg}"
                     elif contexto == "volume":
                         try:
@@ -539,11 +1017,11 @@ class AliceSession:
                             )
                         except Exception:
                             msg = "Não entendi o volume informado. Deve ser um número de 0 a 100."
-                        await self.tts.falar(msg)
+                        falar_cmd = msg
                         resposta_cmd = f"🔊 {msg}"
                     elif contexto == "confirmar_lixeira":
                         resposta_cmd = await execute_empty_recycle_bin(
-                            pergunta, self.tts.falar
+                            pergunta, _coletar_fala_cmd
                         )
                 else:
                     from functions.Tools import process_command
@@ -553,12 +1031,13 @@ class AliceSession:
 
                     resposta_cmd = await process_command(
                         pergunta,
-                        self.tts.falar,
+                        _coletar_fala_cmd,
                         on_waiting_input=definir_contexto,
                     )
 
                 if resposta_cmd:
                     if resposta_cmd == "EXIT":
+                        self._acionar_encerrar()
                         break
 
                     if resposta_cmd.startswith("WAIT:"):
@@ -578,40 +1057,63 @@ class AliceSession:
                     else:
                         msg_gui = resposta_cmd
 
-                    FILA_SAIDA_GUI.put(msg_gui)
+                    self._emitir_mensagem(
+                        msg_gui, autor="Alice", categoria="sistema"
+                    )
+                    if falar_cmd:
+                        await self._falar_sincronizado(
+                            falar_cmd, desbloquear_input=True
+                        )
+                    else:
+                        self._emitir_estado(self._estado_repouso())
+                        self._emitir_input(True)
                     continue
                 # ──────────────────────────────────────────────────────────────
+
+                # Inicia processamento pelo LLM → estado "pensando"
+                self._emitir_estado("pensando")
 
                 # Diálogo de Hora/Clima: enriquece a pergunta com hora e clima reais
                 pergunta_original = pergunta
                 if _INTENT_HORA_CLIMA.search(pergunta):
                     pergunta = await self._processar_hora_clima(pergunta)
 
-                if self._cancelar.is_set():
+                if self._cancelar.is_set() or self._encerrar.is_set():
                     continue
 
                 # 2. Descobrir tom de voz / personalidade
                 humor = await self.ollama.descobrir_humor(pergunta_original)
                 log.debug(f"💡 Humor selecionado: {humor}")
 
-                if self._cancelar.is_set():
+                if self._cancelar.is_set() or self._encerrar.is_set():
                     continue
 
-                # 4. Montar contexto e gerar resposta
+                # 4. Montar contexto (incluindo Visão Computacional se disponível) e gerar resposta
                 ctx_emocional = emotion_engine.construir_prompt_contexto()
                 bloco_memoria = memoria_longa.construir_bloco_memoria(
                     pergunta_original
                 )
                 bloco_grafo = grafo.construir_bloco_grafo(pergunta_original)
                 bloco_audio = audio_ambiente.construir_bloco_audio()
-                bloco_ctx = bloco_memoria + bloco_grafo + bloco_audio
+                bloco_visao = (
+                    await self.visao.construir_bloco_visao()
+                    if self.visao
+                    else ""
+                )
+                bloco_ctx = (
+                    bloco_memoria + bloco_grafo + bloco_audio + bloco_visao
+                )
 
                 resp_texto, tk_p, tk_r = await self.ollama.pensar(
                     pergunta, humor, self.historico, ctx_emocional, bloco_ctx
                 )
 
-                # Turno cancelado pelo Reiniciar — descarta e volta ao início do loop
-                if resp_texto is None or self._cancelar.is_set():
+                # Turno cancelado pelo Reiniciar ou Encerrar — descarta e volta ao início do loop
+                if (
+                    resp_texto is None
+                    or self._cancelar.is_set()
+                    or self._encerrar.is_set()
+                ):
                     continue
 
                 if not resp_texto or not resp_texto.strip():
@@ -622,11 +1124,13 @@ class AliceSession:
                         f"🤖 [{humor}] {resp_texto[:120]} | 📊 {tk_p}↑ + {tk_r}↓ tokens"
                     )
 
-                # 5. Envia resposta para a GUI
-                FILA_SAIDA_GUI.put(resp_texto)
+                # 5. Envia resposta estruturada para a GUI
+                self._emitir_mensagem(
+                    resp_texto, autor="Alice", categoria="normal"
+                )
 
-                # 6. EmotionEngine
-                emotion_engine.analisar_tag_emocao(resp_texto)
+                # 6. EmotionEngine (retorna tag de expressão para o VTube Studio)
+                emocao_vts = emotion_engine.analisar_tag_emocao(resp_texto)
                 emotion_engine.registrar_turno(
                     f"Usuário disse: '{pergunta_original[:60]}...' Alice respondeu como: {humor}"
                 )
@@ -661,8 +1165,10 @@ class AliceSession:
                     )
                 )
 
-                # 9. Falar
-                await self.tts.falar(resp_texto)
+                # 9. Falar sincronizado (emite 'falando', aplica VTS + Lip Sync, e só desbloqueia input no fim)
+                await self._falar_sincronizado(
+                    resp_texto, emocao=emocao_vts, desbloquear_input=True
+                )
 
                 # 10. Extrair fatos + detectar nome a cada 3 turnos, em segundo plano
                 self.turno_count += 1

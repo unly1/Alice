@@ -9,6 +9,11 @@
                 "apresentese",
                 "quem e voce",
                 "quem e vc",
+                "qual o seu nome",
+                "qual seu nome",
+                "qual e o seu nome",
+                "como voce se chama",
+                "como vc se chama",
                 "fale sobre voce",
                 "fala sobre voce",
                 "fale de voce",
@@ -34,6 +39,93 @@
                 "como voce pode me ajudar"
             ],
             "texto": "Eu consigo te dizer a hora e a previsão do tempo, pesquisar coisas na internet e na Wikipedia, abrir vídeos no YouTube, tocar música e mexer no volume. E, claro, conversar sobre qualquer assunto com você!"
+        },
+        {
+            "id": "saudacao_estado",
+            "gatilhos": [
+                "tudo bem",
+                "tudo bem com voce",
+                "tudo bem com vc",
+                "tudo bom",
+                "como voce esta",
+                "como vc esta",
+                "como voce ta",
+                "como vc ta",
+                "como vai voce",
+                "beleza"
+            ],
+            "texto": "Tudo ótimo por aqui, obrigada por perguntar! Estou com a energia lá em cima e pronta pra conversar. E com você, como estão as coisas?"
+        },
+        {
+            "id": "bom_dia",
+            "gatilhos": [
+                "bom dia",
+                "bom dia alice"
+            ],
+            "texto": "Bom dia! Espero que o seu dia comece super bem. O que vamos aprontar hoje?"
+        },
+        {
+            "id": "boa_tarde",
+            "gatilhos": [
+                "boa tarde",
+                "boa tarde alice"
+            ],
+            "texto": "Boa tarde! Como está indo o seu dia até agora? Se precisar de uma mãozinha, é só falar!"
+        },
+        {
+            "id": "boa_noite",
+            "gatilhos": [
+                "boa noite",
+                "boa noite alice"
+            ],
+            "texto": "Boa noite! Que bom te ouvir por aqui. Vamos conversar um pouquinho ou relaxar?"
+        },
+        {
+            "id": "agradecimento",
+            "gatilhos": [
+                "obrigado",
+                "obrigada",
+                "muito obrigado",
+                "muito obrigada",
+                "valeu",
+                "valeu mesmo",
+                "brigadao",
+                "agradecido"
+            ],
+            "texto": "Imagina, não precisa agradecer! Adoro te ajudar. Se precisar de mais alguma coisa, estou bem aqui!"
+        },
+        {
+            "id": "despedida",
+            "gatilhos": [
+                "tchau",
+                "tchau tchau",
+                "ate mais",
+                "ate logo",
+                "ate depois",
+                "ate amanha",
+                "ja vou indo",
+                "vou descansar",
+                "vou dormir"
+            ],
+            "texto": "Até mais! Cuide-se bem e bom descanso. Quando quiser conversar de novo, é só me chamar!"
+        },
+        {
+            "id": "confirmacao_escuta",
+            "gatilhos": [
+                "esta me ouvindo",
+                "ta me ouvindo",
+                "voce me ouve",
+                "vc me ouve",
+                "voce esta ai",
+                "voce ta ai",
+                "ta ai",
+                "esta ai",
+                "alou",
+                "alo",
+                "teste de som",
+                "testando"
+            ],
+            "texto": "Estou aqui sim, te ouvindo perfeitamente! Pode falar comigo."
         }
     ]
 }

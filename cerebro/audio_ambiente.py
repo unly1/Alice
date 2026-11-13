@@ -10,11 +10,17 @@ o texto detectado no contexto da Alice.
 
 from __future__ import annotations
 
+import math
 import threading
 import time
 import numpy as np
 import pyaudiowpatch as pyaudio
 from cerebro.logger import log
+
+try:
+    from scipy.signal import resample_poly as _scipy_resample_poly
+except Exception:
+    _scipy_resample_poly = None
 
 # ─── Configurações ────────────────────────────────────────────────────────────
 TAXA_WHISPER = 16000  # Whisper usa sempre 16kHz
@@ -23,9 +29,39 @@ CHUNK = 1024  # frames por leitura
 # RMS mínimo para considerar que há som (evita transcrever silêncio)
 SILENCIO_LIMIAR = 0.004
 MAX_BUFFER = 5  # máximo de transcrições armazenadas
+COOLDOWN_POS_FALA = 0.4  # segundos extras após Alice parar de falar para evitar eco residual
 
 # Lock global para serializar chamadas concorrentes ao mesmo modelo faster-whisper (CUDA/CTranslate2)
 WHISPER_LOCK = threading.Lock()
+
+
+def reamostrar_audio(audio: np.ndarray, taxa_origem: int, taxa_destino: int = TAXA_WHISPER) -> np.ndarray:
+    """
+    Reamostra sinal 1D float32 com filtro passa-baixa anti-aliasing.
+    Usa scipy.signal.resample_poly quando disponível ou filtro FIR passa-baixa em numpy.
+    """
+    if taxa_origem == taxa_destino or audio.size == 0:
+        return audio.astype(np.float32, copy=False)
+
+    if _scipy_resample_poly is not None:
+        divisor = math.gcd(int(taxa_origem), int(taxa_destino))
+        up = int(taxa_destino) // divisor
+        down = int(taxa_origem) // divisor
+        return _scipy_resample_poly(audio, up, down).astype(np.float32)
+
+    # Fallback numpy com filtro FIR passa-baixa (sinc janelado por Blackman) antes de interpolar
+    ratio = taxa_destino / taxa_origem
+    if ratio < 1.0 and audio.size > 16:
+        fc = 0.45 * ratio  # frequência de corte abaixo de Nyquist da nova taxa
+        num_taps = 31
+        n = np.arange(num_taps) - (num_taps - 1) / 2.0
+        h = np.sinc(2 * fc * n) * np.blackman(num_taps)
+        h /= np.sum(h)
+        audio = np.convolve(audio, h, mode="same")
+
+    novo_len = max(1, int(round(len(audio) * ratio)))
+    indices = np.linspace(0, len(audio) - 1, novo_len)
+    return np.interp(indices, np.arange(len(audio)), audio).astype(np.float32)
 
 
 class AudioAmbiente:
@@ -52,6 +88,7 @@ class AudioAmbiente:
         self.transcricoes: list[str] = []
         self._parar = threading.Event()
         self._ativo = False
+        self._ultimo_alice_falando: float = 0.0
 
     # ─── Controle ─────────────────────────────────────────────────────────────
 
@@ -93,6 +130,10 @@ class AudioAmbiente:
         self._parar.set()
         self._ativo = False
 
+    def fechar(self):
+        """Alias limpo para encerrar a captura de áudio ambiente."""
+        self.parar()
+
     @property
     def ativo(self) -> bool:
         return self._ativo
@@ -128,6 +169,14 @@ class AudioAmbiente:
 
     # ─── Loop de captura ──────────────────────────────────────────────────────
 
+    def _alice_contaminou_janela(self) -> bool:
+        """Retorna True se a Alice está falando ou falou há menos de COOLDOWN_POS_FALA."""
+        agora = time.monotonic()
+        if self._alice_falando and self._alice_falando.is_set():
+            self._ultimo_alice_falando = agora
+            return True
+        return (agora - self._ultimo_alice_falando) < COOLDOWN_POS_FALA
+
     def _loop_captura(self, dispositivo: dict):
         """Thread que captura áudio em chunks e transcreve com Whisper."""
         pa = pyaudio.PyAudio()
@@ -150,11 +199,20 @@ class AudioAmbiente:
 
             while not self._parar.is_set():
                 frames = []
+                janela_contaminada = False
+
                 for _ in range(frames_por_segmento):
                     if self._parar.is_set():
                         break
                     try:
                         data = stream.read(CHUNK, exception_on_overflow=False)
+                        # Se a Alice falou durante qualquer chunk desta janela (ou no cooldown pós-fala),
+                        # descarta os frames acumulados para evitar transcrever eco da própria voz
+                        if self._alice_contaminou_janela():
+                            janela_contaminada = True
+                            frames.clear()
+                            continue
+
                         # int16 → float32 [-1, 1] para o Whisper
                         chunk_f32 = (
                             np.frombuffer(data, dtype=np.int16).astype(np.float32)
@@ -163,6 +221,10 @@ class AudioAmbiente:
                         frames.append(chunk_f32)
                     except Exception:
                         pass
+
+                if janela_contaminada or self._alice_contaminou_janela():
+                    frames.clear()
+                    continue
 
                 if frames:
                     audio = np.concatenate(frames)
@@ -181,21 +243,22 @@ class AudioAmbiente:
     # ─── Transcrição ──────────────────────────────────────────────────────────
 
     def _transcrever(self, audio: np.ndarray, taxa: int, canais: int):
-        """Converte para mono, reamostrar para 16kHz e transcreve com Whisper."""
-        # Não transcreve loopback enquanto Alice está falando (previne auto-escuta via WASAPI)
-        if self._alice_falando and self._alice_falando.is_set():
+        """Converte para mono, reamostra com filtro passa-baixa para 16kHz e transcreve com Whisper."""
+        # Não transcreve loopback se a Alice falou recentemente (previne auto-escuta via WASAPI)
+        if self._alice_contaminou_janela():
             return
         try:
             # Converte para mono se necessário
             if canais > 1:
-                audio = audio.reshape(-1, canais).mean(axis=1)
+                total_frames = (audio.size // canais) * canais
+                audio = audio[:total_frames].reshape(-1, canais).mean(axis=1)
 
-            # Resample para 16kHz (Whisper exige)
+            # Resample para 16kHz com filtro passa-baixa anti-aliasing
             if taxa != TAXA_WHISPER:
-                ratio = TAXA_WHISPER / taxa
-                novo_len = int(len(audio) * ratio)
-                indices = np.linspace(0, len(audio) - 1, novo_len)
-                audio = np.interp(indices, np.arange(len(audio)), audio)
+                audio = reamostrar_audio(audio, taxa, TAXA_WHISPER)
+
+            if self._alice_contaminou_janela():
+                return
 
             with self._whisper_lock:
                 segmentos, _ = self.modelo_whisper.transcribe(

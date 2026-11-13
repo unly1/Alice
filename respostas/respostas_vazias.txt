@@ -1,7 +1,7 @@
-Humm?
-Você disse alguma coisa?
-Acho que não consegui te escutar direito...
-Será que meu ouvido está ruim? Pode repetir?
-Eh... acho que perdi essa parte. Pode falar de novo?
+Humm? Você disse alguma coisa?
+Acho que não consegui te escutar direito, pode repetir?
+Será que meu microfone falhou? Pode falar de novo?
+Opa, perdi essa parte. Pode repetir pra mim?
 Nossa, me deu um branco agora. Sobre o que estávamos falando?
-Não entendi nada do que você falou, desculpe!
+Não consegui pegar o que você falou, pode dizer mais uma vez?
+Oi? Acho que o som cortou bem na hora, fala de novo por favor?

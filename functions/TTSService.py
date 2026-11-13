@@ -2,16 +2,22 @@
 TTSService — serviço de síntese de voz e reprodução de áudio.
 
 Responsabilidades:
-- Verificar (e cachear) a disponibilidade de saída de áudio via pygame
+- Inicializar e manter `pygame.mixer` aberto durante a vida útil do serviço (fechando apenas em `fechar()`)
 - Gerar áudio via OmniVoice (TTS local offline, k2-fsa)
-- Reproduzir o áudio e monitorar o evento de cancelamento de turno
+- Reproduzir o áudio monitorando cancelamento de turno e interrupção imediata de fala (`parar_fala()` / barge-in)
+- Emitir nível RMS em tempo real (~25 Hz) para alimentar o Lip Sync do VTube Studio
 """
 
+from __future__ import annotations
+
 import asyncio
+import inspect
 import os
 import re
 import threading
 import time
+from collections.abc import Callable
+from typing import Any
 
 import numpy as np
 import pygame
@@ -20,6 +26,9 @@ from cerebro.logger import log
 
 # OmniVoice gera áudio a 24 kHz
 _SAMPLE_RATE = 24000
+
+# Intervalo de atualização de Lip Sync / checagem de interrupção (~25 Hz = 40 ms)
+_PASSO_PLAYBACK_S = 0.04
 
 # Frases menores que isso são juntadas com a seguinte antes do TTS
 _MIN_CHARS_FRASE = 25
@@ -59,13 +68,25 @@ class TTSService:
         cancelar_turno: asyncio.Event,
         dispositivo_saida: str | None = None,
         alice_falando: threading.Event | None = None,
+        parar_fala_event: threading.Event | None = None,
+        on_audio_rms: Callable[[float], Any] | None = None,
     ):
         self.instruct = instruct
         self.arquivo_audio = arquivo_audio
         self._cancelar = cancelar_turno
         self._dispositivo_saida = dispositivo_saida
         self._alice_falando = alice_falando
+        # Evento thread-safe para interrupção imediata da fala (barge-in ou botão "Parar fala")
+        self._parar_fala_event = (
+            parar_fala_event if parar_fala_event is not None else threading.Event()
+        )
+        self._callbacks_rms: list[Callable[[float], Any]] = []
+        if on_audio_rms is not None:
+            self._callbacks_rms.append(on_audio_rms)
+
         self._disponivel: bool | None = None  # lazy-initialized na primeira chamada
+        self._mixer_iniciado: bool = False
+        self._canal_atual: Any = None
         self._ultimo_tts: float = 0.0  # timestamp da última chamada TTS
         self._tts_delay_min: float = 0.3  # segundos mínimos entre chamadas TTS
         self._modelo = None  # lazy-loaded na primeira fala para não atrasar o startup
@@ -75,6 +96,48 @@ class TTSService:
             )
         else:
             log.info(f"🎙️  TTSService (OmniVoice) | Instruct: {instruct}")
+
+    # ── Controle de Barge-In, Lip Sync e Ciclo de Vida ────────────────────────
+
+    @property
+    def evento_parar_fala(self) -> threading.Event:
+        """Retorna o `threading.Event` usado para interromper a fala atual."""
+        return self._parar_fala_event
+
+    def registrar_callback_rms(self, callback: Callable[[float], Any]) -> None:
+        """Registra callback `fn(rms: float)` chamado durante a reprodução (~25 Hz) para Lip Sync."""
+        if callback not in self._callbacks_rms:
+            self._callbacks_rms.append(callback)
+
+    async def _notificar_rms(self, rms: float) -> None:
+        """Envia o nível RMS normalizado [0.0, 1.0] para os callbacks registrados."""
+        valor = float(max(0.0, min(1.0, rms)))
+        for cb in list(self._callbacks_rms):
+            try:
+                res = cb(valor)
+                if inspect.isawaitable(res):
+                    await res
+            except Exception as e:
+                log.debug(f"Callback de RMS do TTSService falhou: {e}")
+
+    def parar_fala(self) -> None:
+        """Interrompe imediatamente a fala em andamento (barge-in ou botão 'Parar fala')."""
+        self._parar_fala_event.set()
+        canal = self._canal_atual
+        if canal is not None:
+            try:
+                canal.stop()
+            except Exception:
+                pass
+        try:
+            if pygame.mixer.get_init():
+                pygame.mixer.stop()
+        except Exception:
+            pass
+
+    def _deve_interromper(self) -> bool:
+        """Retorna True se o turno foi cancelado ou se `parar_fala()` foi acionado."""
+        return self._cancelar.is_set() or self._parar_fala_event.is_set()
 
     # ── Carregamento do Modelo ────────────────────────────────────────────────
 
@@ -105,32 +168,53 @@ class TTSService:
 
     async def pre_carregar(self) -> None:
         """Carrega o modelo OmniVoice antecipadamente no startup para evitar atraso na primeira fala."""
-        await asyncio.get_event_loop().run_in_executor(None, self._carregar_modelo)
+        await asyncio.get_running_loop().run_in_executor(None, self._carregar_modelo)
 
-    # ── Verificação de Hardware ───────────────────────────────────────────────
+    # ── Verificação e Persistência do Hardware de Áudio ───────────────────────
 
-    def _testar_audio(self) -> bool:
-        """Verifica se o pygame consegue inicializar o mixer de saída de áudio."""
+    def _garantir_mixer(self) -> bool:
+        """Inicializa o `pygame.mixer` uma única vez e o mantém aberto durante a sessão."""
+        if self._mixer_iniciado and pygame.mixer.get_init():
+            return True
         if self._dispositivo_saida:
             os.environ["SDL_AUDIODEVICENAME"] = self._dispositivo_saida
         try:
-            pygame.mixer.init()
-            pygame.mixer.quit()
+            pygame.mixer.init(
+                frequency=_SAMPLE_RATE, size=-16, channels=1, allowedchanges=0
+            )
+            self._mixer_iniciado = True
             return True
         except Exception as e:
+            self._mixer_iniciado = False
             log.warning(
                 f"🔇 Saída de áudio indisponível ({e}). Alice responderá apenas pelo chat."
             )
             return False
 
+    def _testar_audio(self) -> bool:
+        """Verifica e mantém inicializado o mixer de saída de áudio."""
+        return self._garantir_mixer()
+
     @property
     def disponivel(self) -> bool:
         """Retorna (e cacheia) se o dispositivo de saída de áudio está disponível."""
         if self._disponivel is None:
-            self._disponivel = self._testar_audio()
+            self._disponivel = self._garantir_mixer()
         return self._disponivel
 
-    # ── TTS + Reprodução ─────────────────────────────────────────────────────
+    def fechar(self) -> None:
+        """Para qualquer áudio ativo e encerra o `pygame.mixer` no desligamento."""
+        self.parar_fala()
+        try:
+            if self._mixer_iniciado or pygame.mixer.get_init():
+                pygame.mixer.quit()
+        except Exception:
+            pass
+        self._mixer_iniciado = False
+        if self._alice_falando:
+            self._alice_falando.clear()
+
+    # ── TTS + Reprodução ──────────────────────────────────────────────────────
 
     @staticmethod
     def _limpar_texto(texto_ia: str) -> str:
@@ -179,36 +263,67 @@ class TTSService:
         """Gera o áudio de uma frase com retry (3 tentativas: 1s, 2s). None se falhar."""
         loop = asyncio.get_running_loop()
         for tentativa in range(3):
+            if self._deve_interromper():
+                return None
             try:
                 resultado = await loop.run_in_executor(
                     None,
-                    lambda: modelo.generate(
-                        text=frase, instruct=self.instruct),
+                    lambda: modelo.generate(text=frase, instruct=self.instruct),
                 )
                 # OmniVoice retorna uma lista de numpy arrays; sample rate fixo em 24000 Hz
                 return np.asarray(resultado[0], dtype=np.float32).reshape(-1)
             except Exception as e:
                 if tentativa == 2:
                     log.warning(
-                        f"🔇 TTS falhou após 3 tentativas: {e}. Pulando fala.")
+                        f"🔇 TTS falhou após 3 tentativas: {e}. Pulando fala."
+                    )
                     return None
                 await asyncio.sleep(2**tentativa)
         return None
 
     async def _tocar_pcm(self, audio: np.ndarray) -> bool:
         """
-        Toca um array de áudio no mixer já iniciado e espera terminar.
-        Retorna False se o Reiniciar interrompeu a reprodução.
+        Toca um array de áudio no mixer já iniciado, emite RMS por janela para Lip Sync
+        e interrompe imediatamente se `parar_fala()` ou `_cancelar` for acionado.
         """
-        pcm = (np.clip(audio, -1.0, 1.0) * 32767).astype(np.int16)
+        if not self._garantir_mixer():
+            return False
+
+        audio_clipped = np.clip(audio, -1.0, 1.0)
+        pcm = (audio_clipped * 32767).astype(np.int16)
         canal = pygame.mixer.Sound(buffer=pcm.tobytes()).play()
-        while canal is not None and canal.get_busy():
-            # Para o áudio imediatamente se o Reiniciar for pressionado
-            if self._cancelar.is_set():
-                canal.stop()
-                return False
-            await asyncio.sleep(0.05)
-        return True
+        self._canal_atual = canal
+
+        inicio = time.monotonic()
+        total_amostras = audio_clipped.size
+        amostras_janela = max(1, int(_SAMPLE_RATE * _PASSO_PLAYBACK_S))
+
+        try:
+            while canal is not None and canal.get_busy():
+                if self._deve_interromper():
+                    canal.stop()
+                    return False
+
+                if self._callbacks_rms and total_amostras > 0:
+                    decorrido = time.monotonic() - inicio
+                    idx_ini = int(decorrido * _SAMPLE_RATE)
+                    if idx_ini < total_amostras:
+                        trecho = audio_clipped[idx_ini : idx_ini + amostras_janela]
+                        rms = (
+                            float(np.sqrt(np.mean(trecho * trecho)))
+                            if trecho.size > 0
+                            else 0.0
+                        )
+                    else:
+                        rms = 0.0
+                    await self._notificar_rms(rms)
+
+                await asyncio.sleep(_PASSO_PLAYBACK_S)
+            return True
+        finally:
+            self._canal_atual = None
+            if self._callbacks_rms:
+                await self._notificar_rms(0.0)
 
     # ── Áudios prontos (respostas_prontas.json) ──────────────────────────────
 
@@ -232,17 +347,16 @@ class TTSService:
         return np.concatenate(partes[:-1]) if partes else None
 
     async def tocar_audio(self, audio: np.ndarray) -> None:
-        """Toca um áudio já gerado (ex: resposta pronta), respeitando o Reiniciar."""
+        """Toca um áudio já gerado (ex: resposta pronta), respeitando Reiniciar e parar_fala()."""
         if not self.disponivel or self._cancelar.is_set():
             return
-        mixer_iniciado = False
+        self._parar_fala_event.clear()
         try:
             if self._alice_falando:
                 self._alice_falando.set()
-            pygame.mixer.init(
-                frequency=_SAMPLE_RATE, size=-16, channels=1, allowedchanges=0
-            )
-            mixer_iniciado = True
+            if not self._garantir_mixer():
+                self._disponivel = False
+                return
             await self._tocar_pcm(audio)
         except Exception as e:
             self._disponivel = False
@@ -250,8 +364,6 @@ class TTSService:
                 f"🔇 Erro ao reproduzir áudio: {e}. Voltando ao modo somente chat."
             )
         finally:
-            if mixer_iniciado:
-                pygame.mixer.quit()
             self._ultimo_tts = time.monotonic()
             if self._alice_falando:
                 self._alice_falando.clear()
@@ -260,13 +372,8 @@ class TTSService:
         """
         Transforma texto em áudio via OmniVoice e reproduz, frase por frase.
 
-        Enquanto uma frase toca, a próxima já está sendo gerada, então a Alice
-        começa a falar assim que a primeira frase fica pronta.
-
-        Se não houver dispositivo de saída de áudio disponível (ex: WASAPI sem
-        endpoint), pula o TTS silenciosamente — a resposta já está visível no chat.
-        Para imediatamente se o evento de cancelamento for acionado (usuário
-        clicou em Reiniciar).
+        Mantém `pygame.mixer` aberto entre chamadas e para imediatamente se
+        `_cancelar` (Reiniciar) ou `parar_fala()` (barge-in / botão Parar fala) for acionado.
         """
         texto_limpo = self._limpar_texto(texto_ia)
         if not texto_limpo:
@@ -283,6 +390,8 @@ class TTSService:
         if self._cancelar.is_set():
             return
 
+        self._parar_fala_event.clear()
+
         # Rate limiting: garante intervalo mínimo entre chamadas ao TTS
         espera = self._tts_delay_min - (time.monotonic() - self._ultimo_tts)
         if espera > 0:
@@ -290,7 +399,7 @@ class TTSService:
 
         frases = self._dividir_frases(texto_limpo)
         log.debug(
-            f"🎙️ Gerando voz OmniVoice... [instruct={self.instruct}] | {len(frases)} frase(s)"
+            f"🎙️  Gerando voz OmniVoice... [instruct={self.instruct}] | {len(frases)} frase(s)"
         )
 
         # Carrega o modelo uma única vez (fora do loop de retry)
@@ -300,7 +409,8 @@ class TTSService:
             )
         except Exception as e:
             log.warning(
-                f"🔇 Falha ao carregar modelo OmniVoice: {e}. Pulando fala.")
+                f"🔇 Falha ao carregar modelo OmniVoice: {e}. Pulando fala."
+            )
             return
 
         # Produtor: gera o áudio frase por frase e coloca na fila.
@@ -310,7 +420,7 @@ class TTSService:
         async def produzir():
             try:
                 for frase in frases:
-                    if self._cancelar.is_set():
+                    if self._deve_interromper():
                         break
                     audio = await self._gerar_audio(modelo, frase)
                     if audio is None:
@@ -321,21 +431,17 @@ class TTSService:
 
         produtor = asyncio.create_task(produzir())
 
-        # Consumidor: toca cada frase assim que ela chega
-        mixer_iniciado = False
+        # Consumidor: toca cada frase assim que ela chega reutilizando o mixer aberto
         try:
             if self._alice_falando:
                 self._alice_falando.set()
-            # allowedchanges=0: o SDL converte para o formato do dispositivo,
-            # então o buffer em 24 kHz mono 16 bits toca na velocidade certa
-            pygame.mixer.init(
-                frequency=_SAMPLE_RATE, size=-16, channels=1, allowedchanges=0
-            )
-            mixer_iniciado = True
+            if not self._garantir_mixer():
+                self._disponivel = False
+                return
 
             while True:
                 audio = await fila.get()
-                if audio is None or self._cancelar.is_set():
+                if audio is None or self._deve_interromper():
                     break
                 if not await self._tocar_pcm(audio):
                     break
@@ -351,8 +457,6 @@ class TTSService:
                 await produtor
             except asyncio.CancelledError:
                 pass
-            if mixer_iniciado:
-                pygame.mixer.quit()
             self._ultimo_tts = time.monotonic()
             if self._alice_falando:
                 self._alice_falando.clear()
