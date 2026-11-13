@@ -1,184 +1,184 @@
 # 🌸 Projeto Alice: Assistente Local Inteligente
 
 ### Por que "Alice"?
-"ALICE" é também o nome do conceito que se tornou a fundação de todo esse projeto.
+"ALICE" é a fundação conceitual deste projeto:
 - **Conceito:** Uma Inteligência Artificial Autônoma e Altamente Adaptativa.
-- Em inglês, o termo é **A**rtificial **L**abile **I**ntelligence **C**ybernated **E**xistence.
+- **Origem:** **A**rtificial **L**abile **I**ntelligence **C**ybernated **E**xistence.
 
 As iniciais formam o acrônimo **ALICE**!
 
-## O que é a Alice? (Do meu ponto de vista)
+---
 
-A **Alice** não é apenas um simples script de chatbot ou um programa que lê textos em voz alta. Ela é uma **arquitetura de presença digital viva, orgânica e reativa**. 
+## 🌟 O que é a Alice?
 
-Rodando de forma avançada e inteiramente local (usando os pesos do Whisper e do ecossistema Llama), ela representa a intersecção perfeita entre Inteligência Artificial pura e personificação virtual de alta fidelidade (VTubing) visando a baixa latência.
+A **Alice** não é apenas um chatbot ou leitor de texto em voz alta. Ela é uma **arquitetura de presença digital viva, orgânica e reativa**. 
 
-Do ponto de vista de um sistema inteligente, eu encaro a Alice como um organismo composto por **seis pilares** interagindo de modo ininterrupto:
+Executada inteiramente de forma local (utilizando os pesos do Whisper, Llama 3.1 e OmniVoice na GPU), ela une Inteligência Artificial avançada a uma personificação virtual de alta fidelidade (VTubing via Live2D) com foco contínuo em baixa latência e concorrência segura.
 
-1. **A Audição Atenta (Reconhecimento de Voz + Áudio Ambiente):** Ela escuta de forma calibrada e adaptativa. Ao invés de depender de botões, ela corta o silêncio organicamente. Além do microfone, ela também *ouve o ambiente* — músicas, vídeos e outros sons do sistema via WASAPI loopback, transcritos pelo mesmo Whisper.
-   
-2. **A Visão (Screen Capture + LLaVA):** *(desligada no momento: `main.py` cria o `OllamaClient` com `visao=None`)*. Quando ligada, Alice enxerga a tela do usuário. A cada ciclo, ela captura um screenshot e usa o modelo de visão `llava:7b` para descrever em português o que está acontecendo. Esse contexto é injetado no system prompt, tornando as respostas situacionais.
+O organismo da Alice é composto por **seis pilares fundamentais**:
 
-3. **A Mente Expandida (Function Calling & LLM):** O cérebro dela não é só geração de texto, mas também possui a capacidade de evocar ferramentas do sistema operacional (ler o relógio, gerenciar arquivos, pesquisar algo, etc.) no meio do seu fluxo de pensamento via ReAct Pattern, ou executar atalhos locais rápidos via comandos de voz diretos de baixíssima latência.
-   
-4. **O Sistema Emocional e a Memória (Tagger & Brain):** Muito mais que um prompt fixo, ela detém memórias no ClickHouse e no SQLite e a capacidade emocional de interpretar as próprias palavras. Através da `EmotionEngine`, a Alice lê entrelinhas: ela detecta automaticamente o nome do usuário e o salva no banco, junto com humor, amizade e total de conversas.
-   
-5. **O Comportamento Proativo:** Alice não espera ser chamada. Após um silêncio configurável (`TEMPO_PROATIVO`), ela toma a iniciativa, faz perguntas ou conta curiosidades — como um companheiro real.
-
-6. **O Corpo e a Alma (PyVTS & GUI):** *(o VTube Studio está desconectado no momento: `VTS_Connector.py` existe, mas não é chamado pelo `main.py`)*. O "fantasma" mora dentro do VTube Studio. A boca do modelo VTuber se move em sincronia de voz neural e os parâmetros Live2D são injetados diretamente via API para expressões faciais em tempo real. Uma janela GUI (customtkinter) complementa a interação por voz com chat de texto.
-
-**Em suma:** A Alice é o alicerce de uma entidade companheira modular de *streaming*. Ela é o marco de quando o código deixa de ser reativo e passa a ser colaborativo — ela vê, ouve, sente e age por conta própria.
+1. **A Audição Atenta (Reconhecimento de Voz + Áudio Ambiente):** Escuta calibrada e contínua via `pyaudiowpatch` com stream PortAudio persistente. O Whisper (CUDA em float16 com trava de GPU unificada `WHISPER_LOCK`) transcreve comandos de voz sem corte de palavras. Além do microfone, ouve o áudio do sistema (WASAPI Loopback) com descarte automático de janelas durante a própria fala.
+2. **A Visão Situacional (Screen Capture + LLaVA):** Captura de tela via `mss` integrada ao modelo multimodal (`llava:7b` / `moondream`), contextualizando as respostas da Alice com o que está visível no monitor do usuário.
+3. **A Mente Expandida (ReAct Pattern & Ferramentas do SO):** O cérebro da Alice executa comandos operacionais (relógio, janelas, volume, clima, gerenciador de lixeira em duas etapas e pesquisas) via marcação ReAct `[TOOL:nome:arg]` e atalhos de voz locais instantâneos.
+4. **O Sistema Emocional e a Memória Híbrida:** Memória de longo prazo resiliente em ClickHouse (com deduplicação determinística via UUID5) e SQLite (com WAL mode e integridade garantida). Relações entre entidades são mapeadas no Grafo (`GraphMemory`). A `EmotionEngine` analisa entrelinhas, gerencia o afeto acumulado e expressa o humor da Alice.
+5. **O Comportamento Proativo e os "Sonhos":** Após períodos de inatividade (`TEMPO_PROATIVO`), a Alice inicia conversas ou comenta novidades. Nos momentos de repouso, o módulo de "Sonho" reflete sobre interações passadas e consolida novos aprendizados na memória.
+6. **O Corpo e a Expressão (VTube Studio & GUI Reativa):** Integração ativa via WebSocket com o **VTube Studio** (`functions/VTS_Connector.py`). A voz sintetizada frase a frase pelo **OmniVoice** gera modulação labial direta (Lip Sync RMS a ~25 Hz) e ativa expressões faciais Live2D instantâneas. Uma interface escura moderna em `customtkinter` fornece visualização de status reativo em 7 estados, chat copiável, controle de áudio/microfone e visualização de memórias/grafo.
 
 ---
 
 ## 🏗️ Arquitetura Técnica
 
-A Alice é construída em camadas modulares. Cada camada pode ser evoluída de forma independente.
+A Alice é construída em camadas modulares e isoladas. Todas as operações com banco de dados, inferência de visão e geração de áudio são desacopladas da thread principal da interface gráfica por meio de filas thread-safe (`FILA_SAIDA_GUI`) e loops assíncronos (`asyncio`).
 
-### Estrutura de Arquivos (v2.0)
+### Estrutura de Diretórios
 
 ```
 Alice/
-├── main.py                     # Ponto de entrada + classe AliceSession (loop principal)
-├── gerenciar_memoria.py        # CLI para administrar fatos da memória
-├── respostas_prontas.json      # Perguntas frequentes com resposta e áudio prontos
-├── .env                        # Segredos e configurações (não commitado)
+├── main.py                     # Orquestrador central e loop assíncrono (AliceSession)
+├── gerenciar_memoria.py        # CLI administrativo para memória e fatos
+├── respostas_prontas.json      # Catálogo de 9 intenções imediatas com áudio pré-sintetizado
+├── requirements.txt            # Dependências fixadas e compatíveis com CUDA
+├── .env                        # Chaves, credenciais e parâmetros locais (não commitado)
 │
-├── functions/                  # Serviços internos da Alice
-│   ├── OllamaClient.py         # Todas as chamadas ao LLM (cancelamento, tools, humor)
-│   ├── TTSService.py           # Síntese OmniVoice frase a frase + reprodução pygame
-│   ├── RespostasProntas.py     # Reconhece perguntas frequentes e toca o áudio pronto
-│   ├── MicListener.py          # Captura microfone + transcrição Whisper + roteamento
-│   ├── ContentManager.py       # Cache de personalidades e respostas em memória
-│   ├── Tools.py                # LocationTools + WebTools + MusicTools + Comandos de Voz (Unificados)
-│   ├── EmotionEngine.py        # Estado emocional persistido no banco (SQLite + histórico no ClickHouse)
-│   └── VTS_Connector.py        # Controle do VTube Studio via WebSocket (não ligado)
+├── functions/                  # Módulos operacionais e de hardware
+│   ├── MicListener.py          # Microfone, calibração contínua e Whisper (CUDA)
+│   ├── TTSService.py           # Síntese OmniVoice frase a frase, mixer persistente e callback RMS
+│   ├── VTS_Connector.py        # WebSocket VTube Studio, Lip Sync (~25Hz) e expressões Live2D
+│   ├── OllamaClient.py         # LLM (Llama 3.1), heurística local de humor, ReAct e keep-alive
+│   ├── EmotionEngine.py        # Tagger de humor, amizade e escrita unificada por turno
+│   ├── ContentManager.py       # Gerenciamento em cache de personalidades e respostas
+│   ├── RespostasProntas.py     # Despachador de respostas instantâneas sem passar pelo LLM
+│   └── Tools.py                # Ferramentas do sistema (música, relógio, clima, lixeira segura)
 │
-├── cerebro/                    # Módulos cognitivos e de percepção
-│   ├── memoria.py              # Memória de longo prazo (ClickHouse + SQLite fallback)
-│   ├── memoria.db              # SQLite: fatos (backup) + estado da Alice (tabela estado)
-│   ├── graph_memory.py         # Grafo de relações (triplas) em grafo.db
-│   ├── sonho.py                # "Sonho": reflexões geradas após inatividade
-│   ├── summarizer.py           # Resume o histórico antigo da sessão
-│   ├── embeddings.py           # Embeddings (nomic-embed-text) para busca na memória
-│   ├── visao.py                # Visão computacional (screenshot + llava:7b, desligada)
-│   ├── audio_ambiente.py       # Áudio ambiente WASAPI loopback
-│   ├── clickhouse_logger.py    # Logger e memória no ClickHouse
-│   └── logger.py               # Loguru centralizado
+├── cerebro/                    # Cognição, memória e percepção
+│   ├── memoria.py              # Memória de longo prazo híbrida (ClickHouse + SQLite WAL)
+│   ├── memoria.db              # SQLite local: fatos de longo prazo e estado atual
+│   ├── graph_memory.py         # Base de conhecimento em grafo (triplas semânticas)
+│   ├── grafo.db                # SQLite local do grafo de relações
+│   ├── clickhouse_logger.py    # Persistência analítica estruturada no ClickHouse
+│   ├── audio_ambiente.py       # WASAPI Loopback com reamostragem e anti-aliasing
+│   ├── visao.py                # Captura de tela e análise visual via LLaVA
+│   ├── summarizer.py           # Resumo automático do histórico de conversas antigas
+│   ├── sonho.py                # Módulo de reflexão pós-sessão e consolidação de fatos
+│   ├── embeddings.py           # Embeddings vetoriais locais (nomic-embed-text)
+│   ├── logger.py               # Configuração centralizada de Loguru
+│   └── clickhouse/             # Orquestração do ClickHouse no Docker Desktop
+│       ├── docker-compose.yaml # Compose oficial (24.8-LTS, bind seguro 127.0.0.1)
+│       └── init.sql            # Definição DDL de analytics.interactions, memoria, logs e estado
 │
 ├── interface/
-│   └── janela.py               # GUI customtkinter com chat, gerenciador de memória
+│   └── janela.py               # GUI customtkinter: 7 estados, chat copiável, abas de memória e grafo
 │
-├── personalidades/             # Prompts de sistema por humor (.txt)
-│   ├── alegre.txt
-│   ├── curiosa.txt
-│   └── ...
+├── personalidades/             # Prompts de sistema formatados por humor (.txt)
+│   ├── alegre.txt, curiosa.txt, brava.txt, empatica.txt, etc.
 │
-├── respostas/                  # Frases fixas por categoria (.txt)
+├── respostas/                  # Respostas complementares e fallbacks (.txt)
 │   └── respostas_vazias.txt
 │
-├── tools/
-│   ├── configurar_clickhouse.py # Primeira configuração do Docker + ClickHouse
-│   ├── backup_banco.py          # Backup do ClickHouse, SQLite e .env
-│   ├── restaurar_banco.py       # Restaura um backup
+├── tools/                      # Utilitários de diagnóstico, infraestrutura e banco
+│   ├── autenticar_vts.py       # Autenticação interativa e diagnóstico com VTube Studio
+│   ├── configurar_clickhouse.py# Setup automatizado de credenciais e container Docker
+│   ├── backup_banco.py         # Backup rotativo de ClickHouse, SQLite e .env
+│   ├── restaurar_banco.py      # Restauração com mescla segura de credenciais
 │   └── listar_dispositivos_audio.py
 │
-└── audio/
-    └── prontas/                # Áudios gerados das respostas prontas (não commitado)
+└── tests/                      # Suíte de testes automatizados (107 testes unitários e de integração)
+    ├── test_tools.py           # Validação de regexes, whitelist e segurança de comandos
+    ├── test_memoria.py         # Deduplicação UUID5, isolamento de sentinelas e grafo
+    ├── test_vts.py             # Mocks de autenticação pyvts, clamping de lip sync e expressões
+    ├── test_respostas.py       # Resolução de 9 intenções prontas e fallbacks
+    ├── test_ollama_client.py   # Heurística léxica local (0 chamadas LLM) e loop ReAct
+    └── test_audio_locks.py     # Integridade de WHISPER_LOCK e cálculo de RMS numpy
 ```
 
-### Camadas Atuais
+---
 
-| Camada | Arquivo | Descrição |
+## 🧩 Camadas e Responsabilidades
+
+| Camada | Arquivo Principal | Detalhes Técnicos |
 |---|---|---|
-| **Audição (mic)** | `functions/MicListener.py` | `pyaudiowpatch` + Whisper (CUDA) com calibração automática de ruído |
-| **Audição (ambiente)** | `cerebro/audio_ambiente.py` | WASAPI Loopback — captura áudio do sistema e transcreve com Whisper |
-| **Visão** | `cerebro/visao.py` | *(desligada)* Screenshot via `mss` + `llava:7b` (fallback `moondream:1.8b`) em PT-BR |
-| **Raciocínio** | `functions/OllamaClient.py` | LLM via Ollama com histórico, ferramentas ReAct, emoção e memória. Cancelável via `asyncio.Event` |
-| **Ferramentas e Comandos** | `functions/Tools.py` | `LocationTools` + `WebTools` + `MusicTools` + Comandos Locais (clima, hora, música, buscas, lixeira) |
-| **Emoção / Estado** | `functions/EmotionEngine.py` | Tagger de emoções e amizade cumulativa. Estado atual no SQLite (`cerebro/memoria.db`, tabela `estado`) e histórico de cada mudança no ClickHouse `analytics.estado_alice` |
-| **Conteúdo** | `functions/ContentManager.py` | Cache em memória de personalidades + respostas; hot-reload sem reiniciar |
-| **TTS** | `functions/TTSService.py` | **OmniVoice** (local, offline, zero-shot) **frase a frase**: toca a primeira frase enquanto gera a próxima. Roda na GPU com `TTS_DEVICE=cuda`. Não fala nada entre asteriscos (`*ações*`) nem emojis. Pré-carregado no startup e cancelável |
-| **Respostas prontas** | `functions/RespostasProntas.py` + `respostas_prontas.json` | Perguntas frequentes ("se apresente", "o que você consegue fazer") respondidas na hora com áudio já gerado em `audio/prontas/`, sem passar pelo LLM |
-| **Memória Curta** | `main.py` → `historico` | Janela deslizante das últimas 10 trocas da sessão atual, com resumo automático das mais antigas |
-| **Extração de fatos** | `main.py` → `_extrair_memoria()` | A cada 3 turnos, depois da fala, em segundo plano (não atrasa a voz) |
-| **Memória Longa (fatos)** | `cerebro/memoria.py` | **ClickHouse** (primário) + **SQLite** (fallback) — busca por relevância via ILIKE |
-| **Memória de Interações** | `cerebro/clickhouse_logger.py` | ClickHouse `analytics.interactions` — histórico de conversas com tokens |
-| **Logs estruturados** | `cerebro/logger.py` + `clickhouse_logger.py` | WARNING+ → ClickHouse `analytics.logs` + Loguru arquivo diário |
-| **Proativo** | `functions/OllamaClient.py` → `gerar_fala_proativa()` | Timer configurável (`TEMPO_PROATIVO`) — Alice fala sem ser chamada |
-| **Interface GUI** | `interface/janela.py` | Chat dark (customtkinter) com status bar, bubbles, input de texto e **🧠 Gerenciador de Memória** embutido |
-| **Gest. Memória** | `gerenciar_memoria.py` | Script CLI alternativo — usa ClickHouse (ou SQLite como fallback) |
-| **Avatar** | `functions/VTS_Connector.py` | *(não ligado)* Injeção direta de parâmetros Live2D via API WebSocket do VTube Studio |
-| **Sessão** | `main.py` → `AliceSession` | Estado da sessão em `main.py` (interceptador de comandos, histórico, cancelamento, turno_count) |
+| **Audição (Mic)** | `functions/MicListener.py` | PortAudio persistente, calibração dinâmica de ruído, suporte a Mute e Whisper CUDA com lock exclusivo. |
+| **Audição (Sistema)** | `cerebro/audio_ambiente.py` | WASAPI Loopback com descarte de janelas sobrepostas à fala do TTS e reamostragem sem serrilhamento. |
+| **Visão Computacional** | `cerebro/visao.py` | Captura de tela assíncrona com `mss` e inferência de visão sem bloqueio de I/O. |
+| **Raciocínio & LLM** | `functions/OllamaClient.py` | Loop ReAct de no máximo 2 turnos, keep-alive configurável, cancelamento ágil e classificação de humor léxica local sem latência externa. |
+| **Voz (TTS)** | `functions/TTSService.py` | **OmniVoice** frase a frase em float16 na GPU (`TTS_DEVICE=cuda`), `pygame.mixer` persistente, interrupção imediata (`parar_fala`) e callback de RMS a ~25 Hz. |
+| **VTuber & Lip Sync** | `functions/VTS_Connector.py` | Conexão WebSocket na porta 8001 via `pyvts`, injeção direta de parâmetros (`MouthOpen`, `MouthSmile`, sobrancelhas e olhos) e modulação labial contínua. |
+| **Respostas Prontas** | `functions/RespostasProntas.py` | 9 intenções fixas instantâneas (apresentação, horas, criador, ajuda, etc.) despachadas diretamente sem custo de LLM. |
+| **Memória & Grafo** | `cerebro/memoria.py` e `graph_memory.py` | Sincronização híbrida ClickHouse/SQLite com modo WAL, deduplicação estável por UUID5 e buscas semânticas sem distinção de caixa. |
+| **Interface de Usuário** | `interface/janela.py` | CustomTkinter dark, indicador reativo de 7 estados (Ouvindo, Pensando, Falando, etc.), balões selecionáveis/copiáveis e aba interativa do grafo. |
+| **Qualidade & Testes** | `tests/` | Suíte com 107 testes executados em ~1.2s via `unittest`, garantindo 100% de estabilidade e conformidade com `ruff`. |
 
-### Schema ClickHouse — `analytics.interactions`
+---
 
-| Coluna | Tipo | Descrição |
-|---|---|---|
-| `session_id` | String | ID único da sessão (8 chars) |
-| `turn_id` | UInt32 | Número sequencial do turno na sessão |
-| `role` | String | `user` ou `assistant` |
-| `content` | String | Conteúdo completo da mensagem |
-| `humor` | String | Personalidade ativa no turno (ex: `alegre`, `timida`) |
-| `model` | String | Modelo LLM usado (ex: `Llama3.1:8b`) |
-| `tokens_prompt` | UInt32 | Tokens do contexto enviado ao modelo (entrada) |
-| `tokens_resposta` | UInt32 | Tokens gerados pelo modelo (saída) |
-| `tokens_total` | UInt32 | Soma de `tokens_prompt` + `tokens_resposta` |
-| `created_at` | DateTime | Timestamp da interação |
+## ⚡ Otimizações de Latência e Desempenho
 
-### Schema ClickHouse — `analytics.estado_alice`
+- **Zero Chamadas LLM para Humor:** A detecção de humor básica utiliza heurísticas léxicas locais rápidas em `OllamaClient.py`, economizando centenas de milissegundos por turno.
+- **Lip Sync por Modulação RMS:** O cálculo de energia acústica em tempo real via `numpy` alimenta a abertura da boca no VTube Studio sem necessidade de modelos pesados de tracking facial.
+- **Proteção de VRAM e Locks CUDA:** O uso unificado de `WHISPER_LOCK` impede contenção na GPU durante inferências concorrentes entre o microfone, áudio ambiente e TTS.
+- **Keep-Alive do Ollama:** O modelo principal permanece aquecido na memória (`OLLAMA_KEEP_ALIVE=30m`), evitando o atraso de carregamento de pesos a cada turno.
 
-Uma linha por mudança de estado (substitui o antigo `brain.json`; o estado atual fica no SQLite).
+---
 
-| Coluna | Tipo | Descrição |
-|---|---|---|
-| `humor` | String | Humor detectado na última resposta |
-| `amizade_com_usuario` | UInt8 | Nível de amizade (0 a 100) |
-| `total_conversas` | UInt32 | Total de turnos já registrados |
-| `nome_usuario` | String | Nome do usuário detectado |
-| `ultima_interacao` | String | Resumo da última troca |
-| `session_id` | String | ID da sessão |
-| `criado_em` | DateTime | Quando o estado mudou |
+## 🛠️ Instalação e Execução
 
-Na primeira execução, o `functions/brain.json` antigo é copiado para o banco e renomeado para `brain.json.migrado`.
+### Pré-requisitos
+- **Windows 10/11** com Python 3.11 instalado.
+- **NVIDIA GPU** com drivers atualizados e suporte a CUDA (recomendado 8 GB+ VRAM).
+- **Docker Desktop** ativo (para o ClickHouse analítico).
+- **Ollama** instalado e executando os modelos (`llama3.1:8b`, `nomic-embed-text`).
+- **VTube Studio** (opcional, para visualização do avatar Live2D).
 
-### Respostas prontas
+### Passo a Passo
 
-Edite `respostas_prontas.json`. Cada resposta tem um `id`, uma lista de `gatilhos` (sem acento, maiúscula ou minúscula tanto faz) e o `texto`:
+1. **Configurar Ambiente Virtual e Dependências:**
+   ```powershell
+   python -m venv .venv
+   .\.venv\Scripts\activate
+   pip install -r requirements.txt
+   ```
 
-```json
-{ "id": "apresentacao", "gatilhos": ["se apresente", "quem e voce"], "texto": "Oi! Eu sou a Alice..." }
-```
+2. **Configurar o ClickHouse Analítico:**
+   ```powershell
+   python tools/configurar_clickhouse.py
+   ```
+   *O script configura credenciais no `.env`, sobe o container Docker (`127.0.0.1:8123`) e cria as tabelas necessárias.*
 
-- O gatilho precisa aparecer na frase, e a frase pode ter no máximo 2 palavras a mais que ele. "Alice", "oi" e "ei" no começo são ignorados. Assim, "Quem é você pra me dizer isso?" continua indo para o LLM.
-- O áudio é gerado no startup e salvo em `audio/prontas/`. Só é refeito quando o texto (ou a voz) muda.
-- A resposta entra no histórico, então o LLM sabe o que a Alice acabou de dizer.
+3. **Autenticar com o VTube Studio:**
+   Abra o VTube Studio, ative a API WebSocket na porta 8001 (Configurações ⚙️) e execute:
+   ```powershell
+   python tools/autenticar_vts.py
+   ```
+   *Clique em **Allow** no pop-up do VTube Studio para gravar o token de acesso no `.env`.*
 
-### Voz na GPU
+4. **Executar a Suíte de Testes:**
+   ```powershell
+   python -m unittest discover tests -v
+   ```
 
-No `.env`, `TTS_DEVICE=cuda` roda o OmniVoice na placa de vídeo (`cpu` para voltar). Testado numa RTX 4070 de 12 GB junto com `llama3.1:8b`, Whisper e `nomic-embed-text`: o `ollama ps` continuou mostrando `100% GPU` para o llama. Se aparecer divisão CPU/GPU, a VRAM não deu e o LLM vai ficar mais lento.
+5. **Iniciar a Alice:**
+   ```powershell
+   python main.py
+   ```
 
-### ClickHouse: configuração e backup
+---
 
-O ClickHouse roda no Docker Desktop e guarda os dados num volume do Docker, que se perde numa formatação. Os SQLite (`cerebro/*.db`) e o `.env` também ficam fora do git. Por isso existem três scripts (rode na pasta da Alice, com o `.venv` ativo):
+## 💾 Rotina de Backup e Restauração
 
-| Script | O que faz |
-|---|---|
-| `python tools/configurar_clickhouse.py` | Primeira vez ou máquina nova: cria o usuário e a senha do ClickHouse no `.env` se ainda não existirem (Enter aceita o usuário `alice` e uma senha gerada na hora), confere o Docker Desktop (abre se estiver fechado), sobe o container pelo `docker-compose.yaml`, cria as tabelas do `init.sql` e testa a conexão do Python. Pode rodar de novo sem problema. |
-| `python tools/backup_banco.py` | Exporta todas as tabelas do ClickHouse, copia `memoria.db`, `grafo.db` e o `.env` para `D:\Backups\Alice\alice_<data>_<hora>\`. Guarda os 30 mais recentes (`--manter N` para mudar). Outra pasta: passe como argumento ou use `ALICE_BACKUP_DIR` no `.env`. |
-| `python tools/restaurar_banco.py` | Restaura o backup mais recente (ou a pasta passada como argumento). As configurações do `.env` do backup que faltarem no `.env` atual são acrescentadas, sem trocar o usuário e a senha do ClickHouse desta máquina. Sem `--substituir`, não mexe em nada que já existe; com `--substituir`, troca os dados atuais pelos do backup e renomeia os SQLite antigos para `.antes-restauracao`. |
+O projeto conta com ferramentas de backup para garantir que históricos, memórias e credenciais não sejam perdidos:
 
-Depois de formatar: instale o Docker Desktop, clone o repositório, crie o `.venv`, rode `tools/configurar_clickhouse.py` e depois `tools/restaurar_banco.py`.
+- **Backup Completo:**
+  ```powershell
+  python tools/backup_banco.py
+  ```
+  *Exporta todas as tabelas do ClickHouse, copia `memoria.db`, `grafo.db` e `.env` para `D:\Backups\Alice\alice_<data>_<hora>\`.*
 
-Para um backup automático diário (por exemplo às 23h), no PowerShell:
+- **Restauração de Dados:**
+  ```powershell
+  python tools/restaurar_banco.py
+  ```
+  *Restaura o backup mais recente preservando com segurança credenciais da máquina atual.*
 
-```powershell
-schtasks /Create /SC DAILY /ST 23:00 /TN "Alice Backup" /TR "C:\Users\moliv\Documents\Alice\.venv\Scripts\python.exe C:\Users\moliv\Documents\Alice\tools\backup_banco.py"
-```
-
-### Sistema de Ferramentas (ReAct Pattern)
-Em vez da API nativa de `tools` do Ollama (instável com modelos locais), a Alice usa um sistema próprio:
-1. O LLM recebe instruções no `system prompt` ensinando o formato `[TOOL:nome:argumento]`
-2. Python detecta o marcador via `regex` na resposta
-3. Executa a função correspondente via `ToolManager.executar()` em `functions/Tools.py`
-4. Injeta o resultado no contexto e pede a resposta final ao LLM
+- **Agendamento Automático no Windows (Opcional):**
+  ```powershell
+  schtasks /Create /SC DAILY /ST 23:00 /TN "Alice Backup" /TR "C:\Users\**\Documents\Alice\.venv\Scripts\python.exe C:\Users\**\Documents\Alice\tools\backup_banco.py"
+  ```
